@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *inputConfirmation;
 @property (weak, nonatomic) IBOutlet UIButton *buttonEmail;
 @property (weak, nonatomic) IBOutlet UIButton *buttonFacebook;
+@property (weak, nonatomic) IBOutlet UIButton *buttonBack;
 - (IBAction)didClickButton:(id)sender;
 
 @end

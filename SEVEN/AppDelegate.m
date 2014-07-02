@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @implementation AppDelegate
 
@@ -20,6 +21,9 @@
     PFUser *user = [PFUser currentUser];
     if (user) {
         NSLog(@"Logged in");
+        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+        UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"MainNavigationController"];
+        self.window.rootViewController = rootNav;
     }
     else {
         NSLog(@"Not logged in");

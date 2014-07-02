@@ -49,7 +49,7 @@
             [UIAlertView alertViewWithTitle:@"Confirmation needed" message:@"Please enter your password twice"];
             return;
         }
-        if (![self.inputConfirmation.text isEqualToString:self.inputConfirmation.text]) {
+        if (![self.inputConfirmation.text isEqualToString:self.inputPassword.text]) {
             [UIAlertView alertViewWithTitle:@"Invalid password" message:@"Password and confirmation do not match"];
             return;
         }
@@ -58,6 +58,9 @@
     }
     else if ((UIButton *)sender == self.buttonFacebook) {
 
+    }
+    else if ((UIButton *)sender == self.buttonBack) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

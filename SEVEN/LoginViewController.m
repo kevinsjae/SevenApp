@@ -64,6 +64,9 @@
     else if ((UIButton *)sender == self.buttonFacebook) {
 
     }
+    else if ((UIButton *)sender == self.buttonBack) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void)login {

@@ -207,6 +207,7 @@
 				9E79B806196435AA00559838 /* ViewController.h */,
 				9E79B807196435AA00559838 /* ViewController.m */,
 				9E79B809196435AA00559838 /* Images.xcassets */,
+				9EE24F571964769000F7EA78 /* Images */,
 				9E79B7F8196435AA00559838 /* Supporting Files */,
 			);
 			path = SEVEN;
@@ -288,6 +289,13 @@
 				9E79B83D1964363600559838 /* UIAlertView+MKBlockAdditions.m */,
 			);
 			path = MKAdditions;
+			sourceTree = "<group>";
+		};
+		9EE24F571964769000F7EA78 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -616,6 +624,7 @@
 				9E79B822196435AA00559838 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E79B823196435AA00559838 /* Build configuration list for PBXNativeTarget "SEVENTests" */ = {
 			isa = XCConfigurationList;
@@ -624,6 +633,7 @@
 				9E79B825196435AA00559838 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
