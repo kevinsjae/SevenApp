@@ -21,9 +21,7 @@
     PFUser *user = [PFUser currentUser];
     if (user) {
         NSLog(@"Logged in");
-        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
-        UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"MainNavigationController"];
-        self.window.rootViewController = rootNav;
+        [self goToProfile];
     }
     else {
         NSLog(@"Not logged in");
@@ -57,6 +55,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)goToProfile {
+    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+    UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"MainNavigationController"];
+    self.window.rootViewController = rootNav;
+}
+
+-(void)goToIntro {
+    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+    UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"IntroViewController"];
+    self.window.rootViewController = rootNav;
 }
 
 @end

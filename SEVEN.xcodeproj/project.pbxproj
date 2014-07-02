@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E18BC651964B9F0001BEDAE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E18BC641964B9F0001BEDAE /* ProfileViewController.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -58,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E18BC631964B9F0001BEDAE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		9E18BC641964B9F0001BEDAE /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -206,6 +209,8 @@
 				9E79B85F1964389200559838 /* SignupViewController.m */,
 				9E79B806196435AA00559838 /* ViewController.h */,
 				9E79B807196435AA00559838 /* ViewController.m */,
+				9E18BC631964B9F0001BEDAE /* ProfileViewController.h */,
+				9E18BC641964B9F0001BEDAE /* ProfileViewController.m */,
 				9E79B809196435AA00559838 /* Images.xcassets */,
 				9EE24F571964769000F7EA78 /* Images */,
 				9E79B7F8196435AA00559838 /* Supporting Files */,
@@ -405,6 +410,7 @@
 				9E79B8571964363600559838 /* UIImage+Alpha.m in Sources */,
 				9E79B8581964363600559838 /* UIImage+Resize.m in Sources */,
 				9E79B8521964363600559838 /* UIAlertView+MKBlockAdditions.m in Sources */,
+				9E18BC651964B9F0001BEDAE /* ProfileViewController.m in Sources */,
 				9E79B8301964362400559838 /* ParseBase+Parse.m in Sources */,
 				9E79B802196435AA00559838 /* AppDelegate.m in Sources */,
 				9E79B8601964389200559838 /* SignupViewController.m in Sources */,
