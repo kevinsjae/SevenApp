@@ -14,3 +14,8 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+#import "UIAlertView+MKBlockAdditions.h"
+#import <Parse/Parse.h>
+#import "NSManagedObject+Entity.h"
+#import "NSManagedObject+Query.h"

@@ -13,6 +13,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [Parse setApplicationId:@"HBwUDQrOSWLhK7Lx2yNYviQ6xe8sJHeBMkpoX3Mm"
+                  clientKey:@"Oqu48KsSu2fg8SFEJjoAElCIqaSPDpPqxW5QceBM"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+
+    PFUser *user = [PFUser currentUser];
+    if (user) {
+        NSLog(@"Logged in");
+    }
+    else {
+        NSLog(@"Not logged in");
+    }
+
     return YES;
 }
 							

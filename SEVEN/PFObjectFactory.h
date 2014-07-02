@@ -13,7 +13,7 @@ static char const * const PFObjectTagKey = "PFObjectTagKey";
 
 @protocol PFObjectFactory
 
-+(Address *)fromPFObject:(PFObject *)object;
++(ParseBase *)fromPFObject:(PFObject *)object;
 -(void)updateFromParse;
 -(void)saveOrUpdateToParseWithCompletion:(void(^)(BOOL success))completion;
 
