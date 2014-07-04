@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonStyledViewController.h"
 
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : CommonStyledViewController
 
 -(IBAction)didClickLogout:(id)sender;
 

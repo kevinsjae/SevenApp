@@ -11,5 +11,6 @@
 @interface ViewController : UIViewController
 
 -(void)bypassLogin;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSignup;
 
 @end
