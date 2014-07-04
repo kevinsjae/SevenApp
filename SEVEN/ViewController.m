@@ -18,7 +18,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-
+    [self.buttonSignup.layer setBorderColor:[COL_BLUE CGColor]];
+    [self.buttonSignup.layer setBorderWidth:3];
+    [self.buttonSignup.layer setCornerRadius:self.buttonSignup.frame.size.width/2];
 }
 
 - (void)didReceiveMemoryWarning

@@ -59,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E0124081966FCDA0080543B /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		9E18BC631964B9F0001BEDAE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		9E18BC641964B9F0001BEDAE /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +251,7 @@
 		9E79B826196435DE00559838 /* Parse */ = {
 			isa = PBXGroup;
 			children = (
+				9E0124081966FCDA0080543B /* Constants.h */,
 				9E79B82B1964362400559838 /* ParseBase.h */,
 				9E79B82C1964362400559838 /* ParseBase.m */,
 				9E79B82D1964362400559838 /* ParseBase+Parse.h */,
@@ -567,6 +569,7 @@
 				GCC_PREFIX_HEADER = "SEVEN/SEVEN-Prefix.pch";
 				INFOPLIST_FILE = "SEVEN/SEVEN-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D775EB52-F55C-40F4-B698-B7DBE613348E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -18,5 +18,4 @@
 #import "AppDelegate.h"
 #import "UIAlertView+MKBlockAdditions.h"
 #import <Parse/Parse.h>
-
-#define _appDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
+#import "Constants.h"
