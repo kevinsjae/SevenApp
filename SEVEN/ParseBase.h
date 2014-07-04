@@ -7,15 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import <objc/runtime.h>
+#import "PFObjectFactory.h"
 
-
-@interface ParseBase : NSManagedObject
+@interface ParseBase : NSObject
 
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSString * parseID;
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) NSString * pfUserID;
 
++(NSString *)className;
++(void)initParseObjectWithDictionary:(NSDictionary *)dictionary completion:(void(^)(id object))completion;
+
+-(PFObject *)pfObject;
+-(void)setPfObject:(PFObject *)pfObject;
+
 -(void)updateFromParse;
+-(void)saveOrUpdateToParseWithCompletion:(void (^)(BOOL success))completion;
 @end

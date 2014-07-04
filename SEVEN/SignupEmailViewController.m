@@ -38,6 +38,8 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     if ([self.inputEmail.text length]) {
+
+        [_appDelegate currentUserInfo].email = self.inputEmail.text;
         [self performSegueWithIdentifier:@"SignupGoToGender" sender:self];
     }
     return YES;

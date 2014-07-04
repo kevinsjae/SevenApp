@@ -40,6 +40,7 @@
 
     }
     else if ((UIButton *)sender == self.buttonYes) {
+        // todo: set location object. can this be saved to parse as is?
         [self performSegueWithIdentifier:@"SignupGoToPhone" sender:self];
     }
 }

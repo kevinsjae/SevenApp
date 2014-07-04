@@ -948,6 +948,46 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-9h-UY8">
+                                        <rect key="frame" x="0.0" y="200" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="connectEmail.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickButton:" destination="tdd-qv-hmd" eventType="touchUpInside" id="1co-hC-aKw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1GN-cF-x8A">
+                                        <rect key="frame" x="0.0" y="260" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="connectFacebook.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickButton:" destination="tdd-qv-hmd" eventType="touchUpInside" id="nRa-Rd-E5n"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8z-6O-Dfj">
+                                        <rect key="frame" x="0.0" y="320" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="connectInstagram.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickButton:" destination="tdd-qv-hmd" eventType="touchUpInside" id="dkK-jG-gjV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZH2-FY-zZy">
+                                        <rect key="frame" x="0.0" y="381" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="connectTwitter.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didClickButton:" destination="tdd-qv-hmd" eventType="touchUpInside" id="GDi-QO-qSk"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.22352941179999999" green="0.29803921570000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -961,14 +1001,84 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SEVEN" id="89g-z1-s6q"/>
+                    <connections>
+                        <outlet property="buttonEmail" destination="k1R-9h-UY8" id="Pg9-Hd-V8y"/>
+                        <outlet property="buttonFacebook" destination="1GN-cF-x8A" id="7mN-JU-3y9"/>
+                        <outlet property="buttonInstagram" destination="z8z-6O-Dfj" id="qcf-co-V4v"/>
+                        <outlet property="buttonTwitter" destination="ZH2-FY-zZy" id="rMM-cA-c7x"/>
+                        <segue destination="XKe-2h-MgZ" kind="push" identifier="SignupGoToAddFriends" id="r3m-hh-eeB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZ3-Ho-Cec" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3109" y="-251"/>
         </scene>
+        <!--Signup Add Friends View Controller - SEVEN-->
+        <scene sceneID="9a2-Yb-LCZ">
+            <objects>
+                <viewController id="XKe-2h-MgZ" customClass="SignupAddFriendsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6RA-KS-TFv"/>
+                        <viewControllerLayoutGuide type="bottom" id="11U-Bm-7eD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qrX-TT-2jB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view alpha="0.89999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmF-e5-Btm" userLabel="View - bg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add your friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oka-0w-RZ8">
+                                        <rect key="frame" x="21" y="138" width="279" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DxP-gr-BaT">
+                                        <rect key="frame" x="0.0" y="184" width="320" height="384"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" id="mZd-Hg-96n" customClass="FriendCell">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mZd-Hg-96n" id="1Z1-tZ-Mw2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.22352941179999999" green="0.29803921570000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jmF-e5-Btm" firstAttribute="top" secondItem="qrX-TT-2jB" secondAttribute="top" id="2pC-TY-xp7"/>
+                            <constraint firstItem="11U-Bm-7eD" firstAttribute="top" secondItem="jmF-e5-Btm" secondAttribute="bottom" id="MNA-xZ-5aV"/>
+                            <constraint firstAttribute="trailing" secondItem="jmF-e5-Btm" secondAttribute="trailing" id="krL-zy-NwO"/>
+                            <constraint firstItem="jmF-e5-Btm" firstAttribute="leading" secondItem="qrX-TT-2jB" secondAttribute="leading" id="ueu-hG-uaa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="SEVEN" id="acF-dm-A7u"/>
+                    <connections>
+                        <outlet property="tableViewFriends" destination="DxP-gr-BaT" id="12X-4y-cbi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Thg-49-AzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3542" y="-246"/>
+        </scene>
     </scenes>
     <resources>
         <image name="backArrow.png" width="25" height="25"/>
+        <image name="connectEmail.png" width="320" height="60"/>
+        <image name="connectFacebook.png" width="320" height="60"/>
+        <image name="connectInstagram.png" width="319" height="60"/>
+        <image name="connectTwitter.png" width="319" height="60"/>
         <image name="female.png" width="120" height="200"/>
         <image name="location.png" width="60" height="60"/>
         <image name="male.png" width="120" height="200"/>

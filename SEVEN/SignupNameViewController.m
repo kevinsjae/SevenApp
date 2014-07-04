@@ -27,6 +27,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    [PFUser logOut];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,11 +44,34 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     if ([self.inputUsername.text length]) {
-        [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
+        [self createUser];
     }
     return YES;
 }
 
-#pragma mark - Navigation
+-(void)createUser {
+    [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
+        user.username = self.inputUsername.text;
+
+        // create userInfo
+        if (user[@"userInfo"]) {
+            _appDelegate.currentUserInfo = user[@"userInfo"];
+            [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
+        }
+        else {
+            [UserInfo initParseObjectWithDictionary:nil completion:^(id object) {
+                _appDelegate.currentUserInfo = (UserInfo *)object;
+                [_appDelegate.currentUserInfo setUser:user];
+
+                PFRelation *relation = [user relationForKey:@"userInfo"];
+                [relation addObject:_appDelegate.currentUserInfo.pfObject];
+                [user saveInBackground];
+
+                [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
+            }];
+       }
+
+    }];
+}
 
 @end

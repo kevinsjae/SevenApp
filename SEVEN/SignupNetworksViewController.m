@@ -46,4 +46,7 @@
 }
 */
 
+- (IBAction)didClickButton:(id)sender {
+    [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:nil];
+}
 @end

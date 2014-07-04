@@ -48,13 +48,13 @@
 
 - (IBAction)didClickButton:(id)sender {
     if ((UIButton *)sender == self.buttonGuy) {
-
+        [_appDelegate currentUserInfo].seeking = @(MALE);
     }
     else if ((UIButton *)sender == self.buttonGirl) {
-
+        [_appDelegate currentUserInfo].seeking = @(FEMALE);
     }
     else if ((UIButton *)sender == self.buttonBoth) {
-
+        [_appDelegate currentUserInfo].seeking = @(BOTH);
     }
 
     [self performSegueWithIdentifier:@"SignupGoToLocation" sender:self];
