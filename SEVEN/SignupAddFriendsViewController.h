@@ -11,6 +11,7 @@
 @interface SignupAddFriendsViewController : CommonStyledViewController <UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *allUserInfo;
+    NSMutableSet *usersToAdd;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewFriends;
 

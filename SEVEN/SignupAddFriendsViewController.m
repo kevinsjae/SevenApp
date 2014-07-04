@@ -30,6 +30,11 @@
     // Do any additional setup after loading the view.
 
     allUserInfo = [NSMutableArray array];
+    usersToAdd = [NSMutableSet set];
+    UIView *bgView = [[UIView alloc] init];
+    [bgView setBackgroundColor:COL_GRAY];
+    [self.tableViewFriends setBackgroundView:bgView];
+
     [self getUserInfoFromParse];
 }
 
@@ -60,7 +65,7 @@
             for (PFObject *object in objects) {
                 NSLog(@"%@", object.objectId);
                 UserInfo *userInfo = [UserInfo fromPFObject:object];
-                if (![allUserInfo containsObject:userInfo]) {
+                if (userInfo.user && ![allUserInfo containsObject:userInfo]) {
                     [allUserInfo addObject:userInfo];
                 }
             }
@@ -84,11 +89,34 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FriendCell" forIndexPath:indexPath];
+    cell.backgroundColor = COL_GRAY;
 
     UserInfo *userInfo = allUserInfo[indexPath.row];
     PFUser *user = userInfo.user;
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ --> %@", user.username, userInfo.email];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", user.username];
+    cell.imageView.image = [UIImage imageNamed:@"user-default"];
+
+    if ([usersToAdd containsObject:user]) {
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconCheck"]];
+    }
+    else {
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconPlus"]];
+    }
     return cell;
-    
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserInfo *userInfo = allUserInfo[indexPath.row];
+    PFUser *user = userInfo.user;
+
+    if ([usersToAdd containsObject:user]) {
+        [usersToAdd removeObject:user];
+    }
+    else {
+        [usersToAdd addObject:user];
+    }
+
+    [self.tableViewFriends reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 @end

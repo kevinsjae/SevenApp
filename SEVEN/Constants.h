@@ -13,5 +13,5 @@
 #define COL_RED [UIColor colorWithRed:225.0/255.0 green:44.0/255.0 blue:49.0/255.0 alpha:1]
 #define COL_BLUE [UIColor colorWithRed:79.0/255.0 green:194.0/255.0 blue:227.0/255.0 alpha:1]
 #define COL_GREEN [UIColor colorWithRed:190.0/255.0 green:208.0/255.0 blue:43.0/255.0 alpha:1]
-
+#define COL_GRAY [UIColor colorWithRed:54.0/255.0 green:60.0/255.0 blue:70.0/255.0 alpha:1]
 #endif
