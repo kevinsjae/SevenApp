@@ -15,5 +15,6 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewFriends;
 
+- (IBAction)didClickFinish:(id)sender;
 
 @end

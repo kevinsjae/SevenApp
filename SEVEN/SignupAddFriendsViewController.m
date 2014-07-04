@@ -119,4 +119,7 @@
     [self.tableViewFriends reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (IBAction)didClickFinish:(id)sender {
+    [_appDelegate goToProfile];
+}
 @end

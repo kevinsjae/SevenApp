@@ -15,5 +15,6 @@
 @property (nonatomic, strong) UserInfo *currentUserInfo;
 
 -(void)goToIntro;
+-(void)goToProfile;
 
 @end

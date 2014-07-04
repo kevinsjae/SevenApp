@@ -60,13 +60,33 @@
 -(void)goToProfile {
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"MainNavigationController"];
-    self.window.rootViewController = rootNav;
+    if (![self.window.rootViewController isKindOfClass:[rootNav class]]) {
+        self.window.rootViewController = rootNav;
+
+        /*
+        [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+            // todo: transition animation should not show viewController, but instead a blank initial controller or splash screen
+        }];
+         */
+    }
+    else {
+        [(UINavigationController *)self.window.rootViewController popToRootViewControllerAnimated:YES];
+    }
 }
 
 -(void)goToIntro {
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"IntroViewController"];
-    self.window.rootViewController = rootNav;
+    if (![self.window.rootViewController isKindOfClass:[rootNav class]]) {
+        self.window.rootViewController = rootNav;
+        /*
+        [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+        }];
+         */
+    }
+    else {
+        [(UINavigationController *)self.window.rootViewController popToRootViewControllerAnimated:YES];
+    }
 }
 
 @end
