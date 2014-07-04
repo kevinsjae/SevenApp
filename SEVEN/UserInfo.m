@@ -20,8 +20,7 @@
     self.phone = self.pfObject[@"phone"];
 
     self.parseID = self.pfObject.objectId;
-
-    // user will be already included in self.pfObject[@"user"]
+    self.user = self.pfObject[@"user"];
 }
 
 -(void)saveOrUpdateToParseWithCompletion:(void (^)(BOOL success))completion {
@@ -35,12 +34,6 @@
         self.pfObject[@"location"] = self.location;
     if (self.phone)
         self.pfObject[@"phone"] = self.phone;
-
-    // add user to pfObject - adds as a relationship
-    if (self.user) {
-        self.pfObject[@"user"] = self.user;
-        self.pfObject[@"pfUserID"] = self.user.objectId;
-    }
 
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)

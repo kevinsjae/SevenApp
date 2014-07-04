@@ -23,6 +23,4 @@ typedef enum {
 @property (nonatomic) CLLocation *location;
 @property (nonatomic) NSString *phone;
 
-@property (nonatomic) PFUser *user;
-
 @end

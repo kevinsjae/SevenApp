@@ -1050,6 +1050,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="XKe-2h-MgZ" id="JrN-mg-GXT"/>
+                                            <outlet property="delegate" destination="XKe-2h-MgZ" id="Umt-bR-VSS"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.22352941179999999" green="0.29803921570000003" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>

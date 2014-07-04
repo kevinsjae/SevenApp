@@ -29,7 +29,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    allUsers = [NSMutableArray array];
+    allUserInfo = [NSMutableArray array];
+    [self getUserInfoFromParse];
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,17 +50,19 @@
 }
 */
 
--(void)getUsersFromParse {
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    //[query whereKey:@"playerName" equalTo:@"Dan Stemkoski"]; // query for certain relationships
+-(void)getUserInfoFromParse {
+    // load all userInfo - needs filtering/security?
+    PFQuery *query = [PFQuery queryWithClassName:@"UserInfo"];
+    [query includeKey:@"user"];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *object in objects) {
                 NSLog(@"%@", object.objectId);
-                PFUser *user = (PFUser *)object;
-                if (![allUsers containsObject:user])
-                    [allUsers addObject:user];
+                UserInfo *userInfo = [UserInfo fromPFObject:object];
+                if (![allUserInfo containsObject:userInfo]) {
+                    [allUserInfo addObject:userInfo];
+                }
             }
             [self.tableViewFriends reloadData];
         } else {
@@ -76,15 +79,15 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [allUsers count];
+    return [allUserInfo count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemListCell" forIndexPath:indexPath];
+    FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FriendCell" forIndexPath:indexPath];
 
-    PFUser *user = [allUsers objectAtIndex:indexPath.row];
-    cell.textLabel.text = user.username;
-
+    UserInfo *userInfo = allUserInfo[indexPath.row];
+    PFUser *user = userInfo.user;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ --> %@", user.username, userInfo.email];
     return cell;
     
 }

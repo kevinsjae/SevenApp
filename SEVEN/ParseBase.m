@@ -14,6 +14,13 @@
     return NSStringFromClass(self);
 }
 
++(id)fromPFObject:(PFObject *)object {
+    ParseBase *newObject = [[self alloc] init];
+    newObject.pfObject = object;
+    [newObject updateFromParse];
+    return newObject;
+}
+
 +(void)initParseObjectWithDictionary:(NSDictionary *)dictionary completion:(void(^)(id object))completion{
     PFObject *pfObject = [PFObject objectWithClassName:self.className];
 
@@ -40,6 +47,7 @@
     self.parseID = self.pfObject[@"objectId"];
     PFUser *user = self.pfObject[@"user"];
     self.pfUserID = user.objectId;
+    self.user = user;
 }
 
 #pragma mark Instance variable for category

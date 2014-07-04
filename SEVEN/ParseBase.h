@@ -16,9 +16,11 @@
 @property (nonatomic, retain) NSString * parseID;
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) NSString * pfUserID;
+@property (nonatomic) PFUser *user;
 
 +(NSString *)className;
 +(void)initParseObjectWithDictionary:(NSDictionary *)dictionary completion:(void(^)(id object))completion;
++(id)fromPFObject:(PFObject *)object;
 
 -(PFObject *)pfObject;
 -(void)setPfObject:(PFObject *)pfObject;
