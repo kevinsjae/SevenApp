@@ -8,6 +8,10 @@
 
 #import "SignupAddFriendsViewController.h"
 #import "FriendCell.h"
+#import "UIAlertView+MKBlockAdditions.h"
+#import <AddressBook/AddressBook.h>
+#import "Util.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface SignupAddFriendsViewController ()
 
@@ -35,7 +39,20 @@
     [bgView setBackgroundColor:COL_GRAY];
     [self.tableViewFriends setBackgroundView:bgView];
 
-    [self getUserInfoFromParse];
+    if (0) {
+        [self getUserInfoFromParse];
+    }
+    else {
+        // facebook permissions
+        [self checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
+            if (hasPermission) {
+                [self getFacebookUsers];
+            }
+            else {
+                [self requestFriendPermission];
+            }
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,5 +138,161 @@
 
 - (IBAction)didClickFinish:(id)sender {
     [_appDelegate goToProfile];
+}
+
+#pragma mark Contacts
+-(void) loadContacts{
+    // address book functionality is done on an async queue to prevent UI locking
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        CFErrorRef error;
+        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, &error);
+        CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople( addressBook );
+
+        NSArray * peopleArray = [(__bridge NSArray*) allPeople mutableCopy];
+
+        CFRelease(allPeople);
+
+        for (id person in peopleArray){
+            ABMultiValueRef phoneProperty = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
+            ABMultiValueRef emailProperty = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
+
+            NSMutableArray *phonePropertyArray = [[NSMutableArray alloc] init];//(NSMutableArray *)ABMultiValueCopyArrayOfAllValues(phoneProperty);
+
+            for(CFIndex i = 0; i < ABMultiValueGetCount(phoneProperty); i++) {
+                NSString* mobileLabel = (NSString*)CFBridgingRelease(ABMultiValueCopyLabelAtIndex(phoneProperty, i));
+                if([mobileLabel isEqualToString:(NSString *)kABPersonPhoneMobileLabel] || [mobileLabel isEqualToString:(NSString *)kABPersonPhoneIPhoneLabel])
+                {
+                    [phonePropertyArray addObject:(NSString*)CFBridgingRelease(ABMultiValueCopyValueAtIndex(phoneProperty, i))];
+                }
+            }
+            CFRelease(phoneProperty);
+
+            NSArray *emailPropertyArray = (NSArray *)CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(emailProperty));
+            CFRelease(emailProperty);
+
+            NSString *firstName = (NSString*)CFBridgingRelease(ABRecordCopyValue((__bridge ABRecordRef)person, kABPersonFirstNameProperty));
+            NSString *lastName = (NSString*)CFBridgingRelease(ABRecordCopyValue((__bridge ABRecordRef)person, kABPersonLastNameProperty));
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            if (firstName) {
+                dict[@"firstName"] = firstName;
+            }
+            if (lastName) {
+                dict[@"lastName"] = lastName;
+            }
+            if ([phonePropertyArray count]) {
+                dict[@"numbers"] = phonePropertyArray;
+            }
+            if ([emailPropertyArray count]) {
+                dict[@"emails"] = emailPropertyArray;
+            }
+
+            NSString *name = nil;
+            if (firstName && lastName) {
+                name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+            }
+            else if (firstName)
+                name = firstName;
+            else if (lastName)
+                name = lastName;
+
+            if (!name || [name length] == 0)
+                continue;
+
+            dict[@"name"] = name;
+            NSString *noAccents = [Util stringWithoutAccents:dict[@"name"]];
+            if ([noAccents length]) {
+                dict[@"firstLetter"] = [[noAccents substringToIndex:1] uppercaseString];
+            }
+            else {
+                // this name will appear in its own section with a strange accent...(?)
+                dict[@"firstLetter"] = [[name substringToIndex:1] uppercaseString];
+                // adding a log message to parse to try to store this object for analysis
+            }
+
+            if ([[dict objectForKey:@"emails"] count]) {
+                NSString *idKey = [[[dict objectForKey:@"emails"] firstObject] lowercaseString];
+                dict[@"email"] = idKey;
+                [allUserInfo addObject:dict];
+            }
+        }
+        CFRelease(addressBook);
+
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.tableViewFriends reloadData];
+        });
+    });
+}
+
+#pragma mark Facebook
+-(void)checkForFacebookPermission:(NSString *)permission completion:(void(^)(BOOL hasPermission))completion  {
+    [[FBRequest requestForGraphPath:@"me/permissions"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        NSLog(@"Permissions request results: %@", result);
+        NSArray *permissions = (NSArray *)result[@"data"];
+        for (NSDictionary *p in permissions) {
+            if ([p[@"permission"] isEqualToString:permission]) {
+                if ([p[@"status"] isEqualToString:@"granted"]) {
+                    completion(YES);
+                    return;
+                }
+                else {
+                    completion(NO);
+                    return;
+                }
+            }
+        }
+        completion(NO);
+    }];
+}
+
+-(void)requestFriendPermission {
+    [PFFacebookUtils logInWithPermissions:@[@"user_friends"] block:^(PFUser *user, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [self updateFacebookUserInfo];
+
+        [self checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
+            if (hasPermission) {
+                [self getFacebookUsers];
+            }
+            else {
+                [UIAlertView alertViewWithTitle:@"Facebook error" message:@"SEVEN does not have permission to request your friends list."];
+            }
+        }];
+    }];
+}
+
+-(void)getFacebookUsers {
+    [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // result will contain an array with your user's friends in the "data" key
+            NSArray *friendObjects = [result objectForKey:@"data"];
+            NSMutableArray *friendIds = [NSMutableArray arrayWithCapacity:friendObjects.count];
+            // Create a list of friends' Facebook IDs
+            [friendIds addObject:@(701860)];
+            for (NSDictionary *friendObject in friendObjects) {
+                [friendIds addObject:[friendObject objectForKey:@"id"]];
+            }
+
+            // Construct a PFUser query that will find friends whose facebook ids
+            // are contained in the current user's friend list.
+            PFQuery *friendQuery = [PFUser query];
+            [friendQuery whereKey:@"facebookID" containedIn:friendIds];
+
+            // findObjects will return a list of PFUsers that are friends
+            // with the current user
+            NSArray *friendUsers = [friendQuery findObjects];
+            NSLog(@"Friends: %@", friendUsers);
+        }
+    }];
+}
+
+-(void)updateFacebookUserInfo {
+    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // Store the current user's Facebook ID on the user
+            [[PFUser currentUser] setObject:[result objectForKey:@"id"]
+                                     forKey:@"facebookID"];
+            [[PFUser currentUser] saveInBackground];
+        }
+    }];
 }
 @end

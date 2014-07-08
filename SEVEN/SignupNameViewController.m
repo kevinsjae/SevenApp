@@ -52,7 +52,6 @@
 -(void)createUser {
     [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
         user.username = self.inputUsername.text;
-
         // create userInfo
         if (user[@"userInfo"]) {
             _appDelegate.currentUserInfo = user[@"userInfo"];
@@ -70,7 +69,6 @@
                 [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
             }];
        }
-
     }];
 }
 

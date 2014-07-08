@@ -66,5 +66,12 @@
     return [self timeAgo:date];
 }
 
++(NSString *)stringWithoutAccents:(NSString *)string {
+    // converts é to e'
+    NSString *decomposed = [string decomposedStringWithCanonicalMapping];
+    NSString *alpha = [[decomposed componentsSeparatedByCharactersInSet:[[NSCharacterSet letterCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    return alpha;
+}
+
 
 @end

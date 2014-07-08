@@ -73,6 +73,8 @@
 		9E79B86E19643B1600559838 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B86D19643B1600559838 /* Security.framework */; };
 		9E79B87019643B1900559838 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B86F19643B1900559838 /* StoreKit.framework */; };
 		9E79B87219643B2100559838 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B87119643B2100559838 /* SystemConfiguration.framework */; };
+		9E82C4CE196C35CA0073D7D1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */; };
+		9E82C4D0196C3C910073D7D1 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +187,8 @@
 		9E79B86D19643B1600559838 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9E79B86F19643B1900559838 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9E79B87119643B2100559838 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E82C4CE196C35CA0073D7D1 /* AddressBook.framework in Frameworks */,
 				9E01242E196717490080543B /* MapKit.framework in Frameworks */,
 				9E79B87219643B2100559838 /* SystemConfiguration.framework in Frameworks */,
 				9E79B87019643B1900559838 /* StoreKit.framework in Frameworks */,
@@ -204,6 +209,7 @@
 				9E79B86219643AF200559838 /* AudioToolbox.framework in Frameworks */,
 				9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */,
 				9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */,
+				9E82C4D0196C3C910073D7D1 /* FacebookSDK.framework in Frameworks */,
 				9E79B82A196435FF00559838 /* Parse.framework in Frameworks */,
 				9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */,
 			);
@@ -244,6 +250,8 @@
 		9E79B7F0196435AA00559838 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */,
+				9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */,
 				9E01242D196717490080543B /* MapKit.framework */,
 				9E79B87119643B2100559838 /* SystemConfiguration.framework */,
 				9E79B86F19643B1900559838 /* StoreKit.framework */,
@@ -680,6 +688,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEVEN",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SEVEN/SEVEN-Prefix.pch";
@@ -700,6 +709,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEVEN",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SEVEN/SEVEN-Prefix.pch";

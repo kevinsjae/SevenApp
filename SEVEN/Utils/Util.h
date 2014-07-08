@@ -6,5 +6,6 @@
 +(NSString *)timeStringForDate:(NSDate *)date;
 + (NSString *)timeAgo:(NSDate *)date;
 + (NSString *)simpleTimeAgo:(NSDate *)date;
++(NSString *)stringWithoutAccents:(NSString *)string;
 
 @end
