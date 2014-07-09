@@ -29,6 +29,8 @@
     // Do any additional setup after loading the view.
 
     [PFUser logOut];
+
+    [self.inputUsername becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

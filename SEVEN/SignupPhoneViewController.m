@@ -36,6 +36,7 @@
     [keyboardDoneButtonView setItems:@[[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Done")                                                                       style:UIBarButtonItemStyleBordered target:self                                                                     action:@selector(closeKeyboardInput:)]]];
 
     self.inputPhone.inputAccessoryView = keyboardDoneButtonView;
+    [self.inputPhone becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
