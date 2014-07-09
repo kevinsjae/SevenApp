@@ -180,6 +180,8 @@
 
         CFRelease(allPeople);
 
+        NSMutableArray *friendEmails = [NSMutableArray array];
+        NSMutableArray *friendNames = [NSMutableArray array];
         for (id person in peopleArray){
             ABMultiValueRef phoneProperty = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
             ABMultiValueRef emailProperty = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
@@ -226,6 +228,7 @@
             if (!name || [name length] == 0)
                 continue;
 
+            /*
             dict[@"name"] = name;
             NSString *noAccents = [Util stringWithoutAccents:dict[@"name"]];
             if ([noAccents length]) {
@@ -237,13 +240,27 @@
                 // adding a log message to parse to try to store this object for analysis
             }
 
+             */
+            [friendNames addObject:name];
             if ([[dict objectForKey:@"emails"] count]) {
-                NSString *idKey = [[[dict objectForKey:@"emails"] firstObject] lowercaseString];
-                dict[@"email"] = idKey;
-                [allUsers addObject:dict];
+                NSString *email = [[[dict objectForKey:@"emails"] firstObject] lowercaseString];
+                [friendEmails addObject:email];
             }
         }
         CFRelease(addressBook);
+
+        // Construct a PFUser query that will find friends whose facebook ids
+        // are contained in the current user's friend list.
+        PFQuery *nameQuery = [PFUser query];
+        [nameQuery whereKey:@"username" containedIn:friendNames];
+        [allUsers addObjectsFromArray:[nameQuery findObjects]];
+
+        PFQuery *emailQuery = [PFUser query];
+        [emailQuery whereKey:@"email" containedIn:friendEmails];
+        [allUsers addObjectsFromArray:[emailQuery findObjects]];
+
+        [self.tableViewFriends reloadData];
+
 
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.tableViewFriends reloadData];
@@ -277,7 +294,6 @@
             NSArray *friendObjects = [result objectForKey:@"data"];
             NSMutableArray *friendIds = [NSMutableArray arrayWithCapacity:friendObjects.count];
             // Create a list of friends' Facebook IDs
-            [friendIds addObject:@(701860)];
             for (NSDictionary *friendObject in friendObjects) {
                 [friendIds addObject:[friendObject objectForKey:@"id"]];
             }

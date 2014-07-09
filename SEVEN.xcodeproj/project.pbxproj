@@ -691,8 +691,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bobby Ren (29NUPVEY87)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bobby Ren (29NUPVEY87)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEVEN",
@@ -702,7 +702,7 @@
 				GCC_PREFIX_HEADER = "SEVEN/SEVEN-Prefix.pch";
 				INFOPLIST_FILE = "SEVEN/SEVEN-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "CBBEF694-7E78-400B-BE2D-75DE1E92E8B7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -723,7 +723,7 @@
 				GCC_PREFIX_HEADER = "SEVEN/SEVEN-Prefix.pch";
 				INFOPLIST_FILE = "SEVEN/SEVEN-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D775EB52-F55C-40F4-B698-B7DBE613348E";
+				PROVISIONING_PROFILE = "8C003821-54F2-44CD-BDA3-B266751CC312";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
