@@ -29,6 +29,8 @@
     // Do any additional setup after loading the view.
 
     [PFUser logOut];
+
+    [self.inputUsername becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,25 +54,9 @@
 -(void)createUser {
     [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
         user.username = self.inputUsername.text;
+        [user saveInBackground];
 
-        // create userInfo
-        if (user[@"userInfo"]) {
-            _appDelegate.currentUserInfo = user[@"userInfo"];
-            [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
-        }
-        else {
-            [UserInfo initParseObjectWithDictionary:nil completion:^(id object) {
-                _appDelegate.currentUserInfo = (UserInfo *)object;
-                [_appDelegate.currentUserInfo setUser:user];
-
-                PFRelation *relation = [user relationForKey:@"userInfo"];
-                [relation addObject:_appDelegate.currentUserInfo.pfObject];
-                [user saveInBackground];
-
-                [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
-            }];
-       }
-
+        [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
     }];
 }
 

@@ -47,6 +47,8 @@
 */
 
 -(IBAction)didClickLogout:(id)sender {
+    [PFUser logOut];
+
     [_appDelegate goToIntro];
 }
 @end

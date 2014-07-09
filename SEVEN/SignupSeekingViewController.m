@@ -48,14 +48,15 @@
 
 - (IBAction)didClickButton:(id)sender {
     if ((UIButton *)sender == self.buttonGuy) {
-        [_appDelegate currentUserInfo].seeking = @(MALE);
+        [[PFUser currentUser] setObject:@(MALE) forKey:@"seeking"];
     }
     else if ((UIButton *)sender == self.buttonGirl) {
-        [_appDelegate currentUserInfo].seeking = @(FEMALE);
+        [[PFUser currentUser] setObject:@(FEMALE) forKey:@"seeking"];
     }
     else if ((UIButton *)sender == self.buttonBoth) {
-        [_appDelegate currentUserInfo].seeking = @(BOTH);
+        [[PFUser currentUser] setObject:@(BOTH) forKey:@"seeking"];
     }
+    [[PFUser currentUser] saveInBackground];
 
     [self performSegueWithIdentifier:@"SignupGoToLocation" sender:self];
 }

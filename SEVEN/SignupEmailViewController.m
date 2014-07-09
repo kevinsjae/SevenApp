@@ -27,6 +27,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    [self.inputEmail becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,8 +41,16 @@
     [textField resignFirstResponder];
     if ([self.inputEmail.text length]) {
 
-        [_appDelegate currentUserInfo].email = self.inputEmail.text;
-        [self performSegueWithIdentifier:@"SignupGoToGender" sender:self];
+        [PFUser currentUser].email = self.inputEmail.text;
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            // use parse's email validation
+            if (succeeded) {
+                [self performSegueWithIdentifier:@"SignupGoToGender" sender:self];
+            }
+            else {
+                [UIAlertView alertViewWithTitle:@"Signup error" message:@"Email not saved"];
+            }
+        }];
     }
     return YES;
 }
