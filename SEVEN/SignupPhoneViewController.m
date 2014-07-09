@@ -57,7 +57,8 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ([self.inputPhone.text length]) {
-        [_appDelegate currentUserInfo].phone = self.inputPhone.text;
+        [[PFUser currentUser] setObject:self.inputPhone.text forKey:@"phone"];
+        [[PFUser currentUser] saveInBackground];
         [self performSegueWithIdentifier:@"SignupGoToVerifyPhone" sender:self];
     }
     return YES;

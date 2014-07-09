@@ -21,4 +21,3 @@
 #import "PFObjectFactory.h"
 #import "ParseBase.h"
 #import "Constants.h"
-#import "UserInfo.h"

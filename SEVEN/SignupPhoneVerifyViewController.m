@@ -57,14 +57,7 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ([self.inputCode.text length]) {
-        // todo: do some web request to check against the verification
-        [_appDelegate.currentUserInfo saveOrUpdateToParseWithCompletion:^(BOOL success) {
-            if (success)
-                [self performSegueWithIdentifier:@"SignupGoToNetworks" sender:self];
-            else {
-                NSLog(@"Failed to save user info!");
-            }
-        }];
+        [self performSegueWithIdentifier:@"SignupGoToNetworks" sender:self];
     }
     return YES;
 }

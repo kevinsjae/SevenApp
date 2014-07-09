@@ -52,23 +52,9 @@
 -(void)createUser {
     [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
         user.username = self.inputUsername.text;
-        // create userInfo
-        if (user[@"userInfo"]) {
-            _appDelegate.currentUserInfo = user[@"userInfo"];
-            [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
-        }
-        else {
-            [UserInfo initParseObjectWithDictionary:nil completion:^(id object) {
-                _appDelegate.currentUserInfo = (UserInfo *)object;
-                [_appDelegate.currentUserInfo setUser:user];
+        [user saveInBackground];
 
-                PFRelation *relation = [user relationForKey:@"userInfo"];
-                [relation addObject:_appDelegate.currentUserInfo.pfObject];
-                [user saveInBackground];
-
-                [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
-            }];
-       }
+        [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
     }];
 }
 

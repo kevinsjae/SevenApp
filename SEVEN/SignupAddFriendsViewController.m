@@ -33,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    allUserInfo = [NSMutableArray array];
+    allUsers = [NSMutableArray array];
     usersToAdd = [NSMutableSet set];
     UIView *bgView = [[UIView alloc] init];
     [bgView setBackgroundColor:COL_GRAY];
@@ -74,17 +74,13 @@
 
 -(void)getUserInfoFromParse {
     // load all userInfo - needs filtering/security?
-    PFQuery *query = [PFQuery queryWithClassName:@"UserInfo"];
-    [query includeKey:@"user"];
+    PFQuery *query = [PFUser query];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *object in objects) {
                 NSLog(@"%@", object.objectId);
-                UserInfo *userInfo = [UserInfo fromPFObject:object];
-                if (userInfo.user && ![allUserInfo containsObject:userInfo]) {
-                    [allUserInfo addObject:userInfo];
-                }
+                [allUsers addObject:object];
             }
             [self.tableViewFriends reloadData];
         } else {
@@ -101,15 +97,14 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [allUserInfo count];
+    return [allUsers count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FriendCell" forIndexPath:indexPath];
     cell.backgroundColor = COL_GRAY;
 
-    UserInfo *userInfo = allUserInfo[indexPath.row];
-    PFUser *user = userInfo.user;
+    PFUser *user = allUsers[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@", user.username];
     cell.imageView.image = [UIImage imageNamed:@"user-default"];
 
@@ -123,8 +118,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserInfo *userInfo = allUserInfo[indexPath.row];
-    PFUser *user = userInfo.user;
+    PFUser *user = allUsers[indexPath.row];
 
     if ([usersToAdd containsObject:user]) {
         [usersToAdd removeObject:user];
@@ -212,7 +206,7 @@
             if ([[dict objectForKey:@"emails"] count]) {
                 NSString *idKey = [[[dict objectForKey:@"emails"] firstObject] lowercaseString];
                 dict[@"email"] = idKey;
-                [allUserInfo addObject:dict];
+                [allUsers addObject:dict];
             }
         }
         CFRelease(addressBook);
@@ -245,18 +239,23 @@
 }
 
 -(void)requestFriendPermission {
-    [PFFacebookUtils logInWithPermissions:@[@"user_friends"] block:^(PFUser *user, NSError *error) {
+    [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[@"user_friends"] block:^(BOOL succeeded, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self updateFacebookUserInfo];
+        if (succeeded) {
+            [self updateFacebookUserInfo];
 
-        [self checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
-            if (hasPermission) {
-                [self getFacebookUsers];
-            }
-            else {
-                [UIAlertView alertViewWithTitle:@"Facebook error" message:@"SEVEN does not have permission to request your friends list."];
-            }
-        }];
+            [self checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
+                if (hasPermission) {
+                    [self getFacebookUsers];
+                }
+                else {
+                    [UIAlertView alertViewWithTitle:@"Facebook error" message:@"SEVEN does not have permission to request your friends list."];
+                }
+            }];
+        }
+        else {
+            [UIAlertView alertViewWithTitle:@"Facebook error" message:@"Could not get Facebook permissions."];
+        }
     }];
 }
 
@@ -286,8 +285,11 @@
 }
 
 -(void)updateFacebookUserInfo {
+    // todo: consolidate this function into FacebookHelper class
+    // todo: if called from here, the facebookID is connected with an anonymous user, not the signed up user. (maybe signup didn't finish
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
+            PFUser *user = [PFUser currentUser];
             // Store the current user's Facebook ID on the user
             [[PFUser currentUser] setObject:[result objectForKey:@"id"]
                                      forKey:@"facebookID"];

@@ -39,7 +39,9 @@
     [textField resignFirstResponder];
     if ([self.inputEmail.text length]) {
 
-        [_appDelegate currentUserInfo].email = self.inputEmail.text;
+        [PFUser currentUser].email = self.inputEmail.text;
+        [[PFUser currentUser] saveInBackground];
+
         [self performSegueWithIdentifier:@"SignupGoToGender" sender:self];
     }
     return YES;
