@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "SignupAddFriendsViewController.h"
 
 @interface ProfileViewController ()
 
@@ -35,16 +36,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
+    if ([segue.identifier isEqualToString:@"GoToAddFriend"]) {
+        SignupAddFriendsViewController *controller = (SignupAddFriendsViewController *)[segue destinationViewController];
+        [controller setConnectType:ConnectTypeNone];
+    }
     // Pass the selected object to the new view controller.
 }
-*/
 
 -(IBAction)didClickLogout:(id)sender {
     [PFUser logOut];

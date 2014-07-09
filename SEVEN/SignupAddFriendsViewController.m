@@ -39,19 +39,26 @@
     [bgView setBackgroundColor:COL_GRAY];
     [self.tableViewFriends setBackgroundView:bgView];
 
-    if (0) {
+    if (self.connectType == ConnectTypeNone) {
         [self getAllUsersFromParse];
     }
-    else {
+    else if (self.connectType == ConnectTypeEmail) {
+        [self initializeContactsPermission];
+    }
+    else if (self.connectType == ConnectTypeFacebook) {
         // facebook permissions
         [FacebookHelper checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
             if (hasPermission) {
                 [self getFacebookUsers];
             }
             else {
-                [self requestFriendPermission];
+                [self initializeFacebookPermission];
             }
         }];
+    }
+    else {
+        [UIAlertView alertViewWithTitle:@"Coming soon" message:@"Instagram and Twitter integrations are not yet available"];
+        [self didClickFinish:nil];
     }
 }
 
@@ -135,6 +142,33 @@
 }
 
 #pragma mark Contacts
+-(void)initializeContactsPermission {
+    ABAuthorizationStatus authStatus =  ABAddressBookGetAuthorizationStatus ();
+    if (authStatus == kABAuthorizationStatusNotDetermined) {
+        CFErrorRef error;
+        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, &error);
+        ABAddressBookRequestAccessWithCompletion(addressBook , ^(bool granted, CFErrorRef error){
+            if (granted){
+                [self loadContacts];
+            }
+            else {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [UIAlertView alertViewWithTitle:@"Contact access denied" message:@"SEVEN will not be able to access your contacts list. To change this, please go to Settings->Privacy->Contacts to enable access." cancelButtonTitle:@"Close" otherButtonTitles:nil onDismiss:nil onCancel:^{
+                    }];
+                });
+            }
+        });
+    }
+    else if (authStatus == kABAuthorizationStatusAuthorized){
+        [self loadContacts];
+    }
+    else {
+        // already denied, cannot request it
+        [UIAlertView alertViewWithTitle:@"Could not access contacts" message:@"In order to connect with friends, SEVEN needs access to your contact list. Please go to Settings->Privacy->Contacts to enable access." cancelButtonTitle:@"Close" otherButtonTitles:nil onDismiss:nil onCancel:^{
+        }];
+    }
+}
+
 -(void) loadContacts{
     // address book functionality is done on an async queue to prevent UI locking
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -146,6 +180,8 @@
 
         CFRelease(allPeople);
 
+        NSMutableArray *friendEmails = [NSMutableArray array];
+        NSMutableArray *friendNames = [NSMutableArray array];
         for (id person in peopleArray){
             ABMultiValueRef phoneProperty = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
             ABMultiValueRef emailProperty = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
@@ -192,6 +228,7 @@
             if (!name || [name length] == 0)
                 continue;
 
+            /*
             dict[@"name"] = name;
             NSString *noAccents = [Util stringWithoutAccents:dict[@"name"]];
             if ([noAccents length]) {
@@ -203,13 +240,27 @@
                 // adding a log message to parse to try to store this object for analysis
             }
 
+             */
+            [friendNames addObject:name];
             if ([[dict objectForKey:@"emails"] count]) {
-                NSString *idKey = [[[dict objectForKey:@"emails"] firstObject] lowercaseString];
-                dict[@"email"] = idKey;
-                [allUsers addObject:dict];
+                NSString *email = [[[dict objectForKey:@"emails"] firstObject] lowercaseString];
+                [friendEmails addObject:email];
             }
         }
         CFRelease(addressBook);
+
+        // Construct a PFUser query that will find friends whose facebook ids
+        // are contained in the current user's friend list.
+        PFQuery *nameQuery = [PFUser query];
+        [nameQuery whereKey:@"username" containedIn:friendNames];
+        [allUsers addObjectsFromArray:[nameQuery findObjects]];
+
+        PFQuery *emailQuery = [PFUser query];
+        [emailQuery whereKey:@"email" containedIn:friendEmails];
+        [allUsers addObjectsFromArray:[emailQuery findObjects]];
+
+        [self.tableViewFriends reloadData];
+
 
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.tableViewFriends reloadData];
@@ -218,16 +269,22 @@
 }
 
 #pragma mark Facebook
--(void)requestFriendPermission {
-    [FacebookHelper requestFacebookPermission:@"user_friends" completion:^(BOOL success, NSError *error) {
-        NSLog(@"Error: %@", error);
-        if (success) {
-            [self getFacebookUsers];
-        }
-        else {
-            [UIAlertView alertViewWithTitle:@"Facebook error" message:@"Could not get Facebook permissions."];
-        }
-    }];
+#pragma mark Facebook
+-(void)initializeFacebookPermission {
+    if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [FacebookHelper requestFacebookPermission:@"user_friends" completion:^(BOOL success, NSError *error) {
+            NSLog(@"Error: %@", error);
+            if (success) {
+                [self getFacebookUsers];
+            }
+            else {
+                [UIAlertView alertViewWithTitle:@"Facebook error" message:@"Could not get Facebook permissions."];
+            }
+        }];
+    }
+    else {
+        [self getFacebookUsers];
+    }
 }
 
 -(void)getFacebookUsers {
@@ -237,7 +294,6 @@
             NSArray *friendObjects = [result objectForKey:@"data"];
             NSMutableArray *friendIds = [NSMutableArray arrayWithCapacity:friendObjects.count];
             // Create a list of friends' Facebook IDs
-            [friendIds addObject:@(701860)];
             for (NSDictionary *friendObject in friendObjects) {
                 [friendIds addObject:[friendObject objectForKey:@"id"]];
             }
