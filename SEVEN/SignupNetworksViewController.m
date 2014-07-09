@@ -10,6 +10,7 @@
 #import "UIAlertView+MKBlockAdditions.h"
 #import <AddressBook/AddressBook.h>
 #import "FacebookHelper.h"
+#import "SignupAddFriendsViewController.h"
 
 @interface SignupNetworksViewController ()
 
@@ -30,6 +31,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.buttonEmail setTag:ConnectTypeEmail];
+    [self.buttonFacebook setTag:ConnectTypeFacebook];
+    [self.buttonInstagram setTag:ConnectTypeInstagram];
+    [self.buttonTwitter setTag:ConnectTypeTwitter];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,75 +43,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
+    SignupAddFriendsViewController *controller = (SignupAddFriendsViewController *)[segue destinationViewController];
     // Pass the selected object to the new view controller.
+    [controller setConnectType:((UIButton *)sender).tag];
 }
-*/
 
 - (IBAction)didClickButton:(id)sender {
-    if ((UIButton *)sender == self.buttonEmail) {
-        [self initializeContactsPermission];
-    }
-    else if ((UIButton *)sender == self.buttonFacebook) {
-        [self initializeFacebookPermission];
-    }
-    else {
-        [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:self];
-    }
-}
-
-#pragma mark Contacts/Address book
-#pragma mark Contacts
--(void)initializeContactsPermission {
-    ABAuthorizationStatus authStatus =  ABAddressBookGetAuthorizationStatus ();
-    if (authStatus == kABAuthorizationStatusNotDetermined) {
-        CFErrorRef error;
-        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, &error);
-        ABAddressBookRequestAccessWithCompletion(addressBook , ^(bool granted, CFErrorRef error){
-            if (granted){
-                [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:self];
-            }
-            else {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [UIAlertView alertViewWithTitle:@"Contact access denied" message:@"SEVEN will not be able to access your contacts list. To change this, please go to Settings->Privacy->Contacts to enable access." cancelButtonTitle:@"Close" otherButtonTitles:nil onDismiss:nil onCancel:^{
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }];
-                });
-            }
-        });
-    }
-    else if (authStatus == kABAuthorizationStatusAuthorized){
-        [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:nil];
-    }
-    else {
-        // already denied, cannot request it
-        [UIAlertView alertViewWithTitle:@"Could not access contacts" message:@"In order to connect with friends, SEVEN needs access to your contact list. Please go to Settings->Privacy->Contacts to enable access." cancelButtonTitle:@"Close" otherButtonTitles:nil onDismiss:nil onCancel:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-    }
-}
-
-#pragma mark Facebook
--(void)initializeFacebookPermission {
-    if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [FacebookHelper requestFacebookPermission:@"user_friends" completion:^(BOOL success, NSError *error) {
-            if (success) {
-                [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:nil];
-            }
-            else {
-                [UIAlertView alertViewWithTitle:@"Facebook connect error" message:error.description];
-            }
-        }];
-    }
-    else {
-        [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:self];
-    }
+    [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:sender];
 }
 
 @end

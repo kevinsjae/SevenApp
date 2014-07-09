@@ -273,6 +273,7 @@
 		9E79B7F7196435AA00559838 /* SEVEN */ = {
 			isa = PBXGroup;
 			children = (
+				9EC9CF02196D626C00EAF3D9 /* Signup */,
 				9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */,
 				9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */,
 				9E79B8311964363600559838 /* Utils */,
@@ -285,26 +286,6 @@
 				9E79B807196435AA00559838 /* ViewController.m */,
 				9E01242F19671B040080543B /* CommonStyledViewController.h */,
 				9E01243019671B040080543B /* CommonStyledViewController.m */,
-				9E79B85E1964389200559838 /* SignupNameViewController.h */,
-				9E79B85F1964389200559838 /* SignupNameViewController.m */,
-				9E01240D196707A30080543B /* SignupEmailViewController.h */,
-				9E01240E196707A30080543B /* SignupEmailViewController.m */,
-				9E0124101967088D0080543B /* SignupGenderViewController.h */,
-				9E0124111967088D0080543B /* SignupGenderViewController.m */,
-				9E01241F19670CF50080543B /* SignupSeekingViewController.h */,
-				9E01242019670CF50080543B /* SignupSeekingViewController.m */,
-				9E0124241967120B0080543B /* SignupLocationViewController.h */,
-				9E0124251967120B0080543B /* SignupLocationViewController.m */,
-				9E012427196712160080543B /* SignupPhoneViewController.h */,
-				9E012428196712160080543B /* SignupPhoneViewController.m */,
-				9E01242A1967121E0080543B /* SignupPhoneVerifyViewController.h */,
-				9E01242B1967121E0080543B /* SignupPhoneVerifyViewController.m */,
-				9E01243219671C5A0080543B /* SignupNetworksViewController.h */,
-				9E01243319671C5A0080543B /* SignupNetworksViewController.m */,
-				9E01243D196723270080543B /* SignupAddFriendsViewController.h */,
-				9E01243E196723270080543B /* SignupAddFriendsViewController.m */,
-				9E012440196726110080543B /* FriendCell.h */,
-				9E012441196726110080543B /* FriendCell.m */,
 				9E79B85B1964382100559838 /* LoginViewController.h */,
 				9E79B85C1964382100559838 /* LoginViewController.m */,
 				9E18BC631964B9F0001BEDAE /* ProfileViewController.h */,
@@ -390,6 +371,33 @@
 				9E79B83D1964363600559838 /* UIAlertView+MKBlockAdditions.m */,
 			);
 			path = MKAdditions;
+			sourceTree = "<group>";
+		};
+		9EC9CF02196D626C00EAF3D9 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				9E79B85E1964389200559838 /* SignupNameViewController.h */,
+				9E79B85F1964389200559838 /* SignupNameViewController.m */,
+				9E01240D196707A30080543B /* SignupEmailViewController.h */,
+				9E01240E196707A30080543B /* SignupEmailViewController.m */,
+				9E0124101967088D0080543B /* SignupGenderViewController.h */,
+				9E0124111967088D0080543B /* SignupGenderViewController.m */,
+				9E01241F19670CF50080543B /* SignupSeekingViewController.h */,
+				9E01242019670CF50080543B /* SignupSeekingViewController.m */,
+				9E0124241967120B0080543B /* SignupLocationViewController.h */,
+				9E0124251967120B0080543B /* SignupLocationViewController.m */,
+				9E012427196712160080543B /* SignupPhoneViewController.h */,
+				9E012428196712160080543B /* SignupPhoneViewController.m */,
+				9E01242A1967121E0080543B /* SignupPhoneVerifyViewController.h */,
+				9E01242B1967121E0080543B /* SignupPhoneVerifyViewController.m */,
+				9E01243219671C5A0080543B /* SignupNetworksViewController.h */,
+				9E01243319671C5A0080543B /* SignupNetworksViewController.m */,
+				9E01243D196723270080543B /* SignupAddFriendsViewController.h */,
+				9E01243E196723270080543B /* SignupAddFriendsViewController.m */,
+				9E012440196726110080543B /* FriendCell.h */,
+				9E012441196726110080543B /* FriendCell.m */,
+			);
+			name = Signup;
 			sourceTree = "<group>";
 		};
 		9EE24F571964769000F7EA78 /* Images */ = {
