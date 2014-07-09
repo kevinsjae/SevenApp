@@ -74,6 +74,7 @@
 		9E79B87219643B2100559838 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B87119643B2100559838 /* SystemConfiguration.framework */; };
 		9E82C4CE196C35CA0073D7D1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */; };
 		9E82C4D0196C3C910073D7D1 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */; };
+		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +187,8 @@
 		9E79B87119643B2100559838 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookHelper.h; sourceTree = "<group>"; };
+		9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +273,8 @@
 		9E79B7F7196435AA00559838 /* SEVEN */ = {
 			isa = PBXGroup;
 			children = (
+				9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */,
+				9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */,
 				9E79B8311964363600559838 /* Utils */,
 				9E79B826196435DE00559838 /* Parse */,
 				9E0124081966FCDA0080543B /* Constants.h */,
@@ -539,6 +544,7 @@
 				9E79B8501964363600559838 /* NSObject+MKBlockAdditions.m in Sources */,
 				9E79B8571964363600559838 /* UIImage+Alpha.m in Sources */,
 				9E79B8581964363600559838 /* UIImage+Resize.m in Sources */,
+				9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */,
 				9E79B8521964363600559838 /* UIAlertView+MKBlockAdditions.m in Sources */,
 				9E18BC651964B9F0001BEDAE /* ProfileViewController.m in Sources */,
 				9E79B802196435AA00559838 /* AppDelegate.m in Sources */,

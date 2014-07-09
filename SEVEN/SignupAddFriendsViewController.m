@@ -11,7 +11,7 @@
 #import "UIAlertView+MKBlockAdditions.h"
 #import <AddressBook/AddressBook.h>
 #import "Util.h"
-#import <FacebookSDK/FacebookSDK.h>
+#import "FacebookHelper.h"
 
 @interface SignupAddFriendsViewController ()
 
@@ -40,11 +40,11 @@
     [self.tableViewFriends setBackgroundView:bgView];
 
     if (0) {
-        [self getUserInfoFromParse];
+        [self getAllUsersFromParse];
     }
     else {
         // facebook permissions
-        [self checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
+        [FacebookHelper checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
             if (hasPermission) {
                 [self getFacebookUsers];
             }
@@ -72,7 +72,7 @@
 }
 */
 
--(void)getUserInfoFromParse {
+-(void)getAllUsersFromParse {
     // load all userInfo - needs filtering/security?
     PFQuery *query = [PFUser query];
 
@@ -218,33 +218,13 @@
 }
 
 #pragma mark Facebook
--(void)checkForFacebookPermission:(NSString *)permission completion:(void(^)(BOOL hasPermission))completion  {
-    [[FBRequest requestForGraphPath:@"me/permissions"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        NSLog(@"Permissions request results: %@", result);
-        NSArray *permissions = (NSArray *)result[@"data"];
-        for (NSDictionary *p in permissions) {
-            if ([p[@"permission"] isEqualToString:permission]) {
-                if ([p[@"status"] isEqualToString:@"granted"]) {
-                    completion(YES);
-                    return;
-                }
-                else {
-                    completion(NO);
-                    return;
-                }
-            }
-        }
-        completion(NO);
-    }];
-}
-
 -(void)requestFriendPermission {
     [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[@"user_friends"] block:^(BOOL succeeded, NSError *error) {
         NSLog(@"Error: %@", error);
         if (succeeded) {
-            [self updateFacebookUserInfo];
+            [FacebookHelper updateFacebookUserInfo];
 
-            [self checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
+            [FacebookHelper checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
                 if (hasPermission) {
                     [self getFacebookUsers];
                 }
@@ -260,7 +240,7 @@
 }
 
 -(void)getFacebookUsers {
-    [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    [FacebookHelper getFacebookUsersWithCompletion:^(id result, NSError *error) {
         if (!error) {
             // result will contain an array with your user's friends in the "data" key
             NSArray *friendObjects = [result objectForKey:@"data"];
@@ -284,17 +264,4 @@
     }];
 }
 
--(void)updateFacebookUserInfo {
-    // todo: consolidate this function into FacebookHelper class
-    // todo: if called from here, the facebookID is connected with an anonymous user, not the signed up user. (maybe signup didn't finish
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            PFUser *user = [PFUser currentUser];
-            // Store the current user's Facebook ID on the user
-            [[PFUser currentUser] setObject:[result objectForKey:@"id"]
-                                     forKey:@"facebookID"];
-            [[PFUser currentUser] saveInBackground];
-        }
-    }];
-}
 @end

@@ -40,9 +40,15 @@
     if ([self.inputEmail.text length]) {
 
         [PFUser currentUser].email = self.inputEmail.text;
-        [[PFUser currentUser] saveInBackground];
-
-        [self performSegueWithIdentifier:@"SignupGoToGender" sender:self];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            // use parse's email validation
+            if (succeeded) {
+                [self performSegueWithIdentifier:@"SignupGoToGender" sender:self];
+            }
+            else {
+                [UIAlertView alertViewWithTitle:@"Signup error" message:@"Email not saved"];
+            }
+        }];
     }
     return YES;
 }

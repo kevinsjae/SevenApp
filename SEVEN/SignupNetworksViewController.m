@@ -9,6 +9,7 @@
 #import "SignupNetworksViewController.h"
 #import "UIAlertView+MKBlockAdditions.h"
 #import <AddressBook/AddressBook.h>
+#import "FacebookHelper.h"
 
 @interface SignupNetworksViewController ()
 
@@ -99,7 +100,7 @@
                 [UIAlertView alertViewWithTitle:@"You are now connected with facebook" message:nil];
 
                 // get user info and store it so we can find this user
-                [self updateFacebookUserInfo];
+                [FacebookHelper updateFacebookUserInfo];
 
                 [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:nil];
             }
@@ -113,14 +114,4 @@
     }
 }
 
--(void)updateFacebookUserInfo {
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            // Store the current user's Facebook ID on the user
-            [[PFUser currentUser] setObject:[result objectForKey:@"id"]
-                                     forKey:@"facebookID"];
-            [[PFUser currentUser] saveInBackground];
-        }
-    }];
-}
 @end
