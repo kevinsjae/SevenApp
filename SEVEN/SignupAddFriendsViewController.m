@@ -219,19 +219,10 @@
 
 #pragma mark Facebook
 -(void)requestFriendPermission {
-    [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[@"user_friends"] block:^(BOOL succeeded, NSError *error) {
+    [FacebookHelper requestFacebookPermission:@"user_friends" completion:^(BOOL success, NSError *error) {
         NSLog(@"Error: %@", error);
-        if (succeeded) {
-            [FacebookHelper updateFacebookUserInfo];
-
-            [FacebookHelper checkForFacebookPermission:@"user_friends" completion:^(BOOL hasPermission) {
-                if (hasPermission) {
-                    [self getFacebookUsers];
-                }
-                else {
-                    [UIAlertView alertViewWithTitle:@"Facebook error" message:@"SEVEN does not have permission to request your friends list."];
-                }
-            }];
+        if (success) {
+            [self getFacebookUsers];
         }
         else {
             [UIAlertView alertViewWithTitle:@"Facebook error" message:@"Could not get Facebook permissions."];
@@ -259,7 +250,8 @@
             // findObjects will return a list of PFUsers that are friends
             // with the current user
             NSArray *friendUsers = [friendQuery findObjects];
-            NSLog(@"Friends: %@", friendUsers);
+            [allUsers addObjectsFromArray:friendUsers];
+            [self.tableViewFriends reloadData];
         }
     }];
 }

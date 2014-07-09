@@ -95,13 +95,8 @@
 #pragma mark Facebook
 -(void)initializeFacebookPermission {
     if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[@"user_friends"] block:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                [UIAlertView alertViewWithTitle:@"You are now connected with facebook" message:nil];
-
-                // get user info and store it so we can find this user
-                [FacebookHelper updateFacebookUserInfo];
-
+        [FacebookHelper requestFacebookPermission:@"user_friends" completion:^(BOOL success, NSError *error) {
+            if (success) {
                 [self performSegueWithIdentifier:@"SignupGoToAddFriends" sender:nil];
             }
             else {

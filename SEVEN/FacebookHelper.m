@@ -49,4 +49,17 @@
     }];
 }
 
++(void)requestFacebookPermission:(NSString *)permission completion:(void(^)(BOOL success, NSError *error))completion {
+    [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[permission] block:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [FacebookHelper updateFacebookUserInfo];
+        }
+        else {
+            [[FBSession activeSession] closeAndClearTokenInformation];
+        }
+        if (completion)
+            completion(succeeded, error);
+    }];
+}
+
 @end
