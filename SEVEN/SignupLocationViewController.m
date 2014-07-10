@@ -46,7 +46,7 @@
 
 - (IBAction)didClickButton:(id)sender {
     if ((UIButton *)sender == self.buttonNo) {
-
+        [UIAlertView alertViewWithTitle:@"Update your location" message:@"Please zoom and drag the map to your location"];
     }
     else if ((UIButton *)sender == self.buttonYes) {
         PFUser *user = [PFUser currentUser];

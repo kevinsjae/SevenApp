@@ -790,6 +790,9 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didClickButton:" destination="VzK-IY-3Y1" eventType="touchUpInside" id="GaT-mz-ahs"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYc-LH-tHB">
                                         <rect key="frame" x="160" y="420" width="160" height="60"/>
@@ -868,9 +871,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="SEVEN" id="hVs-xj-ueJ"/>
                     <connections>
-                        <outlet property="buttonNo" destination="ggE-Se-jLH" id="moS-wV-NKe"/>
+                        <outlet property="buttonNo" destination="ggE-Se-jLH" id="llp-WO-BnU"/>
                         <outlet property="buttonYes" destination="eYc-LH-tHB" id="vhl-bW-yGt"/>
-                        <outlet property="didClickButton" destination="ggE-Se-jLH" id="au6-B6-tW8"/>
                         <outlet property="labelCurrentLocation" destination="Loi-0Z-35H" id="zrj-B5-Ozf"/>
                         <outlet property="mapView" destination="GvM-cM-N9j" id="kUA-lA-dDg"/>
                         <outlet property="pin" destination="SBH-vP-Dp4" id="A9l-Bt-UmY"/>
