@@ -831,13 +831,13 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location.png" translatesAutoresizingMaskIntoConstraints="NO" id="MIj-3t-clK">
-                                                <rect key="frame" x="72" y="317" width="30" height="30"/>
+                                                <rect key="frame" x="39" y="317" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Loi-0Z-35H">
-                                                <rect key="frame" x="110" y="321" width="169" height="21"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Loi-0Z-35H">
+                                                <rect key="frame" x="77" y="321" width="202" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -871,7 +871,9 @@
                         <outlet property="buttonNo" destination="ggE-Se-jLH" id="moS-wV-NKe"/>
                         <outlet property="buttonYes" destination="eYc-LH-tHB" id="vhl-bW-yGt"/>
                         <outlet property="didClickButton" destination="ggE-Se-jLH" id="au6-B6-tW8"/>
+                        <outlet property="labelCurrentLocation" destination="Loi-0Z-35H" id="zrj-B5-Ozf"/>
                         <outlet property="mapView" destination="GvM-cM-N9j" id="kUA-lA-dDg"/>
+                        <outlet property="pin" destination="SBH-vP-Dp4" id="A9l-Bt-UmY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3eK-Oq-kdv" userLabel="First Responder" sceneMemberID="firstResponder"/>

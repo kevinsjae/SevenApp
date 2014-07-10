@@ -29,6 +29,13 @@
     // Do any additional setup after loading the view.
     self.mapView.showsUserLocation = YES;
     isFirstUpdate = YES;
+
+    [self.pin setHidden:YES];
+
+    // allow detection of whether user dragged map
+    UIPanGestureRecognizer* panRec = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didDragMap:)];
+    [panRec setDelegate:self];
+    [self.mapView addGestureRecognizer:panRec];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,6 +54,25 @@
     }
 }
 
+#pragma mark Drag gesture
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (void)didDragMap:(UIGestureRecognizer*)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"drag started");
+        [self.pin setHidden:NO];
+        [self.mapView setShowsUserLocation:NO];
+    }
+    else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        [self updateLocation];
+    }
+    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        // do a reverse geolocator to find city, state
+    }
+}
+
 #pragma mark MapKitDelegate
 -(void) mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     if (isFirstUpdate && self.mapView.userLocation && self.mapView.userLocation.coordinate .latitude > -90.0 && self.mapView.userLocation.coordinate.latitude < 90.0 &&self.mapView.userLocation.coordinate.longitude >-180.0 && self.mapView.userLocation.coordinate.longitude < 180.0 && (self.mapView.userLocation.coordinate.latitude != 0 && self.mapView.userLocation.coordinate.longitude != 0)) {
@@ -58,10 +84,20 @@
         [self.mapView setRegion:adjustedRegion animated:YES];
 
         isFirstUpdate = NO;
+
+        [self updateLocation];
     }
 }
 
+-(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    [self updateLocation];
+}
 
+-(void)updateLocation {
+    centerLocation = [self.mapView convertPoint:CGPointMake(self.mapView.frame.size.width/2, self.mapView.frame.size.height/2) toCoordinateFromView:self.mapView];
+
+    self.labelCurrentLocation.text = [NSString stringWithFormat:@"%f, %f", centerLocation.latitude, centerLocation.longitude];
+}
 /*
 #pragma mark - Navigation
 
