@@ -822,7 +822,14 @@
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GvM-cM-N9j">
                                                 <rect key="frame" x="39" y="66" width="240" height="240"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="VzK-IY-3Y1" id="2Gp-kc-0ht"/>
+                                                </connections>
                                             </mapView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location.png" translatesAutoresizingMaskIntoConstraints="NO" id="SBH-vP-Dp4">
+                                                <rect key="frame" x="144" y="169" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location.png" translatesAutoresizingMaskIntoConstraints="NO" id="MIj-3t-clK">
                                                 <rect key="frame" x="72" y="317" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -864,6 +871,7 @@
                         <outlet property="buttonNo" destination="ggE-Se-jLH" id="moS-wV-NKe"/>
                         <outlet property="buttonYes" destination="eYc-LH-tHB" id="vhl-bW-yGt"/>
                         <outlet property="didClickButton" destination="ggE-Se-jLH" id="au6-B6-tW8"/>
+                        <outlet property="mapView" destination="GvM-cM-N9j" id="kUA-lA-dDg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3eK-Oq-kdv" userLabel="First Responder" sceneMemberID="firstResponder"/>

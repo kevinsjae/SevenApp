@@ -22,5 +22,6 @@ typedef enum {
     BOTH // for seeking only, but could be used for bi?
 } Gender;
 
+#define METERS_PER_MILE 1609.344
 
 #endif

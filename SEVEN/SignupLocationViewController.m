@@ -27,6 +27,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.mapView.showsUserLocation = YES;
+    isFirstUpdate = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,6 +44,20 @@
     else if ((UIButton *)sender == self.buttonYes) {
         // todo: set location object. can this be saved to parse as is?
         [self performSegueWithIdentifier:@"SignupGoToPhone" sender:self];
+    }
+}
+
+#pragma mark MapKitDelegate
+-(void) mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    if (isFirstUpdate && self.mapView.userLocation && self.mapView.userLocation.coordinate .latitude > -90.0 && self.mapView.userLocation.coordinate.latitude < 90.0 &&self.mapView.userLocation.coordinate.longitude >-180.0 && self.mapView.userLocation.coordinate.longitude < 180.0 && (self.mapView.userLocation.coordinate.latitude != 0 && self.mapView.userLocation.coordinate.longitude != 0)) {
+
+        // center on user
+        [self.mapView setCenterCoordinate:mapView.userLocation.coordinate animated:YES];
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 1*METERS_PER_MILE, 1*METERS_PER_MILE);
+        MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+        [self.mapView setRegion:adjustedRegion animated:YES];
+
+        isFirstUpdate = NO;
     }
 }
 
