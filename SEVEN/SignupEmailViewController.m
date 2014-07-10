@@ -39,6 +39,10 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+#if TESTING
+    [self performSegueWithIdentifier:@"SignupGoToGender" sender:self];
+    return YES;
+#endif
     if ([self.inputEmail.text length]) {
 
         [PFUser currentUser].email = self.inputEmail.text;
