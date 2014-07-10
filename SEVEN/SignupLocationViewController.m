@@ -49,7 +49,19 @@
 
     }
     else if ((UIButton *)sender == self.buttonYes) {
-        // todo: set location object. can this be saved to parse as is?
+        PFUser *user = [PFUser currentUser];
+        if (city)
+            [user setObject:city forKey:@"city"];
+        if (state)
+            [user setObject:state forKey:@"state"];
+        if (country)
+            [user setObject:country forKey:@"country"];
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!succeeded) {
+                NSLog(@"Error: %@", error);
+            }
+        }];
+
         [self performSegueWithIdentifier:@"SignupGoToPhone" sender:self];
     }
 }
@@ -67,9 +79,6 @@
     }
     else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         [self updateLocation];
-    }
-    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        // do a reverse geolocator to find city, state
     }
 }
 
@@ -91,12 +100,30 @@
 
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     [self updateLocation];
+    [self getReverseGeocode];
 }
 
 -(void)updateLocation {
     centerLocation = [self.mapView convertPoint:CGPointMake(self.mapView.frame.size.width/2, self.mapView.frame.size.height/2) toCoordinateFromView:self.mapView];
 
     self.labelCurrentLocation.text = [NSString stringWithFormat:@"%f, %f", centerLocation.latitude, centerLocation.longitude];
+}
+
+-(void)getReverseGeocode {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:centerLocation.latitude longitude:centerLocation.longitude];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (placemarks && placemarks.count > 0) {
+            CLPlacemark *topResult = [placemarks objectAtIndex:0];
+            if (topResult.locality) {
+                city = topResult.locality;
+                state = topResult.administrativeArea;
+                country = topResult.country;
+                if (city && state && country)
+                    self.labelCurrentLocation.text = [NSString stringWithFormat:@"%@, %@, %@", city, state, country];
+            }
+        }
+    }];
 }
 /*
 #pragma mark - Navigation

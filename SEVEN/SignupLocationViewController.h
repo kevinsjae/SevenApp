@@ -14,6 +14,10 @@
 {
     BOOL isFirstUpdate;
     CLLocationCoordinate2D centerLocation;
+
+    NSString *city;
+    NSString *state;
+    NSString *country;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonNo;
