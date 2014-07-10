@@ -46,17 +46,29 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     if ([self.inputUsername.text length]) {
-        [self createUser];
+        if ([PFUser currentUser]) {
+            PFUser *user = [PFUser currentUser];
+            [self setUserName:user];
+        }
+        else {
+            [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
+                // leave username as the anonymous id. username has to be unique but personal names can overlap
+                [self setUserName:user];
+            }];
+        }
     }
     return YES;
 }
 
--(void)createUser {
-    [PFAnonymousUtils logInWithBlock:^(PFUser *user, NSError *error) {
-        user.username = self.inputUsername.text;
-        [user saveInBackground];
-
-        [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
+-(void)setUserName:(PFUser *)user {
+    [user setObject:self.inputUsername.text forKey:@"name"];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self performSegueWithIdentifier:@"SignupGoToEmail" sender:self];
+        }
+        else {
+            [UIAlertView alertViewWithTitle:@"Name not saved" message:error.description];
+        }
     }];
 }
 
