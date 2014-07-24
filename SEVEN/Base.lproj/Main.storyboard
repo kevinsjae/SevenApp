@@ -124,10 +124,15 @@
                                     <outlet property="delegate" destination="zdR-SL-A2m" id="hBq-10-QGY"/>
                                 </connections>
                             </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ptd-uL-6iz">
+                                <rect key="frame" x="140" y="462" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="pageControl" destination="ptd-uL-6iz" id="QSI-Db-8Wk"/>
                         <outlet property="scrollview" destination="PnP-dj-E92" id="u2X-by-b8l"/>
                     </connections>
                 </viewController>

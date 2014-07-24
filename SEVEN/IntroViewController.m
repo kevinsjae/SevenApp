@@ -10,6 +10,8 @@
 #import "IntroViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
+static NSArray *movieList;
+
 @interface IntroViewController ()
 
 @end
@@ -30,15 +32,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    movieList = @[@"SEVEN_IntroVideo_V01", @"SEVEN_IntroVideo_V02", @"SEVEN_IntroVideo_V03"];
+
     [self.scrollview setPagingEnabled:YES];
     [self.scrollview setBounces:NO];
     [self addPlayers];
+
+    [self.pageControl setNumberOfPages:[movieList count]];
+    [self.pageControl setCurrentPage:0];
 }
 
 -(void)addPlayers {
     players = [NSMutableArray array];
 
-    NSArray *movieList = @[@"SEVEN_IntroVideo_V01", @"SEVEN_IntroVideo_V02", @"SEVEN_IntroVideo_V03"];
 
     for (NSString *movieTitle in movieList) {
         NSURL *url = [[NSBundle mainBundle] URLForResource:movieTitle withExtension:@"mp4"];
@@ -50,14 +56,18 @@
     }
 
     [self.scrollview setContentSize:CGSizeMake(self.scrollview.frame.size.width * [movieList count], self.scrollview.frame.size.height)];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
                                                object:nil];
 }
 
+-(int)currentPage {
+    return (int)(self.scrollview.contentOffset.x / self.scrollview.frame.size.width);
+}
 -(AVPlayer *)currentPlayer {
-    return players[(int)(self.scrollview.contentOffset.x / self.scrollview.frame.size.width)];
+    return players[self.currentPage];
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -73,6 +83,7 @@
 #pragma mark scrollviewdelegate
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self.currentPlayer play];
+    [self.pageControl setCurrentPage:self.currentPage];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

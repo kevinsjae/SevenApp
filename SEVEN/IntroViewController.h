@@ -15,5 +15,6 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @end
