@@ -18,6 +18,7 @@
                   clientKey:@"Oqu48KsSu2fg8SFEJjoAElCIqaSPDpPqxW5QceBM"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
+    /*
     PFUser *user = [PFUser currentUser];
     if (user) {
         NSLog(@"Logged in");
@@ -26,7 +27,7 @@
     else {
         NSLog(@"Not logged in");
     }
-
+     */
     // facebook
     [PFFacebookUtils initializeFacebook];
 

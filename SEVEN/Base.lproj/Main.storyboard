@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9rm-tc-kxy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zdR-SL-A2m">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -104,6 +104,42 @@
             </objects>
             <point key="canvasLocation" x="-1156" y="-108"/>
         </scene>
+        <!--Intro View Controller-->
+        <scene sceneID="Yi2-dx-DFO">
+            <objects>
+                <viewController id="zdR-SL-A2m" customClass="IntroViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="m4a-nu-IV4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qtr-E0-pN6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AMa-yq-ySu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PnP-dj-E92">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zdR-SL-A2m" id="hBq-10-QGY"/>
+                                </connections>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ptd-uL-6iz">
+                                <rect key="frame" x="140" y="462" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageControl" destination="ptd-uL-6iz" id="QSI-Db-8Wk"/>
+                        <outlet property="scrollview" destination="PnP-dj-E92" id="u2X-by-b8l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gEL-Ii-PS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1043" y="1207"/>
+        </scene>
         <!--Login View Controller - Title-->
         <scene sceneID="DfI-xc-jhD">
             <objects>
@@ -201,7 +237,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="epb-Uo-a1u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="1401"/>
+            <point key="canvasLocation" x="145" y="414"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mz4-7U-Mpc">
@@ -220,7 +256,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qsK-uV-Kz7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1510" y="802"/>
+            <point key="canvasLocation" x="1562" y="414"/>
         </scene>
         <!--Profile View Controller - SEVEN-->
         <scene sceneID="bbX-55-MoI">
@@ -380,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AfQ-71-Jki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2035" y="705"/>
+            <point key="canvasLocation" x="2539" y="397"/>
         </scene>
         <!--Signup Name View Controller - SEVEN-->
         <scene sceneID="agB-wc-Mgp">
@@ -1172,11 +1208,11 @@
                         <viewControllerLayoutGuide type="bottom" id="11U-Bm-7eD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qrX-TT-2jB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmF-e5-Btm" userLabel="View - bg">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oka-0w-RZ8">
@@ -1191,7 +1227,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DxP-gr-BaT">
-                                        <rect key="frame" x="0.0" y="156" width="320" height="324"/>
+                                        <rect key="frame" x="0.0" y="156" width="320" height="348"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -1263,6 +1299,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="r3m-hh-eeB"/>
+        <segue reference="yfv-oH-gXG"/>
     </inferredMetricsTieBreakers>
 </document>
