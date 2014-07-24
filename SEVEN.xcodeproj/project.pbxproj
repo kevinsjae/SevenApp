@@ -35,6 +35,12 @@
 		9E01244A19673F6D0080543B /* iconCheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E01244819673F6D0080543B /* iconCheck@2x.png */; };
 		9E01244B19673F6D0080543B /* iconPlus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E01244919673F6D0080543B /* iconPlus@2x.png */; };
 		9E18BC651964B9F0001BEDAE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E18BC641964B9F0001BEDAE /* ProfileViewController.m */; };
+		9E23769D1981537F007ED7D8 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E23769C1981537F007ED7D8 /* IntroViewController.m */; };
+		9E23769F1981548D007ED7D8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E23769E1981548D007ED7D8 /* MediaPlayer.framework */; };
+		9E2376A719815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376A619815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 */; };
+		9E2376AB19815842007ED7D8 /* SEVEN_IntroVideo_V02.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376A819815841007ED7D8 /* SEVEN_IntroVideo_V02.mp4 */; };
+		9E2376AC19815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376A919815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 */; };
+		9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -128,6 +134,13 @@
 		9E01244919673F6D0080543B /* iconPlus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconPlus@2x.png"; sourceTree = "<group>"; };
 		9E18BC631964B9F0001BEDAE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		9E18BC641964B9F0001BEDAE /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		9E23769B1981537F007ED7D8 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		9E23769C1981537F007ED7D8 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		9E23769E1981548D007ED7D8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		9E2376A619815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_IntroVideo_V01.mp4; sourceTree = "<group>"; };
+		9E2376A819815841007ED7D8 /* SEVEN_IntroVideo_V02.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_IntroVideo_V02.mp4; sourceTree = "<group>"; };
+		9E2376A919815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_IntroVideo_V03.mp4; sourceTree = "<group>"; };
+		9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_ProfileSample_002.mp4; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -196,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E23769F1981548D007ED7D8 /* MediaPlayer.framework in Frameworks */,
 				9E82C4CE196C35CA0073D7D1 /* AddressBook.framework in Frameworks */,
 				9E01242E196717490080543B /* MapKit.framework in Frameworks */,
 				9E79B87219643B2100559838 /* SystemConfiguration.framework in Frameworks */,
@@ -228,6 +242,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E23769A19815348007ED7D8 /* Signup2 */ = {
+			isa = PBXGroup;
+			children = (
+				9E23769B1981537F007ED7D8 /* IntroViewController.h */,
+				9E23769C1981537F007ED7D8 /* IntroViewController.m */,
+			);
+			name = Signup2;
+			sourceTree = "<group>";
+		};
+		9E2376A019815530007ED7D8 /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				9E2376A619815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 */,
+				9E2376A819815841007ED7D8 /* SEVEN_IntroVideo_V02.mp4 */,
+				9E2376A919815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 */,
+				9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */,
+			);
+			name = Videos;
+			sourceTree = "<group>";
+		};
 		9E79B7E5196435AA00559838 = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +284,7 @@
 		9E79B7F0196435AA00559838 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E23769E1981548D007ED7D8 /* MediaPlayer.framework */,
 				9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */,
 				9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */,
 				9E01242D196717490080543B /* MapKit.framework */,
@@ -273,6 +308,7 @@
 		9E79B7F7196435AA00559838 /* SEVEN */ = {
 			isa = PBXGroup;
 			children = (
+				9E23769A19815348007ED7D8 /* Signup2 */,
 				9EC9CF02196D626C00EAF3D9 /* Signup */,
 				9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */,
 				9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */,
@@ -403,6 +439,7 @@
 		9EE24F571964769000F7EA78 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E2376A019815530007ED7D8 /* Videos */,
 				9E01244819673F6D0080543B /* iconCheck@2x.png */,
 				9E01244919673F6D0080543B /* iconPlus@2x.png */,
 				9E01244619673F080080543B /* user-default@2x.png */,
@@ -502,14 +539,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E2376AC19815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 in Resources */,
 				9E01240C196703B80080543B /* backArrow@2x.png in Resources */,
 				9E01240B196703B80080543B /* backArrow.png in Resources */,
 				9E0124391967224E0080543B /* connectEmail@2x.png in Resources */,
 				9E01241E19670C980080543B /* maleAndFemale@2x.png in Resources */,
+				9E2376A719815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 in Resources */,
 				9E01241919670A8B0080543B /* male.png in Resources */,
 				9E01241819670A8B0080543B /* female@2x.png in Resources */,
+				9E2376AB19815842007ED7D8 /* SEVEN_IntroVideo_V02.mp4 in Resources */,
 				9E01241D19670C980080543B /* maleAndFemale.png in Resources */,
 				9E01243A1967224E0080543B /* connectFacebook@2x.png in Resources */,
+				9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */,
 				9E79B80A196435AA00559838 /* Images.xcassets in Resources */,
 				9E01243B1967224E0080543B /* connectInstagram@2x.png in Resources */,
 				9E01244719673F080080543B /* user-default@2x.png in Resources */,
@@ -547,6 +588,7 @@
 				9E79B8591964363600559838 /* UIImage+RoundedCorner.m in Sources */,
 				9E79B808196435AA00559838 /* ViewController.m in Sources */,
 				9E01243119671B040080543B /* CommonStyledViewController.m in Sources */,
+				9E23769D1981537F007ED7D8 /* IntroViewController.m in Sources */,
 				9E79B84F1964363600559838 /* GPLocationHelper.m in Sources */,
 				9E79B8511964363600559838 /* UIActionSheet+MKBlockAdditions.m in Sources */,
 				9E79B8501964363600559838 /* NSObject+MKBlockAdditions.m in Sources */,
