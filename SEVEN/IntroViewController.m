@@ -41,7 +41,9 @@ static NSArray *movieList;
     [self.pageControl setNumberOfPages:[movieList count]];
     [self.pageControl setCurrentPage:0];
 
-    [self animateBars];
+    [self animateBarsWithDuration:3];
+    [self animateFade:self.viewTitle duration:4];
+    [self animateFade:self.labelSubtitle duration:4];
 }
 
 -(void)addPlayers {
@@ -100,28 +102,50 @@ static NSArray *movieList;
 }
 
 #pragma mark animations
--(void)animateBars {
+-(void)animateBarsWithDuration:(float)duration {
     NSLog(@"Started");
 
     self.constraintWidthRed.constant = 70;
     [self.barRed setNeedsUpdateConstraints];
-    [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:duration/3.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self.barRed layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.constraintWidthBlue.constant = 45;
         [self.barBlue setNeedsUpdateConstraints];
-        [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:duration/3.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             [self.barBlue layoutIfNeeded];
         } completion:^(BOOL finished) {
             self.constraintWidthGreen.constant = 60;
             [self.barGreen setNeedsUpdateConstraints];
-            [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [UIView animateWithDuration:duration/3.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 [self.barGreen layoutIfNeeded];
             } completion:^(BOOL finished) {
                 NSLog(@"Done");
             }];
         }];
     }];
+}
+
+-(void)animateFade:(UIView *)view duration:(float)duration{
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    int w = view.frame.size.width;
+    gradient.frame = CGRectMake(-w*2, 0, w*3, view.frame.size.height);
+    gradient.colors = [NSArray arrayWithObjects:(id)[UIColor whiteColor].CGColor, [UIColor whiteColor].CGColor,(id)[UIColor clearColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
+    gradient.startPoint = CGPointMake(0, 0.5);
+    gradient.endPoint = CGPointMake(1, 0.5);
+    gradient.locations = @[@0, @0.33, @0.66, @1];
+    [view.layer setMask:gradient];
+
+    [CATransaction begin];
+    CABasicAnimation *frameAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+    frameAnimation.duration = duration;
+    CATransform3D transform = CATransform3DMakeTranslation(w*2, 0, 0);
+    frameAnimation.toValue = [NSValue valueWithCATransform3D:transform];
+    [CATransaction setCompletionBlock:^{
+        view.layer.mask = nil;
+    }];
+    [view.layer.mask addAnimation:frameAnimation forKey:@"translate"];
+    [CATransaction commit];
 }
 /*
 #pragma mark - Navigation

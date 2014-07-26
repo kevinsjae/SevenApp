@@ -125,11 +125,11 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcx-eH-nx0" userLabel="View - overlay">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="125" y="130" width="70" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvT-5O-fyP">
-                                        <rect key="frame" x="125" y="254" width="70" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQ6-R9-J5O" userLabel="View - red bg">
@@ -208,12 +208,23 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="bvT-5O-fyP" secondAttribute="trailing" constant="125" id="HyG-XQ-WXx"/>
-                                    <constraint firstItem="bvT-5O-fyP" firstAttribute="top" secondItem="fcx-eH-nx0" secondAttribute="top" constant="254" id="awI-aU-Ksa"/>
-                                    <constraint firstAttribute="bottom" secondItem="bvT-5O-fyP" secondAttribute="bottom" constant="254" id="exo-dS-YhK"/>
-                                    <constraint firstItem="bvT-5O-fyP" firstAttribute="leading" secondItem="fcx-eH-nx0" secondAttribute="leading" constant="125" id="hnf-5J-OrN"/>
+                                    <constraint firstAttribute="trailing" secondItem="bvT-5O-fyP" secondAttribute="trailing" id="HyG-XQ-WXx"/>
+                                    <constraint firstItem="bvT-5O-fyP" firstAttribute="top" secondItem="fcx-eH-nx0" secondAttribute="top" id="awI-aU-Ksa"/>
+                                    <constraint firstAttribute="bottom" secondItem="bvT-5O-fyP" secondAttribute="bottom" id="exo-dS-YhK"/>
+                                    <constraint firstItem="bvT-5O-fyP" firstAttribute="leading" secondItem="fcx-eH-nx0" secondAttribute="leading" id="hnf-5J-OrN"/>
                                 </constraints>
                             </view>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="seven_icon_logo_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="nqg-Ch-Gxu">
+                                <rect key="frame" x="70" y="244" width="180" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Creating better first dates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPw-Un-JoP">
+                                <rect key="frame" x="46" y="365" width="228" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ptd-uL-6iz">
                                 <rect key="frame" x="140" y="462" width="39" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -225,12 +236,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fcx-eH-nx0" firstAttribute="top" secondItem="AMa-yq-ySu" secondAttribute="top" id="Aj1-rX-3uT"/>
-                            <constraint firstItem="fcx-eH-nx0" firstAttribute="leading" secondItem="AMa-yq-ySu" secondAttribute="leading" id="D4b-Pf-mc5"/>
+                            <constraint firstItem="fcx-eH-nx0" firstAttribute="top" secondItem="AMa-yq-ySu" secondAttribute="top" constant="130" id="Aj1-rX-3uT"/>
+                            <constraint firstItem="fcx-eH-nx0" firstAttribute="leading" secondItem="AMa-yq-ySu" secondAttribute="leading" constant="125" id="D4b-Pf-mc5"/>
                             <constraint firstItem="ptd-uL-6iz" firstAttribute="leading" secondItem="AMa-yq-ySu" secondAttribute="leading" constant="140" id="DHt-5u-Vgh"/>
-                            <constraint firstItem="Qtr-E0-pN6" firstAttribute="top" secondItem="fcx-eH-nx0" secondAttribute="bottom" id="NZU-4W-Kc4"/>
+                            <constraint firstItem="Qtr-E0-pN6" firstAttribute="top" secondItem="fcx-eH-nx0" secondAttribute="bottom" constant="378" id="NZU-4W-Kc4"/>
                             <constraint firstItem="Qtr-E0-pN6" firstAttribute="top" secondItem="ptd-uL-6iz" secondAttribute="bottom" constant="69" id="qz7-d4-d0h"/>
-                            <constraint firstAttribute="trailing" secondItem="fcx-eH-nx0" secondAttribute="trailing" id="uRO-Aa-hFc"/>
+                            <constraint firstAttribute="trailing" secondItem="fcx-eH-nx0" secondAttribute="trailing" constant="125" id="uRO-Aa-hFc"/>
                         </constraints>
                     </view>
                     <connections>
@@ -240,8 +251,10 @@
                         <outlet property="constraintWidthBlue" destination="g36-wu-QN0" id="t9j-gq-m6r"/>
                         <outlet property="constraintWidthGreen" destination="Ovl-aX-xbZ" id="pZ8-NN-CXQ"/>
                         <outlet property="constraintWidthRed" destination="QA7-hu-Hzo" id="gPn-Lh-RpZ"/>
+                        <outlet property="labelSubtitle" destination="MPw-Un-JoP" id="dXt-Lt-WqI"/>
                         <outlet property="pageControl" destination="ptd-uL-6iz" id="QSI-Db-8Wk"/>
                         <outlet property="scrollview" destination="PnP-dj-E92" id="u2X-by-b8l"/>
+                        <outlet property="viewTitle" destination="nqg-Ch-Gxu" id="m6D-n2-Pez"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEL-Ii-PS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1400,6 +1413,7 @@
         <image name="location.png" width="60" height="60"/>
         <image name="male.png" width="120" height="200"/>
         <image name="maleAndFemale.png" width="120" height="200"/>
+        <image name="seven_icon_logo_white.png" width="180" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

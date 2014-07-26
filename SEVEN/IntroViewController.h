@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
+@property (weak, nonatomic) IBOutlet UIView *viewTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelSubtitle;
+
 @property (weak, nonatomic) IBOutlet UIView *barRed;
 @property (weak, nonatomic) IBOutlet UIView *barBlue;
 @property (weak, nonatomic) IBOutlet UIView *barGreen;
