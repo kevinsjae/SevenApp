@@ -103,10 +103,9 @@ static NSArray *movieList;
     else {
         alpha = (self.view.frame.size.width - content_x) / self.view.frame.size.width;
     }
-    self.
     self.viewTitle.alpha = alpha;
     self.labelSubtitle.alpha = alpha;
-    self.viewLogoBG.alpha = alpha;
+    self.viewLogo.alpha = alpha;
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,19 +119,19 @@ static NSArray *movieList;
     NSLog(@"Started");
 
     self.constraintWidthRed.constant = 70;
-    [self.barRed setNeedsUpdateConstraints];
+    [self.viewLogo setNeedsUpdateConstraints];
     [UIView animateWithDuration:duration/3.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [self.barRed layoutIfNeeded];
+        [self.viewLogo layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.constraintWidthBlue.constant = 45;
-        [self.barBlue setNeedsUpdateConstraints];
+        [self.viewLogo setNeedsUpdateConstraints];
         [UIView animateWithDuration:duration/3.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            [self.barBlue layoutIfNeeded];
+            [self.viewLogo layoutIfNeeded];
         } completion:^(BOOL finished) {
             self.constraintWidthGreen.constant = 60;
-            [self.barGreen setNeedsUpdateConstraints];
+            [self.viewLogo setNeedsUpdateConstraints];
             [UIView animateWithDuration:duration/3.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                [self.barGreen layoutIfNeeded];
+                [self.viewLogo layoutIfNeeded];
             } completion:^(BOOL finished) {
                 NSLog(@"Done");
             }];
