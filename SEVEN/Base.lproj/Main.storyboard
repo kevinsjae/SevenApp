@@ -254,6 +254,7 @@
                         <outlet property="labelSubtitle" destination="MPw-Un-JoP" id="dXt-Lt-WqI"/>
                         <outlet property="pageControl" destination="ptd-uL-6iz" id="QSI-Db-8Wk"/>
                         <outlet property="scrollview" destination="PnP-dj-E92" id="u2X-by-b8l"/>
+                        <outlet property="viewLogoBG" destination="fcx-eH-nx0" id="c0d-9p-hUT"/>
                         <outlet property="viewTitle" destination="nqg-Ch-Gxu" id="m6D-n2-Pez"/>
                     </connections>
                 </viewController>

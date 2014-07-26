@@ -95,6 +95,20 @@ static NSArray *movieList;
     [self.currentPlayer pause];
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    int content_x = scrollView.contentOffset.x;
+    float alpha = 1;
+    if (content_x > self.view.frame.size.width)
+        alpha = 0;
+    else {
+        alpha = (self.view.frame.size.width - content_x) / self.view.frame.size.width;
+    }
+    self.
+    self.viewTitle.alpha = alpha;
+    self.labelSubtitle.alpha = alpha;
+    self.viewLogoBG.alpha = alpha;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
