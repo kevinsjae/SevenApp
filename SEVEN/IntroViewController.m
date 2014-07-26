@@ -32,7 +32,7 @@ static NSArray *movieList;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    movieList = @[@"SEVEN_IntroVideo_V01", @"SEVEN_IntroVideo_V02", @"SEVEN_IntroVideo_V03"];
+    movieList = @[@"SEVEN_IntroVideo_V01", @"SEVEN_IntroVideo_V02", @"SEVEN_IntroVideo_V03", @"SEVEN_IntroVideo_V01"];
 
     [self.scrollview setPagingEnabled:YES];
     [self.scrollview setBounces:NO];
