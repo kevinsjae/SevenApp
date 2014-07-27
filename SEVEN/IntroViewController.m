@@ -44,6 +44,7 @@ static NSArray *movieList;
     [self animateBarsWithDuration:3];
     [self animateFade:self.viewTitle duration:4];
     [self animateFade:self.labelSubtitle duration:4];
+    [self animateButtonWithDuration:2];
 }
 
 -(void)addPlayers {
@@ -171,4 +172,26 @@ static NSArray *movieList;
 }
 */
 
+-(void)animateButtonWithDuration:(float)duration {
+#if 1
+    // animate motion
+    self.constraintVerticalButton.constant = -70;
+    [self.buttonFacebook setNeedsUpdateConstraints];
+    [self.buttonFacebook layoutIfNeeded];
+
+    self.constraintVerticalButton.constant = 6;
+    [self.buttonFacebook setNeedsUpdateConstraints];
+    [UIView animateWithDuration:duration animations:^{
+        [self.buttonFacebook layoutIfNeeded];
+    }];
+//#else
+    self.buttonFacebook.alpha = 0;
+    [UIView animateWithDuration:duration animations:^{
+        self.buttonFacebook.alpha = 1;
+    }];
+#endif
+}
+
+- (IBAction)didClickButton:(id)sender {
+}
 @end

@@ -24,8 +24,12 @@
 @property (weak, nonatomic) IBOutlet UIView *barRed;
 @property (weak, nonatomic) IBOutlet UIView *barBlue;
 @property (weak, nonatomic) IBOutlet UIView *barGreen;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFacebook;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWidthRed;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWidthBlue;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWidthGreen;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintVerticalButton;
+- (IBAction)didClickButton:(id)sender;
 
 @end
