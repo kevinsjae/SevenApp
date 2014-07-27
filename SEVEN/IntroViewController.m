@@ -9,6 +9,7 @@
 
 #import "IntroViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "FacebookHelper.h"
 
 static NSArray *movieList;
 
@@ -176,22 +177,40 @@ static NSArray *movieList;
 #if 1
     // animate motion
     self.constraintVerticalButton.constant = -70;
+    self.constraintVerticalButton2.constant = -70;
     [self.buttonFacebook setNeedsUpdateConstraints];
     [self.buttonFacebook layoutIfNeeded];
+    [self.buttonFacebook2 setNeedsUpdateConstraints];
+    [self.buttonFacebook2 layoutIfNeeded];
 
     self.constraintVerticalButton.constant = 6;
+    self.constraintVerticalButton2.constant = 6;
     [self.buttonFacebook setNeedsUpdateConstraints];
+    [self.buttonFacebook2 setNeedsUpdateConstraints];
     [UIView animateWithDuration:duration animations:^{
         [self.buttonFacebook layoutIfNeeded];
+        [self.buttonFacebook2 layoutIfNeeded];
     }];
 //#else
     self.buttonFacebook.alpha = 0;
+    self.buttonFacebook2.alpha = 0;
     [UIView animateWithDuration:duration animations:^{
         self.buttonFacebook.alpha = 1;
+        self.buttonFacebook2.alpha = 1;
     }];
 #endif
 }
 
+#pragma mark Facebook
 - (IBAction)didClickButton:(id)sender {
+    [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        }
+        else {
+            NSLog(@"User: %@", user);
+            NSLog(@"Current user: %@", [PFUser currentUser]);
+        }
+    }];
 }
 @end

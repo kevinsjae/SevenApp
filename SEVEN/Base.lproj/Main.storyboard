@@ -212,14 +212,32 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jd-gt-rXX">
-                                <rect key="frame" x="5" y="502" width="310" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cua-U0-uIZ" userLabel="Button - FB Login Text">
+                                <rect key="frame" x="70" y="502" width="245" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.22352941176470587" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="245" id="C1q-Jx-aZC"/>
+                                    <constraint firstAttribute="height" constant="60" id="JjJ-7n-VlY"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Connect with Facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didClickButton:" destination="zdR-SL-A2m" eventType="touchUpInside" id="ZPe-PR-ks5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jd-gt-rXX" userLabel="Button - FB Login icon">
+                                <rect key="frame" x="5" y="502" width="65" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="DzL-Ra-zaQ"/>
-                                    <constraint firstAttribute="width" constant="310" id="oEV-gN-wHQ"/>
+                                    <constraint firstAttribute="width" constant="65" id="oEV-gN-wHQ"/>
                                 </constraints>
-                                <state key="normal" image="connectFacebook.png">
+                                <state key="normal" image="seven_icon_facebook_white.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -241,13 +259,17 @@
                             <constraint firstItem="bvT-5O-fyP" firstAttribute="leading" secondItem="AMa-yq-ySu" secondAttribute="leading" constant="125" id="LZh-sF-oML"/>
                             <constraint firstItem="bvT-5O-fyP" firstAttribute="top" secondItem="m4a-nu-IV4" secondAttribute="bottom" constant="110" id="RWo-5b-kFu"/>
                             <constraint firstItem="3Jd-gt-rXX" firstAttribute="leading" secondItem="AMa-yq-ySu" secondAttribute="leading" constant="5" id="XdG-J0-U7c"/>
+                            <constraint firstItem="Cua-U0-uIZ" firstAttribute="leading" secondItem="3Jd-gt-rXX" secondAttribute="trailing" id="f0L-wn-aCx"/>
+                            <constraint firstItem="Qtr-E0-pN6" firstAttribute="top" secondItem="Cua-U0-uIZ" secondAttribute="bottom" constant="6" id="ffA-MX-U66"/>
                             <constraint firstItem="Qtr-E0-pN6" firstAttribute="top" secondItem="ptd-uL-6iz" secondAttribute="bottom" constant="69" id="qz7-d4-d0h"/>
                             <constraint firstItem="Qtr-E0-pN6" firstAttribute="top" secondItem="3Jd-gt-rXX" secondAttribute="bottom" constant="6" id="qzB-M2-GcR"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonFacebook" destination="3Jd-gt-rXX" id="tw3-OR-NOh"/>
+                        <outlet property="buttonFacebook2" destination="Cua-U0-uIZ" id="5kW-dF-nyw"/>
                         <outlet property="constraintVerticalButton" destination="qzB-M2-GcR" id="bg3-3s-MIA"/>
+                        <outlet property="constraintVerticalButton2" destination="ffA-MX-U66" id="UjM-sA-VbW"/>
                         <outlet property="constraintWidthBlue" destination="g36-wu-QN0" id="t9j-gq-m6r"/>
                         <outlet property="constraintWidthGreen" destination="Ovl-aX-xbZ" id="pZ8-NN-CXQ"/>
                         <outlet property="constraintWidthRed" destination="QA7-hu-Hzo" id="gPn-Lh-RpZ"/>
@@ -256,11 +278,30 @@
                         <outlet property="scrollview" destination="PnP-dj-E92" id="u2X-by-b8l"/>
                         <outlet property="viewLogo" destination="bvT-5O-fyP" id="W2D-QQ-jNC"/>
                         <outlet property="viewTitle" destination="nqg-Ch-Gxu" id="m6D-n2-Pez"/>
+                        <segue destination="ID6-aM-q5A" kind="modal" id="9P9-zg-Nt4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEL-Ii-PS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1043" y="1207"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Pdv-47-fd6">
+            <objects>
+                <viewController id="ID6-aM-q5A" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aFQ-R6-ReF"/>
+                        <viewControllerLayoutGuide type="bottom" id="mav-dM-ybt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="X5O-RJ-ifK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VmE-6d-12N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-637" y="1207"/>
         </scene>
         <!--Login View Controller - Title-->
         <scene sceneID="DfI-xc-jhD">
@@ -1414,6 +1455,7 @@
         <image name="location.png" width="60" height="60"/>
         <image name="male.png" width="120" height="200"/>
         <image name="maleAndFemale.png" width="120" height="200"/>
+        <image name="seven_icon_facebook_white.png" width="25" height="25"/>
         <image name="seven_icon_logo_white.png" width="180" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

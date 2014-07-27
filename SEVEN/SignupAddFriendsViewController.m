@@ -269,7 +269,6 @@
 }
 
 #pragma mark Facebook
-#pragma mark Facebook
 -(void)initializeFacebookPermission {
     if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [FacebookHelper requestFacebookPermission:@"user_friends" completion:^(BOOL success, NSError *error) {
