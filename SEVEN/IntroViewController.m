@@ -210,6 +210,8 @@ static NSArray *movieList;
         else {
             NSLog(@"User: %@", user);
             NSLog(@"Current user: %@", [PFUser currentUser]);
+
+            [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
         }
     }];
 }
