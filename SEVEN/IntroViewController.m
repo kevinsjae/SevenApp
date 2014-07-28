@@ -40,6 +40,8 @@ static NSArray *movieList;
 
     [self.pageControl setNumberOfPages:[movieList count]];
     [self.pageControl setCurrentPage:0];
+
+    [self animateBars];
 }
 
 -(void)addPlayers {
@@ -97,6 +99,25 @@ static NSArray *movieList;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark animations
+-(void)animateBars {
+    NSLog(@"Started");
+
+    self.constraintWidthRed.constant = 70;
+    self.constraintWidthBlue.constant = 45;
+    self.constraintWidthGreen.constant = 60;
+    [self.barRed setNeedsUpdateConstraints];
+    [self.barBlue setNeedsUpdateConstraints];
+    [self.barGreen setNeedsUpdateConstraints];
+
+    [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [self.barRed layoutIfNeeded];
+        [self.barBlue layoutIfNeeded];
+        [self.barGreen layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        NSLog(@"Done");
+    }];
+}
 /*
 #pragma mark - Navigation
 

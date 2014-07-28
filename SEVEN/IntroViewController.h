@@ -17,4 +17,11 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
+@property (weak, nonatomic) IBOutlet UIView *barRed;
+@property (weak, nonatomic) IBOutlet UIView *barBlue;
+@property (weak, nonatomic) IBOutlet UIView *barGreen;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWidthRed;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWidthBlue;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWidthGreen;
+
 @end
