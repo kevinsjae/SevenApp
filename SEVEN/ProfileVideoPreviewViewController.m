@@ -42,8 +42,10 @@
     self.navigationController.navigationBar.translucent = YES;
 
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"seven_icon_close_white"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickRight:)];
+    right.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = right;
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"seven_icon_back_white"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickLeft:)];
+    left.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = left;
 }
 
@@ -63,6 +65,21 @@
 
 -(void)didClickRight:(id)sender {
     NSLog(@"Save profile video");
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:profileVideoURL]) {
+        [library writeVideoAtPathToSavedPhotosAlbum:profileVideoURL
+                                    completionBlock:^(NSURL *assetURL, NSError *error){
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                             if (error) {
+                                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
+                                             [alert show];
+                                             }else{
+                                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                                             [alert show];
+                                             }
+                                        });
+                                    }];
+    }
 }
 
 -(void)didClickLeft:(id)sender {
@@ -185,26 +202,6 @@
 {
     if(session.status == AVAssetExportSessionStatusCompleted){
         profileVideoURL = session.outputURL;
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:profileVideoURL]) {
-            [library writeVideoAtPathToSavedPhotosAlbum:profileVideoURL
-                                        completionBlock:^(NSURL *assetURL, NSError *error){
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                /*
-                                                if (error) {
-                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
-                                                    [alert show];
-                                                }else{
-                                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                                                    [alert show];
-                                                }
-                                                 */
-
-                                            });
-
-                                        }];
-        }
-
         [self playCurrentMedia];
     }
 
