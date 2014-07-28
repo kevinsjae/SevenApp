@@ -34,5 +34,6 @@
     NSMutableArray *mediaLengths;
 
     BOOL cameraReady;
+    BOOL shouldShowCameraOnAppear;
 }
 @end

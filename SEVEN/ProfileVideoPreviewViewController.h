@@ -26,4 +26,5 @@
 @property(nonatomic, strong) AVAsset *firstAsset;
 @property(nonatomic, strong) AVAsset *secondAsset;
 
+-(void)setupMedia:(NSArray *)mediaURLs;
 @end

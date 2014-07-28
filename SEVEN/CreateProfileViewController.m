@@ -32,6 +32,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
 
     [self showTutorialView];
 
@@ -45,6 +49,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (shouldShowCameraOnAppear) {
+        [self resetCamera];
+    }
+}
 /*
 #pragma mark - Navigation
 
@@ -125,8 +135,10 @@
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if (camera && !cameraReady) {
+        NSLog(@"Camera not ready");
         return NO;
     }
+    NSLog(@"Camera: %@ ready: %d", camera, cameraReady);
     return YES;
 }
 
@@ -142,9 +154,18 @@
 
     UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     press.minimumPressDuration = 0.1;
+    press.delegate = self;
     [camera.overlayView addGestureRecognizer:press];
 
     cameraReady = YES;
+    shouldShowCameraOnAppear = NO;
+}
+
+-(void)resetCamera {
+    [mediaLengths removeAllObjects];
+    [mediaURLs removeAllObjects];
+    [progressIndicator updateProgress:0];
+    [self setupCamera];
 }
 
 #pragma mark Camera Delegate
@@ -201,14 +222,16 @@
     // preview here, no more recording
     [self dismissViewControllerAnimated:NO completion:^{
         [self performSegueWithIdentifier:@"CameraToPreview" sender:self];
+        camera = nil;
+        shouldShowCameraOnAppear = YES;
     }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UINavigationController *nav = (UINavigationController *)[segue destinationViewController];
-    ProfileVideoPreviewViewController *previewController = nav.viewControllers[0];
-    [previewController setMediaURLs:mediaURLs];
+    ProfileVideoPreviewViewController *previewController = (ProfileVideoPreviewViewController *)[segue destinationViewController];
+    [previewController setupMedia:mediaURLs];
     // Pass the selected object to the new view controller.
 }
+
 @end

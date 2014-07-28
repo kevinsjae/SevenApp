@@ -45,6 +45,8 @@
 		9E3E24F41986670100870666 /* EffectsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F31986670100870666 /* EffectsUtils.m */; };
 		9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F6198670B000870666 /* VideoProgressIndicator.m */; };
 		9E3E24FA1986879500870666 /* ProfileVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */; };
+		9E3E24FD19869FB200870666 /* seven_icon_back_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E24FB19869FB200870666 /* seven_icon_back_white@2x.png */; };
+		9E3E24FE19869FB200870666 /* seven_icon_close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E24FC19869FB200870666 /* seven_icon_close_white@2x.png */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -88,7 +90,7 @@
 		9EA7931C1985F19300C8A0C9 /* seven_icon_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */; };
 		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
 		9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */; };
-		9EEBB8641985B34B0023CE0F /* ModalSlideTransitionSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8631985B34B0023CE0F /* ModalSlideTransitionSegue.m */; };
+		9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */; };
 		9EEBB8691985FCE90023CE0F /* GPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8671985FCE90023CE0F /* GPCamera.m */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +160,8 @@
 		9E3E24F6198670B000870666 /* VideoProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProgressIndicator.m; sourceTree = "<group>"; };
 		9E3E24F81986879500870666 /* ProfileVideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileVideoPreviewViewController.h; sourceTree = "<group>"; };
 		9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileVideoPreviewViewController.m; sourceTree = "<group>"; };
+		9E3E24FB19869FB200870666 /* seven_icon_back_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_back_white@2x.png"; sourceTree = "<group>"; };
+		9E3E24FC19869FB200870666 /* seven_icon_close_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_close_white@2x.png"; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -223,8 +227,8 @@
 		9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookHelper.m; sourceTree = "<group>"; };
 		9EEBB85F1985B1B10023CE0F /* CreateProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateProfileViewController.h; sourceTree = "<group>"; };
 		9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateProfileViewController.m; sourceTree = "<group>"; };
-		9EEBB8621985B34B0023CE0F /* ModalSlideTransitionSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSlideTransitionSegue.h; sourceTree = "<group>"; };
-		9EEBB8631985B34B0023CE0F /* ModalSlideTransitionSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalSlideTransitionSegue.m; sourceTree = "<group>"; };
+		9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSlideFromRightTransitionSegue.h; sourceTree = "<group>"; };
+		9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalSlideFromRightTransitionSegue.m; sourceTree = "<group>"; };
 		9EEBB8661985FCE90023CE0F /* GPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCamera.h; sourceTree = "<group>"; };
 		9EEBB8671985FCE90023CE0F /* GPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCamera.m; sourceTree = "<group>"; };
 		9EEBB8681985FCE90023CE0F /* GPCameraDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCameraDelegate.h; sourceTree = "<group>"; };
@@ -275,8 +279,8 @@
 				9E23769C1981537F007ED7D8 /* IntroViewController.m */,
 				9EEBB85F1985B1B10023CE0F /* CreateProfileViewController.h */,
 				9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */,
-				9EEBB8621985B34B0023CE0F /* ModalSlideTransitionSegue.h */,
-				9EEBB8631985B34B0023CE0F /* ModalSlideTransitionSegue.m */,
+				9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */,
+				9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */,
 				9E3E24F5198670B000870666 /* VideoProgressIndicator.h */,
 				9E3E24F6198670B000870666 /* VideoProgressIndicator.m */,
 				9E3E24F81986879500870666 /* ProfileVideoPreviewViewController.h */,
@@ -500,6 +504,8 @@
 		9EE24F571964769000F7EA78 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9E3E24FB19869FB200870666 /* seven_icon_back_white@2x.png */,
+				9E3E24FC19869FB200870666 /* seven_icon_close_white@2x.png */,
 				9EA793191985F19300C8A0C9 /* seven_icon_facebook_white@2x.png */,
 				9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */,
 				9EA793141985F16F00C8A0C9 /* Old */,
@@ -609,6 +615,7 @@
 				9E01241819670A8B0080543B /* female@2x.png in Resources */,
 				9E2376AB19815842007ED7D8 /* SEVEN_IntroVideo_V02.mp4 in Resources */,
 				9E01241D19670C980080543B /* maleAndFemale.png in Resources */,
+				9E3E24FD19869FB200870666 /* seven_icon_back_white@2x.png in Resources */,
 				9E01243A1967224E0080543B /* connectFacebook@2x.png in Resources */,
 				9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */,
 				9E79B80A196435AA00559838 /* Images.xcassets in Resources */,
@@ -617,6 +624,7 @@
 				9EA7931C1985F19300C8A0C9 /* seven_icon_logo_white@2x.png in Resources */,
 				9E79B7FC196435AA00559838 /* InfoPlist.strings in Resources */,
 				9E79B805196435AA00559838 /* Main.storyboard in Resources */,
+				9E3E24FE19869FB200870666 /* seven_icon_close_white@2x.png in Resources */,
 				9E01242319670F010080543B /* location@2x.png in Resources */,
 				9E01244B19673F6D0080543B /* iconPlus@2x.png in Resources */,
 				9E01241719670A8B0080543B /* female.png in Resources */,
@@ -645,7 +653,7 @@
 				9E01243F196723270080543B /* SignupAddFriendsViewController.m in Sources */,
 				9E01242119670CF50080543B /* SignupSeekingViewController.m in Sources */,
 				9E79B82F1964362400559838 /* ParseBase.m in Sources */,
-				9EEBB8641985B34B0023CE0F /* ModalSlideTransitionSegue.m in Sources */,
+				9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */,
 				9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */,
 				9E01240F196707A30080543B /* SignupEmailViewController.m in Sources */,
 				9E3E24F1198661AE00870666 /* SevenCamera.m in Sources */,

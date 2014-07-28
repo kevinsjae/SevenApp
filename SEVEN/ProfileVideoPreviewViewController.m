@@ -36,6 +36,19 @@
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
                                                object:nil];
 
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                             forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"seven_icon_close_white"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickRight:)];
+    self.navigationItem.rightBarButtonItem = right;
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"seven_icon_back_white"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickLeft:)];
+    self.navigationItem.leftBarButtonItem = left;
+}
+
+-(void)setupMedia:(NSArray *)mediaURLs {
+    self.mediaURLs = mediaURLs;
     if ([self.mediaURLs count] > 1) {
         self.firstAsset = [AVAsset assetWithURL:self.mediaURLs[0]];
         self.secondAsset = [AVAsset assetWithURL:self.mediaURLs[1]];
@@ -46,11 +59,14 @@
         profileVideoURL = self.mediaURLs[0];
         [self playCurrentMedia];
     }
+}
 
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                             forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
+-(void)didClickRight:(id)sender {
+    NSLog(@"Save profile video");
+}
+
+-(void)didClickLeft:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)playCurrentMedia {
