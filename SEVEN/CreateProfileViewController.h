@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SevenCamera;
+@class AVPlayer;
 @interface CreateProfileViewController : UIViewController
+{
+    AVPlayer *player;
+    IBOutlet UIView *viewVideoBG;
+    IBOutlet UIView *tutorialView;
 
+    SevenCamera *camera;
+}
 @end
