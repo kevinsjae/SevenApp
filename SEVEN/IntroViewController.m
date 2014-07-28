@@ -104,18 +104,23 @@ static NSArray *movieList;
     NSLog(@"Started");
 
     self.constraintWidthRed.constant = 70;
-    self.constraintWidthBlue.constant = 45;
-    self.constraintWidthGreen.constant = 60;
     [self.barRed setNeedsUpdateConstraints];
-    [self.barBlue setNeedsUpdateConstraints];
-    [self.barGreen setNeedsUpdateConstraints];
-
     [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self.barRed layoutIfNeeded];
-        [self.barBlue layoutIfNeeded];
-        [self.barGreen layoutIfNeeded];
     } completion:^(BOOL finished) {
-        NSLog(@"Done");
+        self.constraintWidthBlue.constant = 45;
+        [self.barBlue setNeedsUpdateConstraints];
+        [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [self.barBlue layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            self.constraintWidthGreen.constant = 60;
+            [self.barGreen setNeedsUpdateConstraints];
+            [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                [self.barGreen layoutIfNeeded];
+            } completion:^(BOOL finished) {
+                NSLog(@"Done");
+            }];
+        }];
     }];
 }
 /*
