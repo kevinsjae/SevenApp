@@ -11,6 +11,7 @@
 #import "SevenCamera.h"
 #import "EffectsUtils.h"
 #import "VideoProgressIndicator.h"
+#import "ProfileVideoPreviewViewController.h"
 
 @interface CreateProfileViewController ()
 
@@ -111,6 +112,13 @@
     }
 }
 
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (camera && !cameraReady) {
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark Camera
 -(void)setupCamera {
     camera = [[SevenCamera alloc] init];
@@ -124,6 +132,8 @@
     UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     press.minimumPressDuration = 0.0;
     [camera.overlayView addGestureRecognizer:press];
+
+    cameraReady = YES;
 }
 
 #pragma mark Camera Delegate
@@ -136,6 +146,7 @@
     progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
     [mediaLengths addObject:@0];
     NSLog(@"Media lengths: %@", mediaLengths);
+    cameraReady = NO;
 }
 
 -(void)didStopRecordingVideo {
@@ -149,6 +160,7 @@
 -(void)didRecordMediaWithURL:(NSURL *)url {
     NSLog(@"URL: %@", url.path);
     [mediaURLs addObject:url];
+    cameraReady = YES;
 
     if ([mediaURLs count] == 2) {
         [self goToPreview];
@@ -176,5 +188,16 @@
 #pragma mark preview
 -(void)goToPreview {
     // preview here, no more recording
+    [self dismissViewControllerAnimated:NO completion:^{
+        [self performSegueWithIdentifier:@"CameraToPreview" sender:self];
+    }];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UINavigationController *nav = (UINavigationController *)[segue destinationViewController];
+    ProfileVideoPreviewViewController *previewController = nav.viewControllers[0];
+    [previewController setMediaURLs:mediaURLs];
+    // Pass the selected object to the new view controller.
 }
 @end

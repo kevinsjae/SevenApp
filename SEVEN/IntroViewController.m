@@ -52,7 +52,6 @@ static NSArray *movieList;
 -(void)addPlayers {
     players = [NSMutableArray array];
 
-
     for (NSString *movieTitle in movieList) {
         NSURL *url = [[NSBundle mainBundle] URLForResource:movieTitle withExtension:@"mp4"];
         AVPlayer *player = [[AVPlayer alloc] initWithURL:url];

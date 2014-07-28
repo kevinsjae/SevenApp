@@ -44,6 +44,7 @@
 		9E3E24F1198661AE00870666 /* SevenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F0198661AE00870666 /* SevenCamera.m */; };
 		9E3E24F41986670100870666 /* EffectsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F31986670100870666 /* EffectsUtils.m */; };
 		9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F6198670B000870666 /* VideoProgressIndicator.m */; };
+		9E3E24FA1986879500870666 /* ProfileVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -155,6 +156,8 @@
 		9E3E24F31986670100870666 /* EffectsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsUtils.m; sourceTree = "<group>"; };
 		9E3E24F5198670B000870666 /* VideoProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoProgressIndicator.h; sourceTree = "<group>"; };
 		9E3E24F6198670B000870666 /* VideoProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProgressIndicator.m; sourceTree = "<group>"; };
+		9E3E24F81986879500870666 /* ProfileVideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileVideoPreviewViewController.h; sourceTree = "<group>"; };
+		9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileVideoPreviewViewController.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -276,6 +279,8 @@
 				9EEBB8631985B34B0023CE0F /* ModalSlideTransitionSegue.m */,
 				9E3E24F5198670B000870666 /* VideoProgressIndicator.h */,
 				9E3E24F6198670B000870666 /* VideoProgressIndicator.m */,
+				9E3E24F81986879500870666 /* ProfileVideoPreviewViewController.h */,
+				9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */,
 			);
 			name = Signup2;
 			sourceTree = "<group>";
@@ -672,6 +677,7 @@
 				9E0124121967088D0080543B /* SignupGenderViewController.m in Sources */,
 				9E79B84E1964363600559838 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				9E79B85A1964363600559838 /* Util.m in Sources */,
+				9E3E24FA1986879500870666 /* ProfileVideoPreviewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

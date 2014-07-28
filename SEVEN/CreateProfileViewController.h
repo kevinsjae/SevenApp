@@ -13,7 +13,7 @@
 @class AVPlayer;
 @class VideoProgressIndicator;
 
-@interface CreateProfileViewController : UIViewController <GPCameraDelegate>
+@interface CreateProfileViewController : UIViewController <GPCameraDelegate, UIGestureRecognizerDelegate>
 {
     AVPlayer *player;
     IBOutlet UIView *viewVideoBG;
@@ -32,5 +32,7 @@
 
     NSMutableArray *mediaURLs;
     NSMutableArray *mediaLengths;
+
+    BOOL cameraReady;
 }
 @end
