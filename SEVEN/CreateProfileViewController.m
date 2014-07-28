@@ -106,8 +106,22 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)didStartRecordingVideo {
+    videoStartTimestamp = [NSDate date];
+    progressTimer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+}
+
+-(void)tick {
+    NSLog(@"Total video length: %f", [[NSDate date] timeIntervalSinceDate:videoStartTimestamp]);
+}
+
 -(void)didRecordMediaWithURL:(NSURL *)url {
     NSLog(@"URL: %@", url.path);
+
+    if (progressTimer) {
+        [progressTimer invalidate];
+        progressTimer = nil;
+    }
 }
 
 @end

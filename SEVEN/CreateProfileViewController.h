@@ -21,5 +21,8 @@
 
     IBOutlet UILabel *labelMessage;
     IBOutlet UILabel *labelClose;
+
+    NSDate *videoStartTimestamp;
+    NSTimer *progressTimer;
 }
 @end
