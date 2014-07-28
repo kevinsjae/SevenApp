@@ -106,11 +106,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)didSelectPhoto:(UIImage *)photo meta:(NSDictionary *)meta {
-    //alertView = [UIAlertView alertViewWithTitle:@"Generating postcard..." message:nil cancelButtonTitle:nil otherButtonTitles:nil onDismiss:nil onCancel:nil];
-
-//    selectedImage = photo;
-//    [self imageSaved];
+-(void)didRecordMediaWithURL:(NSURL *)url {
+    NSLog(@"URL: %@", url.path);
 }
 
 @end

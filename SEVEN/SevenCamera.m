@@ -8,6 +8,7 @@
 
 #import "SevenCamera.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "GPCameraDelegate.h"
 
 @implementation SevenCamera
 
@@ -62,17 +63,38 @@
     [_picker.cameraOverlayView addGestureRecognizer:press];
 }
 
+#pragma mark UIImagePickerControllerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // select from photo library or capture
+    NSLog(@"Info: %@", info);
+    NSURL *mediaURL = info[UIImagePickerControllerMediaURL];
+
+    [self.delegate didRecordMediaWithURL:mediaURL];
+}
+
+#pragma mark Gesture
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
         if (gesture.state == UIGestureRecognizerStateBegan) {
-            // start recording
-            NSLog(@"Start");
+            [self startRecordingVideo];
         }
         else if (gesture.state == UIGestureRecognizerStateEnded) {
-            // stop recording
-            NSLog(@"Stop");
+            [self stopRecordingVideo];
         }
     }
 }
 
+#pragma mark Video recording and progress
+-(void)startRecordingVideo {
+    // start recording
+    BOOL started = [_picker startVideoCapture];
+    NSLog(@"Started: %d", started);
+}
+
+-(void)stopRecordingVideo {
+    // stop recording
+    NSLog(@"Stop");
+    [_picker stopVideoCapture];
+}
 @end

@@ -5,4 +5,8 @@
 @protocol GPCameraDelegate <NSObject>
 -(void)dismissCamera;
 -(void)didSelectPhoto:(UIImage *)photo meta:(NSDictionary *)meta;
+
+@optional
+// SevenCamera delegate
+-(void)didRecordMediaWithURL:(NSURL *)url;
 @end

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GPCameraDelegate.h"
 
 @class SevenCamera;
 @class AVPlayer;
-@interface CreateProfileViewController : UIViewController
+@interface CreateProfileViewController : UIViewController <GPCameraDelegate>
 {
     AVPlayer *player;
     IBOutlet UIView *viewVideoBG;
