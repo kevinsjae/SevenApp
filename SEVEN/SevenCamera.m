@@ -8,6 +8,7 @@
 
 #import "SevenCamera.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "GPCameraDelegate.h"
 
 @implementation SevenCamera
 
@@ -32,15 +33,7 @@
     if (_picker.sourceType != UIImagePickerControllerSourceTypeCamera)
         return;
 
-    /*
-    CALayer *top = [[CALayer alloc] init];
-    top.frame = CGRectMake(0, 0, CAMERA_SIZE, CAMERA_TOP_OFFSET);
-    top.backgroundColor = [[UIColor blackColor] CGColor];
-    top.opacity = .25;
-     */
-
     overlay = [[UIView alloc] initWithFrame:frame];
-    //[overlay.layer addSublayer:top];
 
     buttonRotate = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonRotate setFrame:CGRectMake(0, 0, 40, 40)];
@@ -56,23 +49,41 @@
     }
 
     [_picker setCameraOverlayView:overlay];
-
-    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    press.minimumPressDuration = 0.0;
-    [_picker.cameraOverlayView addGestureRecognizer:press];
 }
 
--(void)handleGesture:(UIGestureRecognizer *)gesture {
-    if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
-        if (gesture.state == UIGestureRecognizerStateBegan) {
-            // start recording
-            NSLog(@"Start");
-        }
-        else if (gesture.state == UIGestureRecognizerStateEnded) {
-            // stop recording
-            NSLog(@"Stop");
-        }
+-(void)addProgressIndicator:(UIView *)progressIndicator {
+    [overlay addSubview:progressIndicator];
+}
+
+-(UIView *)overlayView {
+    return overlay;
+}
+
+#pragma mark Video recording and progress
+-(void)startRecordingVideo {
+    // start recording
+    BOOL started = [_picker startVideoCapture];
+    NSLog(@"Started: %d", started);
+    if (started) {
+        [self.delegate didStartRecordingVideo];
     }
+}
+
+-(void)stopRecordingVideo {
+    // stop recording
+    NSLog(@"Stop");
+    [_picker stopVideoCapture];
+    [self.delegate didStopRecordingVideo];
+}
+
+#pragma mark UIImagePickerControllerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // select from photo library or capture
+    NSLog(@"Info: %@", info);
+    NSURL *mediaURL = info[UIImagePickerControllerMediaURL];
+
+    [self.delegate didRecordMediaWithURL:mediaURL];
 }
 
 @end

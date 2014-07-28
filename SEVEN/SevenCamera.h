@@ -10,4 +10,9 @@
 
 @interface SevenCamera : GPCamera
 
+-(UIView *)overlayView;
+-(void)addProgressIndicator:(UIView *)progressIndicator;
+-(void)startRecordingVideo;
+-(void)stopRecordingVideo;
+
 @end

@@ -124,7 +124,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     // select from photo library or capture
-    DebugLog(@"Completed");
+    NSLog(@"Info: %@", info);
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
 
     [GPCamera getMetaForInfo:info withCompletion:^(NSDictionary *result) {
@@ -145,6 +145,7 @@
 
     [self.delegate dismissCamera];
 }
+
 
 //Tells the delegate that the user cancelled the pick operation.
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

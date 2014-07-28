@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SevenCamera.h"
 #import "EffectsUtils.h"
+#import "VideoProgressIndicator.h"
 
 @interface CreateProfileViewController ()
 
@@ -32,6 +33,9 @@
     // Do any additional setup after loading the view.
 
     [self showTutorialView];
+
+    mediaURLs = [NSMutableArray array]; // reference to two recorded clips (URLs)
+    mediaLengths = [NSMutableArray array]; // reference to two recorded clips (lengths)
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,6 +67,11 @@
     [viewVideoBG.layer addSublayer:layer];
     [player play];
 
+    progressIndicator = [[VideoProgressIndicator alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
+    [progressBG setBackgroundColor:[UIColor clearColor]];
+    [progressBG addSubview:progressIndicator];
+    [progressIndicator updateProgress:0];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
@@ -73,6 +82,7 @@
 
     [EffectsUtils gradientFadeInForView:labelMessage duration:3];
     [EffectsUtils gradientFadeInForView:labelClose duration:3];
+    [EffectsUtils gradientFadeInForView:progressIndicator duration:3];
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -90,6 +100,15 @@
             [self setupCamera];
         }];
     }
+    else if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            if ([mediaURLs count] < 2)
+                [camera startRecordingVideo];
+        }
+        else if (gesture.state == UIGestureRecognizerStateEnded) {
+            [camera stopRecordingVideo];
+        }
+    }
 }
 
 #pragma mark Camera
@@ -99,6 +118,12 @@
 
     [camera startCameraFrom:self];
     [camera addOverlayWithFrame:_appDelegate.window.bounds];
+
+    [camera addProgressIndicator:progressBG];
+
+    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    press.minimumPressDuration = 0.0;
+    [camera.overlayView addGestureRecognizer:press];
 }
 
 #pragma mark Camera Delegate
@@ -106,11 +131,50 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)didSelectPhoto:(UIImage *)photo meta:(NSDictionary *)meta {
-    //alertView = [UIAlertView alertViewWithTitle:@"Generating postcard..." message:nil cancelButtonTitle:nil otherButtonTitles:nil onDismiss:nil onCancel:nil];
-
-//    selectedImage = photo;
-//    [self imageSaved];
+-(void)didStartRecordingVideo {
+    videoStartTimestamp = [NSDate date];
+    progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+    [mediaLengths addObject:@0];
+    NSLog(@"Media lengths: %@", mediaLengths);
 }
 
+-(void)didStopRecordingVideo {
+    NSLog(@"Timer stopped");
+    if (progressTimer) {
+        [progressTimer invalidate];
+        progressTimer = nil;
+    }
+}
+
+-(void)didRecordMediaWithURL:(NSURL *)url {
+    NSLog(@"URL: %@", url.path);
+    [mediaURLs addObject:url];
+
+    if ([mediaURLs count] == 2) {
+        [self goToPreview];
+    }
+}
+
+-(void)tick {
+    float secondsPassed = [[NSDate date] timeIntervalSinceDate:videoStartTimestamp];
+    //[progressIndicator updateProgress:secondsPassed];
+
+    NSInteger mediaIndex = [mediaURLs count];
+    mediaLengths[mediaIndex] = @(MIN(3.0, secondsPassed));
+    [progressIndicator updateAllProgress:mediaLengths];
+    NSLog(@"Total video length: %@", mediaLengths[mediaIndex]);
+
+    if (secondsPassed > 3.0) {
+        if (progressTimer) {
+            [progressTimer invalidate];
+            progressTimer = nil;
+        }
+        [camera stopRecordingVideo];
+    }
+}
+
+#pragma mark preview
+-(void)goToPreview {
+    // preview here, no more recording
+}
 @end

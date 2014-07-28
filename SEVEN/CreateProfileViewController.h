@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GPCameraDelegate.h"
 
 @class SevenCamera;
 @class AVPlayer;
-@interface CreateProfileViewController : UIViewController
+@class VideoProgressIndicator;
+
+@interface CreateProfileViewController : UIViewController <GPCameraDelegate>
 {
     AVPlayer *player;
     IBOutlet UIView *viewVideoBG;
@@ -20,5 +23,14 @@
 
     IBOutlet UILabel *labelMessage;
     IBOutlet UILabel *labelClose;
+
+    NSDate *videoStartTimestamp;
+    NSTimer *progressTimer;
+
+    IBOutlet UIView *progressBG;
+    VideoProgressIndicator *progressIndicator;
+
+    NSMutableArray *mediaURLs;
+    NSMutableArray *mediaLengths;
 }
 @end

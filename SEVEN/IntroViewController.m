@@ -187,9 +187,11 @@ static NSArray *movieList;
 
 #pragma mark Facebook
 - (IBAction)didClickButton:(id)sender {
+    [self.buttonFacebook setEnabled:NO];
     [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
+            [self.buttonFacebook setEnabled:YES];
         }
         else {
             NSLog(@"User: %@", user);
