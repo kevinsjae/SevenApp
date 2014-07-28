@@ -7,15 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <CoreMedia/CoreMedia.h>
+#import <MobileCoreServices/UTCoreTypes.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @class AVPlayer;
 @class AVPlayerLayer;
 @interface ProfileVideoPreviewViewController : UIViewController
 {
     AVPlayer *player;
-    AVPlayerLayer *layer;
-    int currentVideo;
+    NSURL *profileVideoURL;
 }
 
 @property (nonatomic, strong) NSArray *mediaURLs;
+
+// merging videos
+@property(nonatomic, strong) AVAsset *firstAsset;
+@property(nonatomic, strong) AVAsset *secondAsset;
+
 @end

@@ -43,10 +43,17 @@ static NSArray *movieList;
     [self.pageControl setNumberOfPages:[movieList count]];
     [self.pageControl setCurrentPage:0];
 
+#if TESTING
+    [self animateBarsWithDuration:.1]; // 3
+    [self animateFade:self.viewTitle duration:.1]; // 4
+    [self animateFade:self.labelSubtitle duration:.1]; // 4
+    [self animateButtonWithDuration:.1]; //2
+#else
     [self animateBarsWithDuration:3];
     [self animateFade:self.viewTitle duration:4];
     [self animateFade:self.labelSubtitle duration:4];
     [self animateButtonWithDuration:2];
+#endif
 }
 
 -(void)addPlayers {

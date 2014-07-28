@@ -81,9 +81,15 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     [tutorialView addGestureRecognizer:tap];
 
+#if TESTING
+    [EffectsUtils gradientFadeInForView:labelMessage duration:.1];
+    [EffectsUtils gradientFadeInForView:labelClose duration:.1];
+    [EffectsUtils gradientFadeInForView:progressIndicator duration:.1];
+#else
     [EffectsUtils gradientFadeInForView:labelMessage duration:3];
     [EffectsUtils gradientFadeInForView:labelClose duration:3];
     [EffectsUtils gradientFadeInForView:progressIndicator duration:3];
+#endif
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -94,7 +100,12 @@
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
 
-        [UIView animateWithDuration:1.5 animations:^{
+#if TESTING
+        float duration = 0.1;
+#else
+        float duration = 1.5;
+#endif
+        [UIView animateWithDuration:duration animations:^{
             tutorialView.alpha = 0;
         } completion:^(BOOL finished) {
             [tutorialView removeFromSuperview];
@@ -130,7 +141,7 @@
     [camera addProgressIndicator:progressBG];
 
     UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    press.minimumPressDuration = 0.0;
+    press.minimumPressDuration = 0.1;
     [camera.overlayView addGestureRecognizer:press];
 
     cameraReady = YES;
