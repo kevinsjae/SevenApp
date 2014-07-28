@@ -278,12 +278,27 @@
                         <outlet property="scrollview" destination="PnP-dj-E92" id="u2X-by-b8l"/>
                         <outlet property="viewLogo" destination="bvT-5O-fyP" id="W2D-QQ-jNC"/>
                         <outlet property="viewTitle" destination="nqg-Ch-Gxu" id="m6D-n2-Pez"/>
-                        <segue destination="ID6-aM-q5A" kind="custom" identifier="IntroToCreateProfile" customClass="ModalSlideTransitionSegue" id="9P9-zg-Nt4"/>
+                        <segue destination="pLJ-gc-SLW" kind="custom" identifier="IntroToCreateProfile" customClass="ModalSlideFromRightTransitionSegue" id="rg5-bJ-QeO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEL-Ii-PS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1043" y="1207"/>
+            <point key="canvasLocation" x="-1312" y="1208"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="B6c-xr-Naq">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="pLJ-gc-SLW" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ftp-o2-rFB">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ID6-aM-q5A" kind="relationship" relationship="rootViewController" id="SAb-df-cp1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h9Q-KC-8TT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-917" y="1213"/>
         </scene>
         <!--Create Profile View Controller-->
         <scene sceneID="Pdv-47-fd6">
@@ -401,17 +416,38 @@ Cg
                             <constraint firstItem="eR9-ma-9NJ" firstAttribute="leading" secondItem="X5O-RJ-ifK" secondAttribute="leading" constant="125" id="rbG-Qy-1Q9"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Tjn-VO-qJW"/>
                     <connections>
                         <outlet property="labelClose" destination="hZu-9i-KpD" id="g31-cJ-ynl"/>
                         <outlet property="labelMessage" destination="NAb-PB-e7o" id="6lv-4T-RvO"/>
                         <outlet property="progressBG" destination="eR9-ma-9NJ" id="1DW-Gu-V2A"/>
                         <outlet property="tutorialView" destination="58t-Qw-Iqm" id="KGD-kt-5g0"/>
                         <outlet property="viewVideoBG" destination="emZ-C2-tGb" id="kj8-k0-rz9"/>
+                        <segue destination="fgH-hc-dtS" kind="push" identifier="CameraToPreview" id="1Uo-8c-Xsc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VmE-6d-12N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-619" y="1213"/>
+            <point key="canvasLocation" x="-465" y="1208"/>
+        </scene>
+        <!--Profile Video Preview View Controller-->
+        <scene sceneID="hUd-Gk-gcR">
+            <objects>
+                <viewController id="fgH-hc-dtS" customClass="ProfileVideoPreviewViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qxQ-vP-QDg"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pdo-OX-F7P"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nZy-Sj-tFZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hD8-JH-ioE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5xh-ML-xja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-49" y="1213"/>
         </scene>
         <!--Login View Controller - Title-->
         <scene sceneID="DfI-xc-jhD">

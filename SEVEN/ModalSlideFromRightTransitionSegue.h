@@ -1,5 +1,5 @@
 //
-//  ModalSlideTransitionSegue.h
+//  ModalSlideFromRightTransitionSegue.h
 //  SEVEN
 //
 //  Created by Bobby Ren on 7/27/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ModalSlideTransitionSegue : UIStoryboardSegue
+@interface ModalSlideFromRightTransitionSegue : UIStoryboardSegue
 
 @end

@@ -11,6 +11,7 @@
 #import "SevenCamera.h"
 #import "EffectsUtils.h"
 #import "VideoProgressIndicator.h"
+#import "ProfileVideoPreviewViewController.h"
 
 @interface CreateProfileViewController ()
 
@@ -31,6 +32,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
 
     [self showTutorialView];
 
@@ -44,6 +49,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (shouldShowCameraOnAppear) {
+        [self resetCamera];
+    }
+}
 /*
 #pragma mark - Navigation
 
@@ -80,9 +91,15 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     [tutorialView addGestureRecognizer:tap];
 
+#if TESTING
+    [EffectsUtils gradientFadeInForView:labelMessage duration:.1];
+    [EffectsUtils gradientFadeInForView:labelClose duration:.1];
+    [EffectsUtils gradientFadeInForView:progressIndicator duration:.1];
+#else
     [EffectsUtils gradientFadeInForView:labelMessage duration:3];
     [EffectsUtils gradientFadeInForView:labelClose duration:3];
     [EffectsUtils gradientFadeInForView:progressIndicator duration:3];
+#endif
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -93,7 +110,12 @@
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
 
-        [UIView animateWithDuration:1.5 animations:^{
+#if TESTING
+        float duration = 0.1;
+#else
+        float duration = 1.5;
+#endif
+        [UIView animateWithDuration:duration animations:^{
             tutorialView.alpha = 0;
         } completion:^(BOOL finished) {
             [tutorialView removeFromSuperview];
@@ -111,6 +133,15 @@
     }
 }
 
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (camera && !cameraReady) {
+        NSLog(@"Camera not ready");
+        return NO;
+    }
+    NSLog(@"Camera: %@ ready: %d", camera, cameraReady);
+    return YES;
+}
+
 #pragma mark Camera
 -(void)setupCamera {
     camera = [[SevenCamera alloc] init];
@@ -122,8 +153,19 @@
     [camera addProgressIndicator:progressBG];
 
     UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    press.minimumPressDuration = 0.0;
+    press.minimumPressDuration = 0.1;
+    press.delegate = self;
     [camera.overlayView addGestureRecognizer:press];
+
+    cameraReady = YES;
+    shouldShowCameraOnAppear = NO;
+}
+
+-(void)resetCamera {
+    [mediaLengths removeAllObjects];
+    [mediaURLs removeAllObjects];
+    [progressIndicator updateProgress:0];
+    [self setupCamera];
 }
 
 #pragma mark Camera Delegate
@@ -136,6 +178,7 @@
     progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
     [mediaLengths addObject:@0];
     NSLog(@"Media lengths: %@", mediaLengths);
+    cameraReady = NO;
 }
 
 -(void)didStopRecordingVideo {
@@ -149,6 +192,7 @@
 -(void)didRecordMediaWithURL:(NSURL *)url {
     NSLog(@"URL: %@", url.path);
     [mediaURLs addObject:url];
+    cameraReady = YES;
 
     if ([mediaURLs count] == 2) {
         [self goToPreview];
@@ -176,5 +220,18 @@
 #pragma mark preview
 -(void)goToPreview {
     // preview here, no more recording
+    [self dismissViewControllerAnimated:NO completion:^{
+        [self performSegueWithIdentifier:@"CameraToPreview" sender:self];
+        camera = nil;
+        shouldShowCameraOnAppear = YES;
+    }];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ProfileVideoPreviewViewController *previewController = (ProfileVideoPreviewViewController *)[segue destinationViewController];
+    [previewController setupMedia:mediaURLs];
+    // Pass the selected object to the new view controller.
+}
+
 @end

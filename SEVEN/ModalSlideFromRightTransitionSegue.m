@@ -1,14 +1,14 @@
 //
-//  ModalSlideTransitionSegue.m
+//  ModalSlideFromRightTransitionSegue.m
 //  SEVEN
 //
 //  Created by Bobby Ren on 7/27/14.
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "ModalSlideTransitionSegue.h"
+#import "ModalSlideFromRightTransitionSegue.h"
 
-@implementation ModalSlideTransitionSegue
+@implementation ModalSlideFromRightTransitionSegue
 
 -(void)perform {
     UIViewController *srcViewController = (UIViewController *) self.sourceViewController;
