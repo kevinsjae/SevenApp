@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class AVPlayer;
 @interface CreateProfileViewController : UIViewController
-
+{
+    AVPlayer *player;
+    IBOutlet UIView *viewVideoBG;
+    IBOutlet UIView *tutorialView;
+}
 @end

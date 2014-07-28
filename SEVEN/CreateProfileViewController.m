@@ -7,6 +7,7 @@
 //
 
 #import "CreateProfileViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface CreateProfileViewController ()
 
@@ -27,6 +28,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    [self showTutorialView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,4 +49,40 @@
 }
 */
 
+-(void)showTutorialView {
+    [viewVideoBG.layer setCornerRadius:viewVideoBG.frame.size.width/2];
+    viewVideoBG.contentMode = UIViewContentModeScaleAspectFill;
+
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"SEVEN_ProfileSample_002" withExtension:@"mp4"];
+    player = [[AVPlayer alloc] initWithURL:url];
+    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
+    layer.frame = CGRectMake(0, 0, viewVideoBG.frame.size.width, viewVideoBG.frame.size.height);
+    layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [viewVideoBG.layer addSublayer:layer];
+    [player play];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:nil];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [tutorialView addGestureRecognizer:tap];
+}
+
+-(void)playerDidReachEnd:(NSNotification *)n {
+    [player seekToTime:kCMTimeZero];
+    [player play];
+}
+
+-(void)handleGesture:(UIGestureRecognizer *)gesture {
+    if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
+        [UIView animateWithDuration:1.5 animations:^{
+            tutorialView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [tutorialView removeFromSuperview];
+//            [self setupCamera];
+        }];
+    }
+}
 @end
