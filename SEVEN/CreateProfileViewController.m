@@ -9,6 +9,7 @@
 #import "CreateProfileViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "SevenCamera.h"
+#import "EffectsUtils.h"
 
 @interface CreateProfileViewController ()
 
@@ -69,6 +70,9 @@
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     [tutorialView addGestureRecognizer:tap];
+
+    [EffectsUtils gradientFadeInForView:labelMessage duration:3];
+    [EffectsUtils gradientFadeInForView:labelClose duration:3];
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -78,6 +82,7 @@
 
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
+
         [UIView animateWithDuration:1.5 animations:^{
             tutorialView.alpha = 0;
         } completion:^(BOOL finished) {

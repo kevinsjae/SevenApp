@@ -17,5 +17,8 @@
     IBOutlet UIView *tutorialView;
 
     SevenCamera *camera;
+
+    IBOutlet UILabel *labelMessage;
+    IBOutlet UILabel *labelClose;
 }
 @end
