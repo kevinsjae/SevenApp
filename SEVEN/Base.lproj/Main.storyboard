@@ -297,10 +297,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="58t-Qw-Iqm">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eR9-ma-9NJ" userLabel="View - progress">
+                                <rect key="frame" x="125" y="450" width="70" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="H7Q-zW-MMZ"/>
+                                    <constraint firstAttribute="height" constant="70" id="yv5-Oc-mrW"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="58t-Qw-Iqm" userLabel="View - tutorialView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-2S-QV6" userLabel="View - background">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="NAb-PB-e7o">
                                         <rect key="frame" x="26" y="261" width="269" height="125"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -371,21 +385,26 @@ Cg
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TAP TO CLOSE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZu-9i-KpD">
-                                        <rect key="frame" x="62" y="435" width="196" height="21"/>
+                                        <rect key="frame" x="62" y="406" width="196" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.4908759124" blue="0.69174840329999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mav-dM-ybt" firstAttribute="top" secondItem="eR9-ma-9NJ" secondAttribute="bottom" constant="48" id="IjN-Ge-hut"/>
+                            <constraint firstItem="eR9-ma-9NJ" firstAttribute="leading" secondItem="X5O-RJ-ifK" secondAttribute="leading" constant="125" id="rbG-Qy-1Q9"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="labelClose" destination="hZu-9i-KpD" id="g31-cJ-ynl"/>
                         <outlet property="labelMessage" destination="NAb-PB-e7o" id="6lv-4T-RvO"/>
+                        <outlet property="progressBG" destination="eR9-ma-9NJ" id="1DW-Gu-V2A"/>
                         <outlet property="tutorialView" destination="58t-Qw-Iqm" id="KGD-kt-5g0"/>
                         <outlet property="viewVideoBG" destination="emZ-C2-tGb" id="kj8-k0-rz9"/>
                     </connections>

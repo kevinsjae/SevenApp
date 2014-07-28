@@ -11,6 +11,8 @@
 
 @class SevenCamera;
 @class AVPlayer;
+@class VideoProgressIndicator;
+
 @interface CreateProfileViewController : UIViewController <GPCameraDelegate>
 {
     AVPlayer *player;
@@ -24,5 +26,8 @@
 
     NSDate *videoStartTimestamp;
     NSTimer *progressTimer;
+
+    IBOutlet UIView *progressBG;
+    VideoProgressIndicator *progressIndicator;
 }
 @end

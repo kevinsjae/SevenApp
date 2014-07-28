@@ -12,4 +12,6 @@
 {
     NSTimer *timer;
 }
+
+-(void)addProgressIndicator:(UIView *)progressIndicator;
 @end

@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SevenCamera.h"
 #import "EffectsUtils.h"
+#import "VideoProgressIndicator.h"
 
 @interface CreateProfileViewController ()
 
@@ -63,6 +64,11 @@
     [viewVideoBG.layer addSublayer:layer];
     [player play];
 
+    progressIndicator = [[VideoProgressIndicator alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
+    [progressBG setBackgroundColor:[UIColor clearColor]];
+    [progressBG addSubview:progressIndicator];
+    [progressIndicator updateProgress:0];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
@@ -99,6 +105,8 @@
 
     [camera startCameraFrom:self];
     [camera addOverlayWithFrame:_appDelegate.window.bounds];
+
+    [camera addProgressIndicator:progressBG];
 }
 
 #pragma mark Camera Delegate
@@ -112,7 +120,9 @@
 }
 
 -(void)tick {
-    NSLog(@"Total video length: %f", [[NSDate date] timeIntervalSinceDate:videoStartTimestamp]);
+    float secondsPassed = [[NSDate date] timeIntervalSinceDate:videoStartTimestamp];
+    NSLog(@"Total video length: %f", secondsPassed);
+    [progressIndicator updateProgress:secondsPassed];
 }
 
 -(void)didRecordMediaWithURL:(NSURL *)url {

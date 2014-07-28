@@ -33,15 +33,7 @@
     if (_picker.sourceType != UIImagePickerControllerSourceTypeCamera)
         return;
 
-    /*
-    CALayer *top = [[CALayer alloc] init];
-    top.frame = CGRectMake(0, 0, CAMERA_SIZE, CAMERA_TOP_OFFSET);
-    top.backgroundColor = [[UIColor blackColor] CGColor];
-    top.opacity = .25;
-     */
-
     overlay = [[UIView alloc] initWithFrame:frame];
-    //[overlay.layer addSublayer:top];
 
     buttonRotate = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonRotate setFrame:CGRectMake(0, 0, 40, 40)];
@@ -61,6 +53,10 @@
     UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     press.minimumPressDuration = 0.0;
     [_picker.cameraOverlayView addGestureRecognizer:press];
+}
+
+-(void)addProgressIndicator:(UIView *)progressIndicator {
+    [overlay addSubview:progressIndicator];
 }
 
 #pragma mark UIImagePickerControllerDelegate

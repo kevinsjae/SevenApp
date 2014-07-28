@@ -43,6 +43,7 @@
 		9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */; };
 		9E3E24F1198661AE00870666 /* SevenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F0198661AE00870666 /* SevenCamera.m */; };
 		9E3E24F41986670100870666 /* EffectsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F31986670100870666 /* EffectsUtils.m */; };
+		9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F6198670B000870666 /* VideoProgressIndicator.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -152,6 +153,8 @@
 		9E3E24F0198661AE00870666 /* SevenCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SevenCamera.m; sourceTree = "<group>"; };
 		9E3E24F21986670100870666 /* EffectsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsUtils.h; sourceTree = "<group>"; };
 		9E3E24F31986670100870666 /* EffectsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsUtils.m; sourceTree = "<group>"; };
+		9E3E24F5198670B000870666 /* VideoProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoProgressIndicator.h; sourceTree = "<group>"; };
+		9E3E24F6198670B000870666 /* VideoProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProgressIndicator.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -271,6 +274,8 @@
 				9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */,
 				9EEBB8621985B34B0023CE0F /* ModalSlideTransitionSegue.h */,
 				9EEBB8631985B34B0023CE0F /* ModalSlideTransitionSegue.m */,
+				9E3E24F5198670B000870666 /* VideoProgressIndicator.h */,
+				9E3E24F6198670B000870666 /* VideoProgressIndicator.m */,
 			);
 			name = Signup2;
 			sourceTree = "<group>";
@@ -636,6 +641,7 @@
 				9E01242119670CF50080543B /* SignupSeekingViewController.m in Sources */,
 				9E79B82F1964362400559838 /* ParseBase.m in Sources */,
 				9EEBB8641985B34B0023CE0F /* ModalSlideTransitionSegue.m in Sources */,
+				9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */,
 				9E01240F196707A30080543B /* SignupEmailViewController.m in Sources */,
 				9E3E24F1198661AE00870666 /* SevenCamera.m in Sources */,
 				9EEBB8691985FCE90023CE0F /* GPCamera.m in Sources */,
