@@ -49,14 +49,30 @@
     }
 
     [_picker setCameraOverlayView:overlay];
-
-    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    press.minimumPressDuration = 0.0;
-    [_picker.cameraOverlayView addGestureRecognizer:press];
 }
 
 -(void)addProgressIndicator:(UIView *)progressIndicator {
     [overlay addSubview:progressIndicator];
+}
+
+-(UIView *)overlayView {
+    return overlay;
+}
+
+#pragma mark Video recording and progress
+-(void)startRecordingVideo {
+    // start recording
+    BOOL started = [_picker startVideoCapture];
+    NSLog(@"Started: %d", started);
+    if (started) {
+        [self.delegate didStartRecordingVideo];
+    }
+}
+
+-(void)stopRecordingVideo {
+    // stop recording
+    NSLog(@"Stop");
+    [_picker stopVideoCapture];
 }
 
 #pragma mark UIImagePickerControllerDelegate
@@ -69,36 +85,4 @@
     [self.delegate didRecordMediaWithURL:mediaURL];
 }
 
-#pragma mark Gesture
--(void)handleGesture:(UIGestureRecognizer *)gesture {
-    if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
-        if (gesture.state == UIGestureRecognizerStateBegan) {
-            [self startRecordingVideo];
-        }
-        else if (gesture.state == UIGestureRecognizerStateEnded) {
-            [self stopRecordingVideo];
-        }
-    }
-}
-
-#pragma mark Video recording and progress
--(void)startRecordingVideo {
-    // start recording
-    BOOL started = [_picker startVideoCapture];
-    NSLog(@"Started: %d", started);
-    if (started) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(stopRecordingVideo) userInfo:nil repeats:NO];
-        [self.delegate didStartRecordingVideo];
-    }
-}
-
--(void)stopRecordingVideo {
-    // stop recording
-    NSLog(@"Stop");
-    [_picker stopVideoCapture];
-    if (timer) {
-        [timer invalidate];
-        timer = nil;
-    }
-}
 @end

@@ -9,9 +9,10 @@
 #import "GPCamera.h"
 
 @interface SevenCamera : GPCamera
-{
-    NSTimer *timer;
-}
 
+-(UIView *)overlayView;
 -(void)addProgressIndicator:(UIView *)progressIndicator;
+-(void)startRecordingVideo;
+-(void)stopRecordingVideo;
+
 @end

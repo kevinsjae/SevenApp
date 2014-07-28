@@ -79,6 +79,7 @@
 
     [EffectsUtils gradientFadeInForView:labelMessage duration:3];
     [EffectsUtils gradientFadeInForView:labelClose duration:3];
+    [EffectsUtils gradientFadeInForView:progressIndicator duration:3];
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -96,6 +97,14 @@
             [self setupCamera];
         }];
     }
+    else if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            [camera startRecordingVideo];
+        }
+        else if (gesture.state == UIGestureRecognizerStateEnded) {
+            [camera stopRecordingVideo];
+        }
+    }
 }
 
 #pragma mark Camera
@@ -107,6 +116,10 @@
     [camera addOverlayWithFrame:_appDelegate.window.bounds];
 
     [camera addProgressIndicator:progressBG];
+
+    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    press.minimumPressDuration = 0.0;
+    [camera.overlayView addGestureRecognizer:press];
 }
 
 #pragma mark Camera Delegate
@@ -116,13 +129,7 @@
 
 -(void)didStartRecordingVideo {
     videoStartTimestamp = [NSDate date];
-    progressTimer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(tick) userInfo:nil repeats:YES];
-}
-
--(void)tick {
-    float secondsPassed = [[NSDate date] timeIntervalSinceDate:videoStartTimestamp];
-    NSLog(@"Total video length: %f", secondsPassed);
-    [progressIndicator updateProgress:secondsPassed];
+    progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
 }
 
 -(void)didRecordMediaWithURL:(NSURL *)url {
@@ -133,5 +140,16 @@
         progressTimer = nil;
     }
 }
+
+-(void)tick {
+    float secondsPassed = [[NSDate date] timeIntervalSinceDate:videoStartTimestamp];
+    NSLog(@"Total video length: %f", secondsPassed);
+    [progressIndicator updateProgress:secondsPassed];
+
+    if (secondsPassed > 3.0) {
+        [camera stopRecordingVideo];
+    }
+}
+
 
 @end
