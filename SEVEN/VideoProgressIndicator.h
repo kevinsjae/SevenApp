@@ -10,8 +10,10 @@
 
 @interface VideoProgressIndicator : UIView
 {
-    float percentDone;
+    NSMutableArray *percents;
+    NSArray *colors;
 }
 
 -(float)updateProgress:(float)timeInSec;
+-(void)updateAllProgress:(NSMutableArray *)videoLengths;
 @end

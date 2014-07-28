@@ -73,6 +73,7 @@
     // stop recording
     NSLog(@"Stop");
     [_picker stopVideoCapture];
+    [self.delegate didStopRecordingVideo];
 }
 
 #pragma mark UIImagePickerControllerDelegate

@@ -29,5 +29,8 @@
 
     IBOutlet UIView *progressBG;
     VideoProgressIndicator *progressIndicator;
+
+    NSMutableArray *mediaURLs;
+    NSMutableArray *mediaLengths;
 }
 @end

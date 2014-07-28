@@ -9,5 +9,6 @@
 @optional
 // SevenCamera delegate
 -(void)didStartRecordingVideo;
+-(void)didStopRecordingVideo;
 -(void)didRecordMediaWithURL:(NSURL *)url;
 @end

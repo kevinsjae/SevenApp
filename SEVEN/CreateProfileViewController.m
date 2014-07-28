@@ -33,6 +33,9 @@
     // Do any additional setup after loading the view.
 
     [self showTutorialView];
+
+    mediaURLs = [NSMutableArray array]; // reference to two recorded clips (URLs)
+    mediaLengths = [NSMutableArray array]; // reference to two recorded clips (lengths)
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,7 +102,8 @@
     }
     else if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
         if (gesture.state == UIGestureRecognizerStateBegan) {
-            [camera startRecordingVideo];
+            if ([mediaURLs count] < 2)
+                [camera startRecordingVideo];
         }
         else if (gesture.state == UIGestureRecognizerStateEnded) {
             [camera stopRecordingVideo];
@@ -130,26 +134,47 @@
 -(void)didStartRecordingVideo {
     videoStartTimestamp = [NSDate date];
     progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+    [mediaLengths addObject:@0];
+    NSLog(@"Media lengths: %@", mediaLengths);
 }
 
--(void)didRecordMediaWithURL:(NSURL *)url {
-    NSLog(@"URL: %@", url.path);
-
+-(void)didStopRecordingVideo {
+    NSLog(@"Timer stopped");
     if (progressTimer) {
         [progressTimer invalidate];
         progressTimer = nil;
     }
 }
 
+-(void)didRecordMediaWithURL:(NSURL *)url {
+    NSLog(@"URL: %@", url.path);
+    [mediaURLs addObject:url];
+
+    if ([mediaURLs count] == 2) {
+        [self goToPreview];
+    }
+}
+
 -(void)tick {
     float secondsPassed = [[NSDate date] timeIntervalSinceDate:videoStartTimestamp];
-    NSLog(@"Total video length: %f", secondsPassed);
-    [progressIndicator updateProgress:secondsPassed];
+    //[progressIndicator updateProgress:secondsPassed];
+
+    NSInteger mediaIndex = [mediaURLs count];
+    mediaLengths[mediaIndex] = @(MIN(3.0, secondsPassed));
+    [progressIndicator updateAllProgress:mediaLengths];
+    NSLog(@"Total video length: %@", mediaLengths[mediaIndex]);
 
     if (secondsPassed > 3.0) {
+        if (progressTimer) {
+            [progressTimer invalidate];
+            progressTimer = nil;
+        }
         [camera stopRecordingVideo];
     }
 }
 
-
+#pragma mark preview
+-(void)goToPreview {
+    // preview here, no more recording
+}
 @end

@@ -27,22 +27,37 @@
 }
 #pragma mark Progress
 -(float)updateProgress:(float)timeInSec {
-    percentDone = timeInSec / (SECS_PER_CLIP*MAX_CLIPS) * 100;
+    float percentDone = timeInSec / (SECS_PER_CLIP*MAX_CLIPS) * 100;
     if (percentDone > 100)
         percentDone = 100;
+    percents = [NSMutableArray arrayWithObject:@(percentDone)];
     [self setNeedsDisplay];
     return percentDone;
 }
 
--(UIBezierPath*)getCurveForPercent:(float)percent {
-    float startAngle = 0, endAngle;
+-(void)updateAllProgress:(NSMutableArray *)videoLengths {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        colors = @[[UIColor blueColor], [UIColor cyanColor]];
+    });
+    [percents removeAllObjects];
+    for (NSNumber *seconds in videoLengths) {
+        float percentDone = seconds.floatValue / (SECS_PER_CLIP*MAX_CLIPS) * 100;
+        if (percentDone > 100)
+            percentDone = 100;
+        [percents addObject:@(percentDone)];
+    }
+    [self setNeedsDisplay];
+}
 
-    endAngle = TIMER_RADS_PER_CENT * percent;
+-(UIBezierPath*)getCurveFromPercent:(float)start to:(float)end {
+    float startAngle = TIMER_RADS_PER_CENT * start;
+    float endAngle = TIMER_RADS_PER_CENT * end;
     CGPoint center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 );
     float radius = self.frame.size.height/2 - BEZIER_WIDTH/2;
     UIBezierPath * bezierPath = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
     [bezierPath setLineWidth:BEZIER_WIDTH];
-    [bezierPath setLineCapStyle:kCGLineCapSquare];
+    [bezierPath setLineCapStyle:kCGLineCapButt];
     return bezierPath;
 }
 
@@ -51,22 +66,26 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // outer circle
-    [self drawOuterCircle:rect];
-
     // progress
-    if (percentDone > 0) {
-        [self drawPercent:percentDone color:[UIColor blueColor] rect:rect];
+    float lastPercent = 0;
+    int index = 0;
+    for (NSNumber *percent in percents) {
+        float nextPercent = lastPercent + [percent floatValue];
+        if (nextPercent > 0) {
+            [self drawPercentFrom:lastPercent to:nextPercent color:colors[index] rect:rect];
+        }
+        lastPercent = nextPercent;
+        index++;
     }
+
+    // draw end
+    UIColor *empty = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+    [self drawPercentFrom:lastPercent to:100 color:empty rect:rect];
 }
 
--(void)drawOuterCircle:(CGRect)rect {
-    [self drawPercent:100 color:[UIColor colorWithRed:1 green:1 blue:1 alpha:1] rect:rect];
-}
-
--(void)drawPercent:(float)percent color:(UIColor *)color rect:(CGRect)rect {
+-(void)drawPercentFrom:(float)startPercent to:(float)endPercent color:(UIColor *)color rect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    UIBezierPath *aPath = [self getCurveForPercent:percent]; //[self progressPath];
+    UIBezierPath *aPath = [self getCurveFromPercent:startPercent to:endPercent]; //[self progressPath];
 
     // If you have content to draw after the shape,
     // save the current state before changing the transform.
