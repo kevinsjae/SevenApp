@@ -8,6 +8,7 @@
 
 #import "CreateProfileViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "SevenCamera.h"
 
 @interface CreateProfileViewController ()
 
@@ -81,8 +82,30 @@
             tutorialView.alpha = 0;
         } completion:^(BOOL finished) {
             [tutorialView removeFromSuperview];
-//            [self setupCamera];
+            [self setupCamera];
         }];
     }
 }
+
+#pragma mark Camera
+-(void)setupCamera {
+    camera = [[SevenCamera alloc] init];
+    [camera setDelegate:self];
+
+    [camera startCameraFrom:self];
+    [camera addOverlayWithFrame:_appDelegate.window.bounds];
+}
+
+#pragma mark Camera Delegate
+-(void)dismissCamera {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)didSelectPhoto:(UIImage *)photo meta:(NSDictionary *)meta {
+    //alertView = [UIAlertView alertViewWithTitle:@"Generating postcard..." message:nil cancelButtonTitle:nil otherButtonTitles:nil onDismiss:nil onCancel:nil];
+
+//    selectedImage = photo;
+//    [self imageSaved];
+}
+
 @end
