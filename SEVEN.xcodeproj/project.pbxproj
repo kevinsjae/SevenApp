@@ -42,6 +42,7 @@
 		9E2376AC19815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376A919815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 */; };
 		9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */; };
 		9E3E24F1198661AE00870666 /* SevenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F0198661AE00870666 /* SevenCamera.m */; };
+		9E3E24F41986670100870666 /* EffectsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F31986670100870666 /* EffectsUtils.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -149,6 +150,8 @@
 		9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_ProfileSample_002.mp4; sourceTree = "<group>"; };
 		9E3E24EF198661AE00870666 /* SevenCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SevenCamera.h; sourceTree = "<group>"; };
 		9E3E24F0198661AE00870666 /* SevenCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SevenCamera.m; sourceTree = "<group>"; };
+		9E3E24F21986670100870666 /* EffectsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsUtils.h; sourceTree = "<group>"; };
+		9E3E24F31986670100870666 /* EffectsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsUtils.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -340,6 +343,8 @@
 				9E79B800196435AA00559838 /* AppDelegate.h */,
 				9E79B801196435AA00559838 /* AppDelegate.m */,
 				9E79B803196435AA00559838 /* Main.storyboard */,
+				9E3E24F21986670100870666 /* EffectsUtils.h */,
+				9E3E24F31986670100870666 /* EffectsUtils.m */,
 				9E79B806196435AA00559838 /* ViewController.h */,
 				9E79B807196435AA00559838 /* ViewController.m */,
 				9E01242F19671B040080543B /* CommonStyledViewController.h */,
@@ -649,6 +654,7 @@
 				9E18BC651964B9F0001BEDAE /* ProfileViewController.m in Sources */,
 				9E79B802196435AA00559838 /* AppDelegate.m in Sources */,
 				9E012429196712160080543B /* SignupPhoneViewController.m in Sources */,
+				9E3E24F41986670100870666 /* EffectsUtils.m in Sources */,
 				9E01242C1967121E0080543B /* SignupPhoneVerifyViewController.m in Sources */,
 				9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */,
 				9E012442196726110080543B /* FriendCell.m in Sources */,
