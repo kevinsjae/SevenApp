@@ -90,11 +90,17 @@
     // start recording
     BOOL started = [_picker startVideoCapture];
     NSLog(@"Started: %d", started);
+
+    timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(stopRecordingVideo) userInfo:nil repeats:NO];
 }
 
 -(void)stopRecordingVideo {
     // stop recording
     NSLog(@"Stop");
     [_picker stopVideoCapture];
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
 }
 @end

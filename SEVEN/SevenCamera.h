@@ -9,5 +9,7 @@
 #import "GPCamera.h"
 
 @interface SevenCamera : GPCamera
-
+{
+    NSTimer *timer;
+}
 @end
