@@ -30,12 +30,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:nil];
-
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                              forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
@@ -83,11 +77,20 @@
 }
 
 -(void)playCurrentMedia {
-    player = [[AVPlayer alloc] initWithURL:profileVideoURL];
+    AVURLAsset *asset = [AVURLAsset assetWithURL:profileVideoURL];
+    float duration = CMTimeGetSeconds(asset.duration);
+    AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
+    player = [[AVPlayer alloc] initWithPlayerItem:item];
+
     AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
     layer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view.layer addSublayer:layer];
     [player play];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:item];
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -193,6 +196,7 @@
         [exporter exportAsynchronouslyWithCompletionHandler:^
          {
              dispatch_async(dispatch_get_main_queue(), ^{
+                 NSLog(@"progress: %f", exporter.progress);
                  [self exportDidFinish:exporter];
              });
          }];
@@ -221,6 +225,8 @@
 */
 
 -(void)saveVideoWithCompletion:(void(^)(BOOL success))competion {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+
 #if 1
     // save to disk
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];

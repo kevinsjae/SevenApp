@@ -71,7 +71,11 @@
     viewVideoBG.contentMode = UIViewContentModeScaleAspectFill;
 
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"SEVEN_ProfileSample_002" withExtension:@"mp4"];
-    player = [[AVPlayer alloc] initWithURL:url];
+
+    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
+    AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
+    player = [[AVPlayer alloc] initWithPlayerItem:item];
+
     AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
     layer.frame = CGRectMake(0, 0, viewVideoBG.frame.size.width, viewVideoBG.frame.size.height);
     layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -86,7 +90,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:nil];
+                                               object:item];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     [tutorialView addGestureRecognizer:tap];
@@ -119,6 +123,7 @@
         [UIView animateWithDuration:duration animations:^{
             tutorialView.alpha = 0;
         } completion:^(BOOL finished) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
             [tutorialView removeFromSuperview];
             [self setupCamera];
         }];

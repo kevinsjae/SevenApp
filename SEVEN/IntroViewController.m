@@ -62,7 +62,10 @@ static NSArray *movieList;
 
     for (NSString *movieTitle in movieList) {
         NSURL *url = [[NSBundle mainBundle] URLForResource:movieTitle withExtension:@"mp4"];
-        AVPlayer *player = [[AVPlayer alloc] initWithURL:url];
+        AVURLAsset *asset = [AVURLAsset assetWithURL:url];
+        float duration = CMTimeGetSeconds(asset.duration);
+        AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
+        AVPlayer *player = [[AVPlayer alloc] initWithPlayerItem:item];
         AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
         layer.frame = CGRectMake(self.scrollview.frame.size.width * players.count, 0, self.scrollview.frame.size.width, self.scrollview.frame.size.height);
         [self.scrollview.layer addSublayer:layer];
@@ -210,6 +213,7 @@ static NSArray *movieList;
             NSLog(@"User: %@", user);
             NSLog(@"Current user: %@", [PFUser currentUser]);
 
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
             [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
         }
     }];
