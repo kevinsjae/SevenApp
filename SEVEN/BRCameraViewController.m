@@ -16,12 +16,19 @@
 @implementation BRCameraViewController
 
 @synthesize previewLayer;
+@synthesize overlay;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        // default settings
+        self.shouldCaptureVideo = YES;
+        self.shouldCaptureAudio = NO;
+        self.shouldShowPreview = YES;
+        self.shouldSaveToFile = NO;
+        
     }
     return self;
 }
@@ -83,13 +90,10 @@
 
 #pragma mark outputs
 -(void)setupPreviewOutput {
-    [self setPreviewLayer:[[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession]];
-	previewLayer.orientation = AVCaptureVideoOrientationLandscapeRight;		//<<SET ORIENTATION.  You can deliberatly set this wrong to flip the image and may actually need to set it wrong to get the right image
-	[[self previewLayer] setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-	CGRect layerRect = [[[self view] layer] bounds];
-	[previewLayer setBounds:layerRect];
-	[previewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect),
-                                          CGRectGetMidY(layerRect))];
+    self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
+
+	[self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+	[self.previewLayer setFrame:self.view.frame];
 
 	[self.view.layer insertSublayer:previewLayer atIndex:0];
 }
@@ -157,6 +161,27 @@
 
 	CMTimeShow(captureConnection.videoMinFrameDuration);
 	CMTimeShow(captureConnection.videoMaxFrameDuration);
+}
+
+#pragma mark overlay
+-(void)addOverlayToFrame:(CGRect)frame {
+    // Initialization code
+    // warning: if there is a navigation controller and it is invisible, certain overlay controls may be clipped and not touchable
+    overlay = [[UIView alloc] initWithFrame:frame];
+    overlay.backgroundColor = [UIColor clearColor];
+
+    UIButton *buttonRotate = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonRotate setFrame:CGRectMake(0, 0, 40, 40)];
+    [buttonRotate setBackgroundColor:[UIColor clearColor]];
+    [buttonRotate setCenter:CGPointMake(280, 40)];
+    [buttonRotate setImage:[UIImage imageNamed:@"rotateCamera"] forState:UIControlStateNormal];
+    [buttonRotate addTarget:self action:@selector(toggleCamera:) forControlEvents:UIControlEventTouchUpInside];
+
+    if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+        [overlay addSubview:buttonRotate];
+    }
+
+    [self.view addSubview:overlay];
 }
 
 #pragma mark camera controls

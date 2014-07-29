@@ -17,6 +17,14 @@
 
 #define CAPTURE_FRAMES_PER_SECOND		20
 
+@protocol BRCameraDelegate <NSObject>
+
+-(void)didStartRecordingVideo;
+-(void)didStopRecordingVideo;
+-(void)didRecordMediaWithURL:(NSURL *)url;
+
+
+@end
 @interface BRCameraViewController : UIViewController <AVCaptureFileOutputRecordingDelegate>
 {
 	BOOL isRecording;
@@ -26,14 +34,17 @@
 	AVCaptureDeviceInput *videoInputDevice;
 }
 
+@property (nonatomic, strong) UIView *overlay;
 @property (retain) AVCaptureVideoPreviewLayer *previewLayer;
+@property (nonatomic, weak) id delegate;
 
 @property (nonatomic) BOOL shouldCaptureVideo;
 @property (nonatomic) BOOL shouldCaptureAudio;
 @property (nonatomic) BOOL shouldSaveToFile;
 @property (nonatomic) BOOL shouldShowPreview;
 
-- (BOOL)toggleCamera:(id)sender;
+-(void)addOverlayToFrame:(CGRect)frame;
+-(BOOL)toggleCamera:(id)sender;
 -(void)startRecording;
 -(void)stopRecording;
 @end
