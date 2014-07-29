@@ -88,6 +88,7 @@
 		9E79B87219643B2100559838 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B87119643B2100559838 /* SystemConfiguration.framework */; };
 		9E82C4CE196C35CA0073D7D1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */; };
 		9E82C4D0196C3C910073D7D1 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */; };
+		9E973AF819884F3F00142E6C /* TraitSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E973AF719884F3F00142E6C /* TraitSelectorViewController.m */; };
 		9EA7931B1985F19300C8A0C9 /* seven_icon_facebook_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA793191985F19300C8A0C9 /* seven_icon_facebook_white@2x.png */; };
 		9EA7931C1985F19300C8A0C9 /* seven_icon_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */; };
 		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
@@ -223,6 +224,8 @@
 		9E79B87119643B2100559838 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		9E973AF619884F3F00142E6C /* TraitSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraitSelectorViewController.h; sourceTree = "<group>"; };
+		9E973AF719884F3F00142E6C /* TraitSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TraitSelectorViewController.m; sourceTree = "<group>"; };
 		9EA793191985F19300C8A0C9 /* seven_icon_facebook_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_facebook_white@2x.png"; sourceTree = "<group>"; };
 		9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_logo_white@2x.png"; sourceTree = "<group>"; };
 		9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookHelper.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 				9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */,
 				9E3E24F81986879500870666 /* ProfileVideoPreviewViewController.h */,
 				9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */,
+				9E973AF619884F3F00142E6C /* TraitSelectorViewController.h */,
+				9E973AF719884F3F00142E6C /* TraitSelectorViewController.m */,
 			);
 			name = Signup2;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				9E01240F196707A30080543B /* SignupEmailViewController.m in Sources */,
 				9E79B8551964363600559838 /* NSObject+Notify.m in Sources */,
 				9E79B8591964363600559838 /* UIImage+RoundedCorner.m in Sources */,
+				9E973AF819884F3F00142E6C /* TraitSelectorViewController.m in Sources */,
 				9E79B808196435AA00559838 /* ViewController.m in Sources */,
 				9E01243119671B040080543B /* CommonStyledViewController.m in Sources */,
 				9E23769D1981537F007ED7D8 /* IntroViewController.m in Sources */,

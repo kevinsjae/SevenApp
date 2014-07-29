@@ -62,8 +62,7 @@
     NSLog(@"Save profile video");
     [self saveVideoWithCompletion:^(BOOL success) {
         if (success) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Congrats! Your profile has a video."  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alert show];
+            [self performSegueWithIdentifier:@"PreviewToTraits" sender:self];
         }
         else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
