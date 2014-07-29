@@ -8,6 +8,7 @@
 // merging: http://www.raywenderlich.com/13418/how-to-play-record-edit-videos-in-ios
 
 #import "ProfileVideoPreviewViewController.h"
+#import "MBProgressHUD.h"
 
 @interface ProfileVideoPreviewViewController ()
 
@@ -30,12 +31,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:nil];
-
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                              forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
@@ -67,7 +62,7 @@
     NSLog(@"Save profile video");
     [self saveVideoWithCompletion:^(BOOL success) {
         if (success) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Congrats! Your profile has a video."  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
         }
         else {
@@ -83,11 +78,20 @@
 }
 
 -(void)playCurrentMedia {
-    player = [[AVPlayer alloc] initWithURL:profileVideoURL];
+    AVURLAsset *asset = [AVURLAsset assetWithURL:profileVideoURL];
+    float duration = CMTimeGetSeconds(asset.duration);
+    AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
+    player = [[AVPlayer alloc] initWithPlayerItem:item];
+
     AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
     layer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view.layer addSublayer:layer];
     [player play];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:item];
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
@@ -102,6 +106,10 @@
 }
 
 - (IBAction)MergeAndSave:(id)sender{
+    CMTime firstTime = firstAsset.duration;
+    CMTime secondTime = secondAsset.duration;
+    NSLog(@"Video lengths %f %f", CMTimeGetSeconds(firstTime), CMTimeGetSeconds(secondTime));
+
     if(firstAsset !=nil && secondAsset!=nil){
         //Create AVMutableComposition Object.This object will hold our multiple AVMutableCompositionTrack.
         AVMutableComposition* mixComposition = [[AVMutableComposition alloc] init];
@@ -189,6 +197,7 @@
         [exporter exportAsynchronouslyWithCompletionHandler:^
          {
              dispatch_async(dispatch_get_main_queue(), ^{
+                 NSLog(@"progress: %f", exporter.progress);
                  [self exportDidFinish:exporter];
              });
          }];
@@ -217,36 +226,69 @@
 */
 
 -(void)saveVideoWithCompletion:(void(^)(BOOL success))competion {
-#if 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+
+#if 0
     // save to disk
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:profileVideoURL]) {
         [library writeVideoAtPathToSavedPhotosAlbum:profileVideoURL
                                     completionBlock:^(NSURL *assetURL, NSError *error){
                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                            if (error) {
-                                                if (competion) {
-                                                    competion(NO);
-                                                }
-                                            }else{
-                                                if (competion) {
-                                                    competion(YES);
-                                                }
-                                            }
                                         });
                                     }];
     }
-//#else
+#else
     // save to parse
     NSData *data = [NSData dataWithContentsOfURL:profileVideoURL];
     PFFile *file = [PFFile fileWithData:data];
+    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    progress.mode = MBProgressHUDModeAnnularDeterminate;
+    progress.labelText = @"Saving video";
+
+    // create PFFile - a chunk of data
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            PFObject *videoObject = [PFObject objectWithClassName:@"ProfileVideo"];
-            videoObject[@"user"] = [PFUser currentUser];
+            PFObject *videoObject;
+            PFUser *currentUser = [PFUser currentUser];
+            if (currentUser[@"profileVideo"]) {
+                videoObject = currentUser[@"profileVideo"];
+            }
+            else {
+                videoObject = [PFObject objectWithClassName:@"ProfileVideo"];
+            }
             videoObject[@"video"] = file;
-            [videoObject saveInBackground];
+
+            // attach PFFile to a ProfileVideo object
+            [videoObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) {
+                    progress.labelText = @"Error saving video!";
+                    [progress hide:YES afterDelay:3];
+                    if (competion) {
+                        competion(NO);
+                    }
+                }else{
+                    [progress hide:YES];
+
+                    // set relationship between PFUser and ProfileVideo. use a relationship instead of putting the PFFile directly on the user option
+                    [PFUser currentUser][@"profileVideo"] = videoObject;
+                    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            NSLog(@"Done");
+                            if (competion) {
+                                competion(YES);
+                            }
+                        }
+                        else {
+                            NSLog(@"Error: %@", error);
+                        }
+                    }];
+                }
+            }];
         }
+    } progressBlock:^(int percentDone) {
+        NSLog(@"Saving video %d%%", percentDone);
+        [progress setProgress:(float)percentDone/100.0];
     }];
 #endif
 

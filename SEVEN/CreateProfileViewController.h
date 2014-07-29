@@ -7,19 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GPCameraDelegate.h"
+#import "BRCameraViewController.h"
 
-@class SevenCamera;
 @class AVPlayer;
 @class VideoProgressIndicator;
 
-@interface CreateProfileViewController : UIViewController <GPCameraDelegate, UIGestureRecognizerDelegate>
+@interface CreateProfileViewController : UIViewController <UIGestureRecognizerDelegate, BRCameraDelegate>
 {
     AVPlayer *player;
     IBOutlet UIView *viewVideoBG;
     IBOutlet UIView *tutorialView;
 
-    SevenCamera *camera;
+    BRCameraViewController *cameraController;
 
     IBOutlet UILabel *labelMessage;
     IBOutlet UILabel *labelClose;

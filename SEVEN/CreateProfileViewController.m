@@ -8,10 +8,10 @@
 
 #import "CreateProfileViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "SevenCamera.h"
 #import "EffectsUtils.h"
 #import "VideoProgressIndicator.h"
 #import "ProfileVideoPreviewViewController.h"
+#import "BRCameraViewController.h"
 
 @interface CreateProfileViewController ()
 
@@ -36,7 +36,6 @@
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
-
     [self showTutorialView];
 
     mediaURLs = [NSMutableArray array]; // reference to two recorded clips (URLs)
@@ -66,12 +65,17 @@
 }
 */
 
+#pragma mark Tutorial overlay
 -(void)showTutorialView {
     [viewVideoBG.layer setCornerRadius:viewVideoBG.frame.size.width/2];
     viewVideoBG.contentMode = UIViewContentModeScaleAspectFill;
 
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"SEVEN_ProfileSample_002" withExtension:@"mp4"];
-    player = [[AVPlayer alloc] initWithURL:url];
+
+    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
+    AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
+    player = [[AVPlayer alloc] initWithPlayerItem:item];
+
     AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
     layer.frame = CGRectMake(0, 0, viewVideoBG.frame.size.width, viewVideoBG.frame.size.height);
     layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -86,7 +90,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:nil];
+                                               object:item];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     [tutorialView addGestureRecognizer:tap];
@@ -107,6 +111,7 @@
     [player play];
 }
 
+#pragma mark Gesture
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
 
@@ -118,18 +123,21 @@
         [UIView animateWithDuration:duration animations:^{
             tutorialView.alpha = 0;
         } completion:^(BOOL finished) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
             [tutorialView removeFromSuperview];
             [self setupCamera];
         }];
     }
     else if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
         if (gesture.state == UIGestureRecognizerStateBegan) {
-            if ([mediaURLs count] < 2)
-                [camera startRecordingVideo];
+            if ([mediaURLs count] < 2) {
+                [cameraController startRecording];
+            }
         }
         else if (gesture.state == UIGestureRecognizerStateEnded) {
-            if (progressTimer)
-                [camera stopRecordingVideo];
+            if (progressTimer) {
+                [cameraController stopRecording];
+            }
             else {
                 NSLog(@"User released but camera already stopped");
             }
@@ -138,28 +146,29 @@
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (camera && !cameraReady) {
+    if (cameraController && !cameraReady) {
         NSLog(@"Camera not ready");
         return NO;
     }
-    NSLog(@"Camera: %@ ready: %d", camera, cameraReady);
+    NSLog(@"Camera ready: %d", cameraReady);
     return YES;
 }
 
 #pragma mark Camera
 -(void)setupCamera {
-    camera = [[SevenCamera alloc] init];
-    [camera setDelegate:self];
+    cameraController = [[BRCameraViewController alloc] init];
+    [cameraController setDelegate:self];
+//    [self.view addSubview:cameraController.view];
+    [self.navigationController presentViewController:cameraController animated:NO completion:nil];
 
-    [camera startCameraFrom:self];
-    [camera addOverlayWithFrame:_appDelegate.window.bounds];
-
-    [camera addProgressIndicator:progressBG];
+    CGRect frame = self.view.frame;
+    [cameraController addOverlayToFrame:frame]; // avoid the nav bar
+    [cameraController.overlay addSubview:progressBG];
 
     UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     press.minimumPressDuration = 0.1;
     press.delegate = self;
-    [camera.overlayView addGestureRecognizer:press];
+    [cameraController.overlay addGestureRecognizer:press];
 
     cameraReady = YES;
     shouldShowCameraOnAppear = NO;
@@ -173,10 +182,6 @@
 }
 
 #pragma mark Camera Delegate
--(void)dismissCamera {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 -(void)didStartRecordingVideo {
     videoStartTimestamp = [NSDate date];
     progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
@@ -207,6 +212,7 @@
     }
 }
 
+#pragma mark progress display
 -(void)recordVideoFailed:(id)sender {
     // automatically time out if we stopped recording but camera does not return
     NSLog(@"Capture failed for some reason. Allow user to try again");
@@ -230,7 +236,7 @@
             [progressTimer invalidate];
             progressTimer = nil;
         }
-        [camera stopRecordingVideo];
+        [cameraController stopRecording];
     }
 }
 
@@ -239,7 +245,7 @@
     // preview here, no more recording
     [self dismissViewControllerAnimated:NO completion:^{
         [self performSegueWithIdentifier:@"CameraToPreview" sender:self];
-        camera = nil;
+        cameraController = nil;
         shouldShowCameraOnAppear = YES;
     }];
 }
