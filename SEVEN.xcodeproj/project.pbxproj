@@ -42,7 +42,6 @@
 		9E2376AB19815842007ED7D8 /* SEVEN_IntroVideo_V02.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376A819815841007ED7D8 /* SEVEN_IntroVideo_V02.mp4 */; };
 		9E2376AC19815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376A919815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 */; };
 		9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */; };
-		9E3E24F1198661AE00870666 /* SevenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F0198661AE00870666 /* SevenCamera.m */; };
 		9E3E24F41986670100870666 /* EffectsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F31986670100870666 /* EffectsUtils.m */; };
 		9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F6198670B000870666 /* VideoProgressIndicator.m */; };
 		9E3E24FA1986879500870666 /* ProfileVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */; };
@@ -94,7 +93,6 @@
 		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
 		9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */; };
 		9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */; };
-		9EEBB8691985FCE90023CE0F /* GPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8671985FCE90023CE0F /* GPCamera.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,8 +153,6 @@
 		9E2376A819815841007ED7D8 /* SEVEN_IntroVideo_V02.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_IntroVideo_V02.mp4; sourceTree = "<group>"; };
 		9E2376A919815842007ED7D8 /* SEVEN_IntroVideo_V03.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_IntroVideo_V03.mp4; sourceTree = "<group>"; };
 		9E2376AA19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SEVEN_ProfileSample_002.mp4; sourceTree = "<group>"; };
-		9E3E24EF198661AE00870666 /* SevenCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SevenCamera.h; sourceTree = "<group>"; };
-		9E3E24F0198661AE00870666 /* SevenCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SevenCamera.m; sourceTree = "<group>"; };
 		9E3E24F21986670100870666 /* EffectsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsUtils.h; sourceTree = "<group>"; };
 		9E3E24F31986670100870666 /* EffectsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsUtils.m; sourceTree = "<group>"; };
 		9E3E24F5198670B000870666 /* VideoProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoProgressIndicator.h; sourceTree = "<group>"; };
@@ -235,9 +231,6 @@
 		9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateProfileViewController.m; sourceTree = "<group>"; };
 		9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSlideFromRightTransitionSegue.h; sourceTree = "<group>"; };
 		9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalSlideFromRightTransitionSegue.m; sourceTree = "<group>"; };
-		9EEBB8661985FCE90023CE0F /* GPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCamera.h; sourceTree = "<group>"; };
-		9EEBB8671985FCE90023CE0F /* GPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCamera.m; sourceTree = "<group>"; };
-		9EEBB8681985FCE90023CE0F /* GPCameraDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCameraDelegate.h; sourceTree = "<group>"; };
 		A21E14AC96954F9C9B86AA3D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F6043D75BAC44FD79985E431 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -529,11 +522,6 @@
 		9EEBB8651985FCE30023CE0F /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				9EEBB8661985FCE90023CE0F /* GPCamera.h */,
-				9EEBB8671985FCE90023CE0F /* GPCamera.m */,
-				9E3E24EF198661AE00870666 /* SevenCamera.h */,
-				9E3E24F0198661AE00870666 /* SevenCamera.m */,
-				9EEBB8681985FCE90023CE0F /* GPCameraDelegate.h */,
 				9E3E25021987F85E00870666 /* BRCameraViewController.h */,
 				9E3E25031987F85E00870666 /* BRCameraViewController.m */,
 			);
@@ -706,8 +694,6 @@
 				9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */,
 				9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */,
 				9E01240F196707A30080543B /* SignupEmailViewController.m in Sources */,
-				9E3E24F1198661AE00870666 /* SevenCamera.m in Sources */,
-				9EEBB8691985FCE90023CE0F /* GPCamera.m in Sources */,
 				9E79B8551964363600559838 /* NSObject+Notify.m in Sources */,
 				9E79B8591964363600559838 /* UIImage+RoundedCorner.m in Sources */,
 				9E79B808196435AA00559838 /* ViewController.m in Sources */,

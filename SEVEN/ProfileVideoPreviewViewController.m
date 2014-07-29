@@ -8,6 +8,7 @@
 // merging: http://www.raywenderlich.com/13418/how-to-play-record-edit-videos-in-ios
 
 #import "ProfileVideoPreviewViewController.h"
+#import "MBProgressHUD.h"
 
 @interface ProfileVideoPreviewViewController ()
 
@@ -61,7 +62,7 @@
     NSLog(@"Save profile video");
     [self saveVideoWithCompletion:^(BOOL success) {
         if (success) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Congrats! Your profile has a video."  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
         }
         else {
@@ -227,36 +228,46 @@
 -(void)saveVideoWithCompletion:(void(^)(BOOL success))competion {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 
-#if 1
+#if 0
     // save to disk
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:profileVideoURL]) {
         [library writeVideoAtPathToSavedPhotosAlbum:profileVideoURL
                                     completionBlock:^(NSURL *assetURL, NSError *error){
                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                            if (error) {
-                                                if (competion) {
-                                                    competion(NO);
-                                                }
-                                            }else{
-                                                if (competion) {
-                                                    competion(YES);
-                                                }
-                                            }
                                         });
                                     }];
     }
-//#else
+#else
     // save to parse
     NSData *data = [NSData dataWithContentsOfURL:profileVideoURL];
     PFFile *file = [PFFile fileWithData:data];
+    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    progress.mode = MBProgressHUDModeAnnularDeterminate;
+    progress.labelText = @"Saving video";
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             PFObject *videoObject = [PFObject objectWithClassName:@"ProfileVideo"];
             videoObject[@"user"] = [PFUser currentUser];
             videoObject[@"video"] = file;
-            [videoObject saveInBackground];
+            [videoObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) {
+                    progress.labelText = @"Error saving video!";
+                    [progress hide:YES afterDelay:3];
+                    if (competion) {
+                        competion(NO);
+                    }
+                }else{
+                    [progress hide:YES];
+                    if (competion) {
+                        competion(YES);
+                    }
+                }
+            }];
         }
+    } progressBlock:^(int percentDone) {
+        NSLog(@"Saving video %d%%", percentDone);
+        [progress setProgress:(float)percentDone/100.0];
     }];
 #endif
 
