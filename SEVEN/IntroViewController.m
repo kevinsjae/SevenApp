@@ -43,18 +43,6 @@ static NSArray *movieList;
 
     [self.pageControl setNumberOfPages:[movieList count]];
     [self.pageControl setCurrentPage:0];
-
-#if TESTING
-    [self animateBarsWithDuration:.1]; // 3
-    [EffectsUtils gradientFadeInForView:self.viewTitle duration:.1];
-    [EffectsUtils gradientFadeInForView:self.labelSubtitle duration:.1];
-    [self animateButtonWithDuration:.1]; //2
-#else
-    [self animateBarsWithDuration:3];
-    [EffectsUtils gradientFadeInForView:self.viewTitle duration:4];
-    [EffectsUtils gradientFadeInForView:self.labelSubtitle duration:4];
-    [self animateButtonWithDuration:2];
-#endif
 }
 
 -(void)addPlayers {
@@ -93,8 +81,20 @@ static NSArray *movieList;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     [self.currentPlayer play];
+
+    [super viewDidAppear:animated];
+#if TESTING
+    [self animateBarsWithDuration:.1]; // 3
+    [EffectsUtils gradientFadeInForView:self.viewTitle duration:.1];
+    [EffectsUtils gradientFadeInForView:self.labelSubtitle duration:.1];
+    [self animateButtonWithDuration:.1]; //2
+#else
+    [self animateBarsWithDuration:3];
+    [EffectsUtils gradientFadeInForView:self.viewTitle duration:4];
+    [EffectsUtils gradientFadeInForView:self.labelSubtitle duration:4];
+    [self animateButtonWithDuration:2];
+#endif
 }
 
 #pragma mark scrollviewdelegate
