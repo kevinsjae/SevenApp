@@ -198,6 +198,7 @@ static NSArray *movieList;
         if (error) {
             NSLog(@"Error: %@", error);
             [self.buttonFacebook setEnabled:YES];
+            [UIAlertView alertViewWithTitle:@"Facebook error" message:[NSString stringWithFormat:@"Could not connect your Facebook profile. Error: %@", error.userInfo[@"NSLocalizedFailureReason"]]];
         }
         else {
             NSLog(@"User: %@", user);
