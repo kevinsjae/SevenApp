@@ -65,21 +65,17 @@
 
 -(void)didClickRight:(id)sender {
     NSLog(@"Save profile video");
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:profileVideoURL]) {
-        [library writeVideoAtPathToSavedPhotosAlbum:profileVideoURL
-                                    completionBlock:^(NSURL *assetURL, NSError *error){
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                             if (error) {
-                                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
-                                             [alert show];
-                                             }else{
-                                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                                             [alert show];
-                                             }
-                                        });
-                                    }];
-    }
+    [self saveVideoWithCompletion:^(BOOL success) {
+        if (success) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Saved To Photo Album"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
+            [alert show];
+
+        }
+    }];
 }
 
 -(void)didClickLeft:(id)sender {
@@ -219,5 +215,41 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)saveVideoWithCompletion:(void(^)(BOOL success))competion {
+#if 1
+    // save to disk
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:profileVideoURL]) {
+        [library writeVideoAtPathToSavedPhotosAlbum:profileVideoURL
+                                    completionBlock:^(NSURL *assetURL, NSError *error){
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            if (error) {
+                                                if (competion) {
+                                                    competion(NO);
+                                                }
+                                            }else{
+                                                if (competion) {
+                                                    competion(YES);
+                                                }
+                                            }
+                                        });
+                                    }];
+    }
+//#else
+    // save to parse
+    NSData *data = [NSData dataWithContentsOfURL:profileVideoURL];
+    PFFile *file = [PFFile fileWithData:data];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            PFObject *videoObject = [PFObject objectWithClassName:@"ProfileVideo"];
+            videoObject[@"user"] = [PFUser currentUser];
+            videoObject[@"video"] = file;
+            [videoObject saveInBackground];
+        }
+    }];
+#endif
+
+}
 
 @end

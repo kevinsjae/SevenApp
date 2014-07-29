@@ -128,7 +128,11 @@
                 [camera startRecordingVideo];
         }
         else if (gesture.state == UIGestureRecognizerStateEnded) {
-            [camera stopRecordingVideo];
+            if (progressTimer)
+                [camera stopRecordingVideo];
+            else {
+                NSLog(@"User released but camera already stopped");
+            }
         }
     }
 }
@@ -187,9 +191,13 @@
         [progressTimer invalidate];
         progressTimer = nil;
     }
+
+    [self performSelector:@selector(recordVideoFailed:) withObject:nil afterDelay:5];
 }
 
 -(void)didRecordMediaWithURL:(NSURL *)url {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(recordVideoFailed:) object:nil];
+
     NSLog(@"URL: %@", url.path);
     [mediaURLs addObject:url];
     cameraReady = YES;
@@ -197,6 +205,15 @@
     if ([mediaURLs count] == 2) {
         [self goToPreview];
     }
+}
+
+-(void)recordVideoFailed:(id)sender {
+    // automatically time out if we stopped recording but camera does not return
+    NSLog(@"Capture failed for some reason. Allow user to try again");
+    [mediaLengths removeLastObject];
+    cameraReady = YES;
+
+    [progressIndicator updateAllProgress:mediaLengths];
 }
 
 -(void)tick {
