@@ -45,13 +45,13 @@ static NSArray *movieList;
 
 #if TESTING
     [self animateBarsWithDuration:.1]; // 3
-    [self animateFade:self.viewTitle duration:.1]; // 4
-    [self animateFade:self.labelSubtitle duration:.1]; // 4
+    [EffectsUtils gradientFadeInForView:self.viewTitle duration:.1];
+    [EffectsUtils gradientFadeInForView:self.labelSubtitle duration:.1];
     [self animateButtonWithDuration:.1]; //2
 #else
     [self animateBarsWithDuration:3];
-    [self animateFade:self.viewTitle duration:4];
-    [self animateFade:self.labelSubtitle duration:4];
+    [EffectsUtils gradientFadeInForView:self.viewTitle duration:4];
+    [EffectsUtils gradientFadeInForView:self.labelSubtitle duration:4];
     [self animateButtonWithDuration:2];
 #endif
 }
@@ -148,10 +148,6 @@ static NSArray *movieList;
     }];
 }
 
--(void)animateFade:(UIView *)view duration:(float)duration {
-    [EffectsUtils gradientFadeInForView:view duration:duration];
-}
-
 /*
 #pragma mark - Navigation
 
@@ -193,7 +189,9 @@ static NSArray *movieList;
 
 #pragma mark Facebook
 - (IBAction)didClickButton:(id)sender {
-    [self.buttonFacebook setEnabled:NO];
+    [self.buttonFacebook setUserInteractionEnabled:NO];
+    [self.buttonFacebook2 setUserInteractionEnabled:NO];
+    NSLog(@"Trying to log in");
     [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
