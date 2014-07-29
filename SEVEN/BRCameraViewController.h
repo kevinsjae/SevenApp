@@ -32,6 +32,8 @@
 	AVCaptureSession *captureSession;
 	AVCaptureMovieFileOutput *movieFileOutput;
 	AVCaptureDeviceInput *videoInputDevice;
+
+    NSTimer *progressTimer;
 }
 
 @property (nonatomic, strong) UIView *overlay;

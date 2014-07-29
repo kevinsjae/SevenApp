@@ -27,7 +27,7 @@
         self.shouldCaptureVideo = YES;
         self.shouldCaptureAudio = NO;
         self.shouldShowPreview = YES;
-        self.shouldSaveToFile = NO;
+        self.shouldSaveToFile = YES;
         
     }
     return self;
@@ -142,25 +142,18 @@
 #pragma mark Camera output properties
 - (void) cameraSetOutputProperties {
 	AVCaptureConnection *captureConnection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
-
 	//Set landscape (if required)
-	if ([captureConnection isVideoOrientationSupported])
-	{
-		AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationLandscapeRight;		//<<<<<SET VIDEO ORIENTATION IF LANDSCAPE
+	if ([captureConnection isVideoOrientationSupported]) {
+		AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;		//<<<<<SET VIDEO ORIENTATION IF LANDSCAPE
 		[captureConnection setVideoOrientation:orientation];
 	}
 
 	//Set frame rate (if requried)
-	CMTimeShow(captureConnection.videoMinFrameDuration);
-	CMTimeShow(captureConnection.videoMaxFrameDuration);
-
-	if (captureConnection.supportsVideoMinFrameDuration)
-		captureConnection.videoMinFrameDuration = CMTimeMake(1, CAPTURE_FRAMES_PER_SECOND);
-	if (captureConnection.supportsVideoMaxFrameDuration)
-		captureConnection.videoMaxFrameDuration = CMTimeMake(1, CAPTURE_FRAMES_PER_SECOND);
-
-	CMTimeShow(captureConnection.videoMinFrameDuration);
-	CMTimeShow(captureConnection.videoMaxFrameDuration);
+    NSError *error;
+    [videoInputDevice.device lockForConfiguration:&error];
+    [videoInputDevice.device setActiveVideoMinFrameDuration:CMTimeMake(1, CAPTURE_FRAMES_PER_SECOND)];
+    [videoInputDevice.device setActiveVideoMaxFrameDuration:CMTimeMake(1, CAPTURE_FRAMES_PER_SECOND)];
+    [videoInputDevice.device unlockForConfiguration];
 }
 
 #pragma mark overlay
@@ -248,7 +241,7 @@
 		isRecording = YES;
 
 		//Create temporary URL to record to
-		NSString *outputPath = [[NSString alloc] initWithFormat:@"%@%@", NSTemporaryDirectory(), @"output.mov"];
+		NSString *outputPath = [[NSString alloc] initWithFormat:@"%@%@", NSTemporaryDirectory(), [NSString stringWithFormat:@"%@.mov", [NSDate date]]];
 		NSURL *outputURL = [[NSURL alloc] initFileURLWithPath:outputPath];
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		if ([fileManager fileExistsAtPath:outputPath])
@@ -268,13 +261,30 @@
     if (!movieFileOutput)
         return;
 
+    if (progressTimer) {
+        [progressTimer invalidate];
+        progressTimer = nil;
+    }
+
     if (isRecording) {
 		isRecording = NO;
 		[movieFileOutput stopRecording];
+
+        [self.delegate didStopRecordingVideo];
 	}
 }
 
+-(void)tick {
+    float duration = CMTimeGetSeconds(movieFileOutput.recordedDuration);
+    NSLog(@"Recorded duration %f", duration);
+}
+
 #pragma mark Camera Delegate
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
+    progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+    [self.delegate didStartRecordingVideo];
+}
+
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
     if ([error code] != noErr) {
         // A problem occurred: Find out if the recording was successful.
@@ -285,6 +295,8 @@
     }
     else {
         // save to library
+        [self.delegate didRecordMediaWithURL:outputFileURL];
+        /*
 		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 		if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputFileURL])
 		{
@@ -297,6 +309,7 @@
                  }
              }];
 		}
+         */
 	}
 }
 

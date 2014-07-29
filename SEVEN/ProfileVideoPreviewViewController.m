@@ -102,6 +102,10 @@
 }
 
 - (IBAction)MergeAndSave:(id)sender{
+    CMTime firstTime = firstAsset.duration;
+    CMTime secondTime = secondAsset.duration;
+    NSLog(@"Video lengths %f %f", CMTimeGetSeconds(firstTime), CMTimeGetSeconds(secondTime));
+
     if(firstAsset !=nil && secondAsset!=nil){
         //Create AVMutableComposition Object.This object will hold our multiple AVMutableCompositionTrack.
         AVMutableComposition* mixComposition = [[AVMutableComposition alloc] init];
