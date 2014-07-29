@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "FacebookHelper.h"
 #import "EffectsUtils.h"
+#import "MBProgressHUD.h"
 
 static NSArray *movieList;
 
@@ -191,14 +192,21 @@ static NSArray *movieList;
 - (IBAction)didClickButton:(id)sender {
     [self.buttonFacebook setUserInteractionEnabled:NO];
     [self.buttonFacebook2 setUserInteractionEnabled:NO];
+
+    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    progress.labelText = @"Connecting to Facebook...";
+    progress.mode = MBProgressHUDModeIndeterminate;
     NSLog(@"Trying to log in");
     [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
             [self.buttonFacebook setEnabled:YES];
-            [UIAlertView alertViewWithTitle:@"Facebook error" message:[NSString stringWithFormat:@"Could not connect your Facebook profile. Error: %@", error.userInfo[@"NSLocalizedFailureReason"]]];
+            progress.labelText = @"Facebook error";
+            progress.detailsLabelText = [NSString stringWithFormat:@"Could not connect your Facebook profile. Error: %@", error.userInfo[@"NSLocalizedFailureReason"]];
+            [progress hide:YES afterDelay:3];
         }
         else {
+            [progress hide:YES];
             NSLog(@"User: %@", user);
             NSLog(@"Current user: %@", [PFUser currentUser]);
 
