@@ -245,11 +245,21 @@
     MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     progress.mode = MBProgressHUDModeAnnularDeterminate;
     progress.labelText = @"Saving video";
+
+    // create PFFile - a chunk of data
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            PFObject *videoObject = [PFObject objectWithClassName:@"ProfileVideo"];
-            videoObject[@"user"] = [PFUser currentUser];
+            PFObject *videoObject;
+            PFUser *currentUser = [PFUser currentUser];
+            if (currentUser[@"profileVideo"]) {
+                videoObject = currentUser[@"profileVideo"];
+            }
+            else {
+                videoObject = [PFObject objectWithClassName:@"ProfileVideo"];
+            }
             videoObject[@"video"] = file;
+
+            // attach PFFile to a ProfileVideo object
             [videoObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error) {
                     progress.labelText = @"Error saving video!";
@@ -259,9 +269,20 @@
                     }
                 }else{
                     [progress hide:YES];
-                    if (competion) {
-                        competion(YES);
-                    }
+
+                    // set relationship between PFUser and ProfileVideo. use a relationship instead of putting the PFFile directly on the user option
+                    [PFUser currentUser][@"profileVideo"] = videoObject;
+                    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            NSLog(@"Done");
+                            if (competion) {
+                                competion(YES);
+                            }
+                        }
+                        else {
+                            NSLog(@"Error: %@", error);
+                        }
+                    }];
                 }
             }];
         }
