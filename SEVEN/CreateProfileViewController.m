@@ -188,7 +188,7 @@
 
 -(void)didStopRecordingVideo {
     cameraReady = YES;
-    NSArray *allLengths = [mediaLengths arrayByAddingObject:@(currentLength)];
+    NSArray *allLengths = [mediaLengths arrayByAddingObject:@(MIN(3.0, currentLength))];
     [progressIndicator updateAllProgress:allLengths];
 }
 
@@ -213,7 +213,7 @@
     //[progressIndicator updateProgress:secondsPassed];
 
     currentLength = secondsPassed;
-    NSArray *allLengths = [mediaLengths arrayByAddingObject:@(currentLength)];
+    NSArray *allLengths = [mediaLengths arrayByAddingObject:@(MIN(3.0, currentLength))];
     [progressIndicator updateAllProgress:allLengths];
     NSLog(@"Current video length: %f", currentLength);
 

@@ -89,6 +89,7 @@
 		9E82C4CE196C35CA0073D7D1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CD196C35CA0073D7D1 /* AddressBook.framework */; };
 		9E82C4D0196C3C910073D7D1 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */; };
 		9E973AF819884F3F00142E6C /* TraitSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E973AF719884F3F00142E6C /* TraitSelectorViewController.m */; };
+		9E973AFC1989572800142E6C /* BackgroundHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E973AFB1989572800142E6C /* BackgroundHelper.m */; };
 		9EA7931B1985F19300C8A0C9 /* seven_icon_facebook_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA793191985F19300C8A0C9 /* seven_icon_facebook_white@2x.png */; };
 		9EA7931C1985F19300C8A0C9 /* seven_icon_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */; };
 		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
@@ -226,6 +227,8 @@
 		9E82C4CF196C3C910073D7D1 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		9E973AF619884F3F00142E6C /* TraitSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraitSelectorViewController.h; sourceTree = "<group>"; };
 		9E973AF719884F3F00142E6C /* TraitSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TraitSelectorViewController.m; sourceTree = "<group>"; };
+		9E973AFA1989572800142E6C /* BackgroundHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundHelper.h; sourceTree = "<group>"; };
+		9E973AFB1989572800142E6C /* BackgroundHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundHelper.m; sourceTree = "<group>"; };
 		9EA793191985F19300C8A0C9 /* seven_icon_facebook_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_facebook_white@2x.png"; sourceTree = "<group>"; };
 		9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_logo_white@2x.png"; sourceTree = "<group>"; };
 		9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookHelper.h; sourceTree = "<group>"; };
@@ -423,6 +426,8 @@
 		9E79B8311964363600559838 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9E973AFA1989572800142E6C /* BackgroundHelper.h */,
+				9E973AFB1989572800142E6C /* BackgroundHelper.m */,
 				9E79B8321964363600559838 /* ALAssetsLibrary+CustomPhotoAlbum.h */,
 				9E79B8331964363600559838 /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 				9E79B8341964363600559838 /* GPLocationHelper.h */,
@@ -714,6 +719,7 @@
 				9E01243119671B040080543B /* CommonStyledViewController.m in Sources */,
 				9E23769D1981537F007ED7D8 /* IntroViewController.m in Sources */,
 				9E79B84F1964363600559838 /* GPLocationHelper.m in Sources */,
+				9E973AFC1989572800142E6C /* BackgroundHelper.m in Sources */,
 				9E79B8511964363600559838 /* UIActionSheet+MKBlockAdditions.m in Sources */,
 				9E79B8501964363600559838 /* NSObject+MKBlockAdditions.m in Sources */,
 				9E79B8571964363600559838 /* UIImage+Alpha.m in Sources */,
