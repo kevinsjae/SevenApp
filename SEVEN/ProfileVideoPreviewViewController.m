@@ -9,6 +9,7 @@
 
 #import "ProfileVideoPreviewViewController.h"
 #import "MBProgressHUD.h"
+#import "BackgroundHelper.h"
 
 @interface ProfileVideoPreviewViewController ()
 
@@ -60,10 +61,11 @@
 
 -(void)didClickRight:(id)sender {
     NSLog(@"Save profile video");
+    [BackgroundHelper keepTaskInBackgroundForPhotoUpload];
     [self saveVideoWithCompletion:^(BOOL success) {
+        [BackgroundHelper stopTaskInBackgroundForPhotoUpload];
         if (success) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video Saved" message:@"Congrats! Your profile has a video."  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alert show];
+            NSLog(@"Upload complete. Can stop backgrounding now");
         }
         else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
@@ -243,8 +245,10 @@
     NSData *data = [NSData dataWithContentsOfURL:profileVideoURL];
     PFFile *file = [PFFile fileWithData:data];
     MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    progress.mode = MBProgressHUDModeAnnularDeterminate;
+    progress.mode = MBProgressHUDModeIndeterminate;
     progress.labelText = @"Saving video";
+
+    __block BOOL needsTransition = YES;
 
     // create PFFile - a chunk of data
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -288,7 +292,10 @@
         }
     } progressBlock:^(int percentDone) {
         NSLog(@"Saving video %d%%", percentDone);
-        [progress setProgress:(float)percentDone/100.0];
+        if (percentDone > 10 && needsTransition) {
+            needsTransition = NO;
+            [self performSegueWithIdentifier:@"PreviewToTraits" sender:self];
+        }
     }];
 #endif
 

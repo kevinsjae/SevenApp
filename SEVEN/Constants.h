@@ -11,7 +11,7 @@
 
 #define _appDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
-#define TESTING 1
+#define TESTING 0
 
 #define COL_RED [UIColor colorWithRed:225.0/255.0 green:44.0/255.0 blue:49.0/255.0 alpha:1]
 #define COL_BLUE [UIColor colorWithRed:79.0/255.0 green:194.0/255.0 blue:227.0/255.0 alpha:1]
