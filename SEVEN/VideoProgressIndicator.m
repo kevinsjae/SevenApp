@@ -35,7 +35,7 @@
     return percentDone;
 }
 
--(void)updateAllProgress:(NSMutableArray *)videoLengths {
+-(void)updateAllProgress:(NSArray *)videoLengths {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         colors = @[[UIColor blueColor], [UIColor cyanColor]];

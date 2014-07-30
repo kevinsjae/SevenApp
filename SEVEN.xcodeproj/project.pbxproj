@@ -281,10 +281,6 @@
 				9E23769C1981537F007ED7D8 /* IntroViewController.m */,
 				9EEBB85F1985B1B10023CE0F /* CreateProfileViewController.h */,
 				9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */,
-				9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */,
-				9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */,
-				9E3E24F5198670B000870666 /* VideoProgressIndicator.h */,
-				9E3E24F6198670B000870666 /* VideoProgressIndicator.m */,
 				9E3E24F81986879500870666 /* ProfileVideoPreviewViewController.h */,
 				9E3E24F91986879500870666 /* ProfileVideoPreviewViewController.m */,
 			);
@@ -351,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				9EEBB8651985FCE30023CE0F /* Camera */,
+				9E973AF919894BAD00142E6C /* Other */,
 				9E23769A19815348007ED7D8 /* Signup2 */,
 				9EC9CF02196D626C00EAF3D9 /* Signup */,
 				9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */,
@@ -452,6 +449,17 @@
 				9E79B83D1964363600559838 /* UIAlertView+MKBlockAdditions.m */,
 			);
 			path = MKAdditions;
+			sourceTree = "<group>";
+		};
+		9E973AF919894BAD00142E6C /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */,
+				9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */,
+				9E3E24F5198670B000870666 /* VideoProgressIndicator.h */,
+				9E3E24F6198670B000870666 /* VideoProgressIndicator.m */,
+			);
+			name = Other;
 			sourceTree = "<group>";
 		};
 		9EA793141985F16F00C8A0C9 /* Old */ = {

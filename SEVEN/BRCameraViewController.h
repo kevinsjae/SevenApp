@@ -22,7 +22,7 @@
 -(void)didStartRecordingVideo;
 -(void)didStopRecordingVideo;
 -(void)didRecordMediaWithURL:(NSURL *)url;
-
+-(void)tick:(float)seconds;
 
 @end
 @interface BRCameraViewController : UIViewController <AVCaptureFileOutputRecordingDelegate>
@@ -33,7 +33,7 @@
 	AVCaptureMovieFileOutput *movieFileOutput;
 	AVCaptureDeviceInput *videoInputDevice;
 
-    NSTimer *progressTimer;
+    NSTimer *intervalTimer;
 }
 
 @property (nonatomic, strong) UIView *overlay;
