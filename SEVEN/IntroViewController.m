@@ -203,7 +203,8 @@ static NSArray *movieList;
     [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
-            [self.buttonFacebook setEnabled:YES];
+            [self.buttonFacebook setUserInteractionEnabled:YES];
+            [self.buttonFacebook2 setUserInteractionEnabled:YES];
             progress.labelText = @"Facebook error";
             progress.detailsLabelText = [NSString stringWithFormat:@"Could not connect your Facebook profile. Error: %@", error.userInfo[@"NSLocalizedFailureReason"]];
             [progress hide:YES afterDelay:3];

@@ -24,11 +24,11 @@
     IBOutlet UILabel *labelClose;
 
     NSDate *videoStartTimestamp;
-    NSTimer *progressTimer;
 
     IBOutlet UIView *progressBG;
     VideoProgressIndicator *progressIndicator;
 
+    float currentLength;
     NSMutableArray *mediaURLs;
     NSMutableArray *mediaLengths;
 

@@ -131,16 +131,15 @@
     else if ([gesture isKindOfClass:[UILongPressGestureRecognizer class]]) {
         if (gesture.state == UIGestureRecognizerStateBegan) {
             if ([mediaURLs count] < 2) {
+                NSLog(@"Gesture press started recording");
                 [cameraController startRecording];
             }
         }
         else if (gesture.state == UIGestureRecognizerStateEnded) {
-            if (progressTimer) {
-                [cameraController stopRecording];
-            }
-            else {
-                NSLog(@"User released but camera already stopped");
-            }
+            NSLog(@"Gesture press up stopped recording");
+            [cameraController stopRecording];
+
+            // if camera already stopped, camera will just ignore this command
         }
     }
 }
@@ -183,28 +182,26 @@
 
 #pragma mark Camera Delegate
 -(void)didStartRecordingVideo {
-    videoStartTimestamp = [NSDate date];
-    progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
-    [mediaLengths addObject:@0];
-    NSLog(@"Media lengths: %@", mediaLengths);
+    currentLength = 0;
     cameraReady = NO;
 }
 
 -(void)didStopRecordingVideo {
-    NSLog(@"Timer stopped");
-    if (progressTimer) {
-        [progressTimer invalidate];
-        progressTimer = nil;
-    }
-
-    [self performSelector:@selector(recordVideoFailed:) withObject:nil afterDelay:5];
+    cameraReady = YES;
+    NSArray *allLengths = [mediaLengths arrayByAddingObject:@(currentLength)];
+    [progressIndicator updateAllProgress:allLengths];
 }
 
 -(void)didRecordMediaWithURL:(NSURL *)url {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(recordVideoFailed:) object:nil];
-
     NSLog(@"URL: %@", url.path);
-    [mediaURLs addObject:url];
+    if (currentLength > 0) {
+        [mediaLengths addObject:@(MIN(3.0, currentLength))];
+        [mediaURLs addObject:url];
+        NSLog(@"Saved videos: %lu", [mediaURLs count]);
+
+        [progressIndicator updateAllProgress:mediaLengths];
+    }
+
     cameraReady = YES;
 
     if ([mediaURLs count] == 2) {
@@ -212,30 +209,15 @@
     }
 }
 
-#pragma mark progress display
--(void)recordVideoFailed:(id)sender {
-    // automatically time out if we stopped recording but camera does not return
-    NSLog(@"Capture failed for some reason. Allow user to try again");
-    [mediaLengths removeLastObject];
-    cameraReady = YES;
-
-    [progressIndicator updateAllProgress:mediaLengths];
-}
-
--(void)tick {
-    float secondsPassed = [[NSDate date] timeIntervalSinceDate:videoStartTimestamp];
+-(void)tick:(float)secondsPassed {
     //[progressIndicator updateProgress:secondsPassed];
 
-    NSInteger mediaIndex = [mediaURLs count];
-    mediaLengths[mediaIndex] = @(MIN(3.0, secondsPassed));
-    [progressIndicator updateAllProgress:mediaLengths];
-    NSLog(@"Total video length: %@", mediaLengths[mediaIndex]);
+    currentLength = secondsPassed;
+    NSArray *allLengths = [mediaLengths arrayByAddingObject:@(currentLength)];
+    [progressIndicator updateAllProgress:allLengths];
+    NSLog(@"Current video length: %f", currentLength);
 
-    if (secondsPassed > 3.0) {
-        if (progressTimer) {
-            [progressTimer invalidate];
-            progressTimer = nil;
-        }
+    if (secondsPassed >= 3.0) {
         [cameraController stopRecording];
     }
 }

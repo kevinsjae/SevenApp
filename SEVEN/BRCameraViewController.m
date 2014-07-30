@@ -253,6 +253,7 @@
 			}
 		}
 		//Start recording
+        NSLog(@"movieFileOutput started trying to record to output");
 		[movieFileOutput startRecordingToOutputFileURL:outputURL recordingDelegate:self];
 	}
 }
@@ -261,28 +262,37 @@
     if (!movieFileOutput)
         return;
 
-    if (progressTimer) {
-        [progressTimer invalidate];
-        progressTimer = nil;
-    }
-
+    NSLog(@"Trying to stop movieFileOutput. isRecording: %d", isRecording);
     if (isRecording) {
 		isRecording = NO;
 		[movieFileOutput stopRecording];
 
         [self.delegate didStopRecordingVideo];
 	}
+
+    if (intervalTimer) {
+        [intervalTimer invalidate];
+        intervalTimer = nil;
+    }
 }
 
 -(void)tick {
     float duration = CMTimeGetSeconds(movieFileOutput.recordedDuration);
     NSLog(@"Recorded duration %f", duration);
+    [self.delegate tick:duration];
 }
 
 #pragma mark Camera Delegate
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
-    progressTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
-    [self.delegate didStartRecordingVideo];
+    if (isRecording) {
+        intervalTimer = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+        [self.delegate didStartRecordingVideo];
+    }
+    else {
+        // start and stop happened faster than captureOutput. do nothing
+        NSLog(@"Captured data but not currently recording");
+        [self tick];
+    }
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
@@ -290,7 +300,8 @@
         // A problem occurred: Find out if the recording was successful.
         id value = [[error userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey];
         if (value) {
-            NSLog(@"Error");
+            float duration = CMTimeGetSeconds(movieFileOutput.recordedDuration);
+            NSLog(@"Recorded duration %f", duration);
         }
     }
     else {

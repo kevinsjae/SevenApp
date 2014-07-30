@@ -15,5 +15,5 @@
 }
 
 -(float)updateProgress:(float)timeInSec;
--(void)updateAllProgress:(NSMutableArray *)videoLengths;
+-(void)updateAllProgress:(NSArray *)videoLengths;
 @end
