@@ -133,6 +133,10 @@
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
 #if TESTING
+        [self performSegueWithIdentifier:@"SkipProfileVideo" sender:self];
+        return;
+#endif
+#if TESTING
         float duration = 0.1;
 #else
         float duration = 1.5;
@@ -251,8 +255,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ProfileVideoPreviewViewController *previewController = (ProfileVideoPreviewViewController *)[segue destinationViewController];
-    [previewController setupMedia:mediaURLs];
+    if ([segue.identifier isEqualToString:@"CameraToPreview"]) {
+        ProfileVideoPreviewViewController *previewController = (ProfileVideoPreviewViewController *)[segue destinationViewController];
+        [previewController setupMedia:mediaURLs];
+    }
     // Pass the selected object to the new view controller.
 }
 

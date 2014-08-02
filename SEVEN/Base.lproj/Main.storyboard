@@ -183,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEL-Ii-PS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1312" y="1208"/>
+            <point key="canvasLocation" x="-830" y="342"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B6c-xr-Naq">
@@ -298,6 +298,7 @@ Show off your smile by creating a visual profile.</string>
                         <outlet property="tutorialView" destination="58t-Qw-Iqm" id="KGD-kt-5g0"/>
                         <outlet property="viewVideoBG" destination="emZ-C2-tGb" id="kj8-k0-rz9"/>
                         <segue destination="fgH-hc-dtS" kind="push" identifier="CameraToPreview" id="1Uo-8c-Xsc"/>
+                        <segue destination="zzY-eA-4pq" kind="push" identifier="SkipProfileVideo" id="bqf-wy-3oa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VmE-6d-12N" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -324,7 +325,7 @@ Show off your smile by creating a visual profile.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5xh-ML-xja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-49" y="1213"/>
+            <point key="canvasLocation" x="135" y="1133"/>
         </scene>
         <!--Trait Selector View Controller - SEVEN-->
         <scene sceneID="bbX-55-MoI">
@@ -402,7 +403,7 @@ Show off your smile by creating a visual profile.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AfQ-71-Jki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="419" y="1213"/>
+            <point key="canvasLocation" x="518" y="1904"/>
         </scene>
         <!--Signup Phone View Controller - SEVEN-->
         <scene sceneID="Zeu-Nf-JyM">
@@ -780,4 +781,7 @@ Show off your smile by creating a visual profile.</string>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="bqf-wy-3oa"/>
+    </inferredMetricsTieBreakers>
 </document>
