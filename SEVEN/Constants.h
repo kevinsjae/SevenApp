@@ -18,6 +18,11 @@
 #define COL_GREEN [UIColor colorWithRed:190.0/255.0 green:208.0/255.0 blue:43.0/255.0 alpha:1]
 #define COL_GRAY [UIColor colorWithRed:54.0/255.0 green:60.0/255.0 blue:70.0/255.0 alpha:1]
 
+#define COL_LIGHTBLUE [UIColor colorWithRed:0 green:125.0/255.0 blue:176.0/255.0 alpha:1]
+
+#define FontRegular(x) [UIFont fontWithName:@"GothamHTF-Book" size:x]
+#define FontMedium(x) [UIFont fontWithName:@"GothamHTF-Medium" size:x]
+
 typedef enum {
     MALE = 0,
     FEMALE,

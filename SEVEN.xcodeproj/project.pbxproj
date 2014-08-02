@@ -95,6 +95,8 @@
 		9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */; };
 		9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */; };
 		9EEBF33F198CFD27005ED301 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEBF33E198CFD27005ED301 /* FacebookSDK.framework */; };
+		9EEBF343198D0EE2005ED301 /* GothamHTF-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9EEBF341198D0EE2005ED301 /* GothamHTF-Book.otf */; };
+		9EEBF344198D0EE2005ED301 /* GothamHTF-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9EEBF342198D0EE2005ED301 /* GothamHTF-Medium.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +239,8 @@
 		9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSlideFromRightTransitionSegue.h; sourceTree = "<group>"; };
 		9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalSlideFromRightTransitionSegue.m; sourceTree = "<group>"; };
 		9EEBF33E198CFD27005ED301 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		9EEBF341198D0EE2005ED301 /* GothamHTF-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamHTF-Book.otf"; sourceTree = "<group>"; };
+		9EEBF342198D0EE2005ED301 /* GothamHTF-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamHTF-Medium.otf"; sourceTree = "<group>"; };
 		A21E14AC96954F9C9B86AA3D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F6043D75BAC44FD79985E431 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -378,6 +382,7 @@
 				9E18BC641964B9F0001BEDAE /* ProfileViewController.m */,
 				9E79B809196435AA00559838 /* Images.xcassets */,
 				9EE24F571964769000F7EA78 /* Images */,
+				9EEBF340198D0EE2005ED301 /* Fonts */,
 				9E79B7F8196435AA00559838 /* Supporting Files */,
 			);
 			path = SEVEN;
@@ -546,6 +551,15 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
+		9EEBF340198D0EE2005ED301 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9EEBF341198D0EE2005ED301 /* GothamHTF-Book.otf */,
+				9EEBF342198D0EE2005ED301 /* GothamHTF-Medium.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -638,6 +652,7 @@
 				9E2376AB19815842007ED7D8 /* SEVEN_IntroVideo_V02.mp4 in Resources */,
 				9E01241D19670C980080543B /* maleAndFemale.png in Resources */,
 				9E3E24FD19869FB200870666 /* seven_icon_back_white@2x.png in Resources */,
+				9EEBF344198D0EE2005ED301 /* GothamHTF-Medium.otf in Resources */,
 				9E01243A1967224E0080543B /* connectFacebook@2x.png in Resources */,
 				9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */,
 				9E79B80A196435AA00559838 /* Images.xcassets in Resources */,
@@ -654,6 +669,7 @@
 				9E3E25061988139C00870666 /* rotateCamera@2x.png in Resources */,
 				9E01244A19673F6D0080543B /* iconCheck@2x.png in Resources */,
 				9EA7931B1985F19300C8A0C9 /* seven_icon_facebook_white@2x.png in Resources */,
+				9EEBF343198D0EE2005ED301 /* GothamHTF-Book.otf in Resources */,
 				9E01243C1967224E0080543B /* connectTwitter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -40,6 +40,24 @@
 
     mediaURLs = [NSMutableArray array]; // reference to two recorded clips (URLs)
     mediaLengths = [NSMutableArray array]; // reference to two recorded clips (lengths)
+
+    [self setupFonts];
+}
+
+-(void)setupFonts {
+    NSString *message = @"SEVEN is about real people who are looking for the perfect date.\n\nShow off your smile by creating a visual profile.";
+    NSArray *highlights = @[@"real people", @"visual profile"];
+    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:message];
+    [titleString addAttribute:NSFontAttributeName value:FontRegular(15) range:[message rangeOfString:message]];
+
+    for (NSString *highlightedString in highlights) {
+        [titleString addAttribute:NSForegroundColorAttributeName value:COL_LIGHTBLUE range:[message rangeOfString:highlightedString]];
+        [titleString addAttribute:NSFontAttributeName value:FontMedium(16) range:[message rangeOfString:highlightedString]];
+    }
+    [labelMessage setAttributedText:titleString];
+
+    [labelClose setFont:FontRegular(15)];
+    [labelClose setTextColor:COL_LIGHTBLUE];
 }
 
 - (void)didReceiveMemoryWarning

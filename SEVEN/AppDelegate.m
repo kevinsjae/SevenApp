@@ -31,6 +31,23 @@
     // facebook
     [PFFacebookUtils initializeFacebook];
 
+#if TESTING
+    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+
+    NSArray *fontNames;
+    NSInteger indFamily, indFont;
+    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+    {
+        DebugLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
+        fontNames = [[NSArray alloc] initWithArray:
+                     [UIFont fontNamesForFamilyName:
+                      [familyNames objectAtIndex:indFamily]]];
+        for (indFont=0; indFont<[fontNames count]; ++indFont)
+        {
+            DebugLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
+        }
+    }
+#endif
     return YES;
 }
 							

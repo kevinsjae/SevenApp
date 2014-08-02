@@ -343,60 +343,13 @@
                                                 <rect key="frame" x="20" y="188" width="269" height="125"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="SEVEN is about ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="real people">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.0" green="0.49087591240875911" blue="0.69174840328467158" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="17" name="HelveticaNeue-Medium"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" who are looking for the perfect date. ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
                                                     <fragment>
-                                                        <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="11" name="Menlo-Regular"/>
-                                                            <integer key="NSLigature" value="0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment>
-                                                        <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="11" name="Menlo-Regular"/>
-                                                            <integer key="NSLigature" value="0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Show off your smile by creating a ">
+                                                        <string key="content">SEVEN is about real people who are looking for the perfect date. 
+
+Show off your smile by creating a visual profile.</string>
                                                         <attributes>
                                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="visual profile.">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.0" green="0.49019607843137253" blue="0.69019607843137254" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="17" name="HelveticaNeue-Medium"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                         </attributes>
                                                     </fragment>
