@@ -9,5 +9,10 @@
 #import "TraitSelectorCell.h"
 
 @implementation TraitSelectorCell
-
+-(void)setupWithInfo:(NSDictionary *)info {
+    NSString *trait = info[@"trait"];
+    UIColor *color = info[@"color"];
+    self.contentView.backgroundColor = color;
+    [labelTrait setText:trait];
+}
 @end

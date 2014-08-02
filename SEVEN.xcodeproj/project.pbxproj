@@ -82,6 +82,8 @@
 		9EA7931C1985F19300C8A0C9 /* seven_icon_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */; };
 		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
 		9EEB9C2E198D184C0031B4AF /* TraitSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEB9C2D198D184C0031B4AF /* TraitSelectorCell.m */; };
+		9EEB9C31198D22A40031B4AF /* seven_icon_confirm_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */; };
+		9EEB9C32198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEB9C30198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png */; };
 		9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */; };
 		9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */; };
 		9EEBF33F198CFD27005ED301 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEBF33E198CFD27005ED301 /* FacebookSDK.framework */; };
@@ -204,6 +206,8 @@
 		9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookHelper.m; sourceTree = "<group>"; };
 		9EEB9C2C198D184C0031B4AF /* TraitSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraitSelectorCell.h; sourceTree = "<group>"; };
 		9EEB9C2D198D184C0031B4AF /* TraitSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TraitSelectorCell.m; sourceTree = "<group>"; };
+		9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_confirm_white@2x.png"; sourceTree = "<group>"; };
+		9EEB9C30198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_checklistconfirm_white@2x.png"; sourceTree = "<group>"; };
 		9EEBB85F1985B1B10023CE0F /* CreateProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateProfileViewController.h; sourceTree = "<group>"; };
 		9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateProfileViewController.m; sourceTree = "<group>"; };
 		9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSlideFromRightTransitionSegue.h; sourceTree = "<group>"; };
@@ -474,6 +478,8 @@
 			isa = PBXGroup;
 			children = (
 				9E3E25051988139C00870666 /* rotateCamera@2x.png */,
+				9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */,
+				9EEB9C30198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png */,
 				9E3E24FB19869FB200870666 /* seven_icon_back_white@2x.png */,
 				9E3E24FC19869FB200870666 /* seven_icon_close_white@2x.png */,
 				9EA793191985F19300C8A0C9 /* seven_icon_facebook_white@2x.png */,
@@ -604,12 +610,14 @@
 				9E79B7FC196435AA00559838 /* InfoPlist.strings in Resources */,
 				9E79B805196435AA00559838 /* Main.storyboard in Resources */,
 				9E3E24FE19869FB200870666 /* seven_icon_close_white@2x.png in Resources */,
+				9EEB9C32198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png in Resources */,
 				9E01242319670F010080543B /* location@2x.png in Resources */,
 				9E01244B19673F6D0080543B /* iconPlus@2x.png in Resources */,
 				9E01241719670A8B0080543B /* female.png in Resources */,
 				9E01241A19670A8B0080543B /* male@2x.png in Resources */,
 				9E3E25061988139C00870666 /* rotateCamera@2x.png in Resources */,
 				9E01244A19673F6D0080543B /* iconCheck@2x.png in Resources */,
+				9EEB9C31198D22A40031B4AF /* seven_icon_confirm_white@2x.png in Resources */,
 				9EA7931B1985F19300C8A0C9 /* seven_icon_facebook_white@2x.png in Resources */,
 				9EEBF343198D0EE2005ED301 /* GothamHTF-Book.otf in Resources */,
 				9E01243C1967224E0080543B /* connectTwitter@2x.png in Resources */,
