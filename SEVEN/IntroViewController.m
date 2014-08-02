@@ -225,6 +225,44 @@ static NSArray *movieList;
 -(void)getFacebookFriends {
     [FacebookHelper getFriendsWithCompletion:^(NSMutableArray *results, NSError *error) {
         NSLog(@"Results: %lu error: %@", (unsigned long)[results count], error);
+        NSMutableArray *fbIds = [NSMutableArray array];
+        NSMutableDictionary *namesDict = [NSMutableDictionary dictionary];
+        NSMutableDictionary *installedDict = [NSMutableDictionary dictionary];
+        for (NSDictionary *dict in results) {
+            NSString *fbId = dict[@"id"];
+            NSString *name = dict[@"name"];
+            NSNumber *installed = dict[@"installed"];
+
+            [fbIds addObject:fbId];
+            namesDict[fbId] = name;
+            installedDict[fbId] = installed;
+        }
+
+        PFQuery *query = [PFQuery queryWithClassName:@"FacebookFriend"];
+        [query whereKey:@"fbId" containedIn:fbIds];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            // update existing objects and remove them from the list
+            for (PFObject *object in objects) {
+                NSString *foundID = object[@"id"];
+                [fbIds removeObject:foundID];
+            }
+
+            for (NSNumber *fbId in fbIds) {
+                PFObject *friend = [PFObject objectWithClassName:@"FacebookFriend"];
+                friend[@"fbId"] = fbId;
+                friend[@"name"] = namesDict[fbId];
+                friend[@"installed"] = installedDict[fbId];
+                [friend saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        // create connections
+                        PFRelation *connections = [[PFUser currentUser] objectForKey:@"Connections"];
+                        [connections addObject:friend];
+
+                        [[PFUser currentUser] saveEventually];
+                    }
+                }];
+            }
+        }];
     }];
 }
 
