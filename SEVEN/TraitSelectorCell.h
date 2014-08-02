@@ -13,10 +13,7 @@
     IBOutlet UIView *overlayView;
     IBOutlet UILabel *labelTrait;
     IBOutlet UIImageView *iconConfirm;
-
-    BOOL selected;
 }
 
--(void)selectThisTrait;
 -(void)setupWithInfo:(NSDictionary *)info;
 @end

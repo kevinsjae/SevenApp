@@ -10,7 +10,7 @@
 
 @implementation TraitSelectorCell
 -(void)setupWithInfo:(NSDictionary *)info {
-    [labelTrait setFont:FontRegular(14)];
+    [labelTrait setFont:FontMedium(14)];
     [labelTrait setTextColor:[UIColor whiteColor]];
 
     NSString *trait = info[@"trait"];

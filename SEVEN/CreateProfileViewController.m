@@ -49,6 +49,7 @@
     NSArray *highlights = @[@"real people", @"visual profile"];
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:message];
     [titleString addAttribute:NSFontAttributeName value:FontRegular(15) range:[message rangeOfString:message]];
+    [titleString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[message rangeOfString:message]];
 
     for (NSString *highlightedString in highlights) {
         [titleString addAttribute:NSForegroundColorAttributeName value:COL_LIGHTBLUE range:[message rangeOfString:highlightedString]];

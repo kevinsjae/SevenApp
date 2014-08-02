@@ -422,6 +422,9 @@ Show off your smile by creating a visual profile.</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SEVEN" id="0zX-pH-eMf"/>
+                    <connections>
+                        <outlet property="labelMessage" destination="Tur-uo-bbR" id="8ax-8f-9Oa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AfQ-71-Jki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

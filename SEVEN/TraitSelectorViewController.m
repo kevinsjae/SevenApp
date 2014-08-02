@@ -36,7 +36,7 @@
     self.navigationController.navigationBar.translucent = YES;
 
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"seven_icon_confirm_white"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickRight:)];
-    right.tintColor = [UIColor whiteColor];
+    right.tintColor = COL_LIGHTBLUE;
     self.navigationItem.rightBarButtonItem = right;
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"seven_icon_back_white"] style:UIBarButtonItemStylePlain target:self action:@selector(didClickLeft:)];
     left.tintColor = [UIColor whiteColor];
@@ -52,6 +52,8 @@
     for (int i=0; i<[allTraits count]; i++) {
         [isSelected addObject:@NO];
     }
+
+    [self enableNavigation:NO];
 }
 
 -(void)setupFonts {
@@ -59,6 +61,7 @@
     NSArray *highlights = @[@"get endorsed"];
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:message];
     [titleString addAttribute:NSFontAttributeName value:FontRegular(15) range:[message rangeOfString:message]];
+    [titleString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[message rangeOfString:message]];
 
     for (NSString *highlightedString in highlights) {
         [titleString addAttribute:NSForegroundColorAttributeName value:COL_LIGHTBLUE range:[message rangeOfString:highlightedString]];
@@ -73,6 +76,10 @@
 
 -(void)didClickLeft:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)enableNavigation:(BOOL)enabled {
+    [self.navigationItem.rightBarButtonItem setEnabled:enabled];
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,6 +136,15 @@
     }
 }
 
+-(int)traitsSelected {
+    int total = 0;
+    for (int i=0; i<[isSelected count]; i++) {
+        if ([isSelected[i] boolValue])
+            total++;
+    }
+    return total;
+}
+
 #pragma mark TableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -150,8 +166,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row;
-    isSelected[row] = @(![isSelected[row] boolValue]);
+    BOOL isCurrentlySelected = [isSelected[row] boolValue];
+    if (!isCurrentlySelected) {
+        if ([self traitsSelected] >= 7)
+            return;
+    }
+    isSelected[row] = @(!isCurrentlySelected);
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    [self enableNavigation:([self traitsSelected] > 0)];
 }
 
 /*
