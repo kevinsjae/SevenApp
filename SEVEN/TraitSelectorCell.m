@@ -10,10 +10,14 @@
 
 @implementation TraitSelectorCell
 -(void)setupWithInfo:(NSDictionary *)info {
+    [labelTrait setFont:FontRegular(14)];
+    [labelTrait setTextColor:[UIColor whiteColor]];
+
     NSString *trait = info[@"trait"];
+    [labelTrait setText:trait];
+
     UIColor *color = info[@"color"];
     self.contentView.backgroundColor = color;
-    [labelTrait setText:trait];
 
     BOOL isSelected = [info[@"selected"] boolValue];
     [overlayView setHidden:!isSelected];

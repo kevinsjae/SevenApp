@@ -140,11 +140,18 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TraitSelectorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TraitSelectorCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     NSInteger row = indexPath.row;
     [cell setupWithInfo:@{@"trait":allTraits[row], @"color":allColors[row], @"selected":isSelected[row]}];
 
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    isSelected[row] = @(![isSelected[row] boolValue]);
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 /*
