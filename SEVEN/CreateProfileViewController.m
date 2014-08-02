@@ -45,10 +45,11 @@
 }
 
 -(void)setupFonts {
-    NSString *message = @"SEVEN is about real people who are looking for the perfect date.\n\nShow off your smile by creating a visual profile.";
+    NSString *message = @"SEVEN is all about real people who are looking for the perfect date.\n\nShow off your smile by creating a visual profile.";
     NSArray *highlights = @[@"real people", @"visual profile"];
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:message];
     [titleString addAttribute:NSFontAttributeName value:FontRegular(15) range:[message rangeOfString:message]];
+    [titleString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[message rangeOfString:message]];
 
     for (NSString *highlightedString in highlights) {
         [titleString addAttribute:NSForegroundColorAttributeName value:COL_LIGHTBLUE range:[message rangeOfString:highlightedString]];
@@ -132,7 +133,10 @@
 #pragma mark Gesture
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
-
+#if TESTING
+        [self performSegueWithIdentifier:@"SkipProfileVideo" sender:self];
+        return;
+#endif
 #if TESTING
         float duration = 0.1;
 #else
@@ -252,8 +256,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ProfileVideoPreviewViewController *previewController = (ProfileVideoPreviewViewController *)[segue destinationViewController];
-    [previewController setupMedia:mediaURLs];
+    if ([segue.identifier isEqualToString:@"CameraToPreview"]) {
+        ProfileVideoPreviewViewController *previewController = (ProfileVideoPreviewViewController *)[segue destinationViewController];
+        [previewController setupMedia:mediaURLs];
+    }
     // Pass the selected object to the new view controller.
 }
 

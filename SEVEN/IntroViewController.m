@@ -269,16 +269,19 @@ static NSArray *movieList;
             for (NSNumber *fbId in fbIds) {
                 PFObject *friend = [PFObject objectWithClassName:@"FacebookFriend"];
                 friend[@"fbId"] = fbId;
+
                 if (namesDict[fbId])
                     friend[@"name"] = namesDict[fbId];
                 friend[@"installed"] = installedDict[fbId];
-                [friend saveInBackground];
-
-                [connections addObject:friend];
+                [friend saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [connections addObject:friend];
+                }];
             }
 
+            
             [[PFUser currentUser] saveEventually];
-            NSLog(@"Found %d total facebook friends, %d existing, %d new connections", results.count, objects.count, fbIds.count);
+
+            NSLog(@"Found %lu total facebook friends, %lu existing, %lu new connections", (unsigned long)results.count, (unsigned long)objects.count, fbIds.count);
         }];
     }];
 }
