@@ -232,25 +232,37 @@ static NSArray *movieList;
             NSString *fbId = dict[@"id"];
             NSString *name = dict[@"name"];
             NSNumber *installed = dict[@"installed"];
+            if (!installed)
+                installed = @NO;
 
-            [fbIds addObject:fbId];
-            namesDict[fbId] = name;
-            installedDict[fbId] = installed;
+            if (fbId)
+                [fbIds addObject:fbId];
+            if (name)
+                namesDict[fbId] = name;
+            if (installed)
+                installedDict[fbId] = installed;
+
+            NSLog(@"id %@ name %@ installed %@", fbId, name, installed);
+            if (!name)
+                NSLog(@"No name");
         }
 
+        __block int total = [results count];
         PFQuery *query = [PFQuery queryWithClassName:@"FacebookFriend"];
+        [query setLimit:9999];
         [query whereKey:@"fbId" containedIn:fbIds];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             // update existing objects and remove them from the list
             for (PFObject *object in objects) {
-                NSString *foundID = object[@"id"];
+                NSString *foundID = object[@"fbId"];
                 [fbIds removeObject:foundID];
             }
 
             for (NSNumber *fbId in fbIds) {
                 PFObject *friend = [PFObject objectWithClassName:@"FacebookFriend"];
                 friend[@"fbId"] = fbId;
-                friend[@"name"] = namesDict[fbId];
+                if (namesDict[fbId])
+                    friend[@"name"] = namesDict[fbId];
                 friend[@"installed"] = installedDict[fbId];
                 [friend saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
@@ -262,6 +274,8 @@ static NSArray *movieList;
                     }
                 }];
             }
+
+            NSLog(@"Found %d total facebook friends, %d existing, %d new connections", total, objects.count, fbIds.count);
         }];
     }];
 }
