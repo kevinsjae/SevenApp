@@ -51,7 +51,7 @@ typedef enum {
  @abstract
  The Facebook ID of the user, place or object for which a picture should be fetched and displayed.
  */
-@property (copy, nonatomic) NSString *profileID;
+@property (copy, nonatomic) NSString* profileID;
 
 /*!
  @abstract
@@ -63,7 +63,7 @@ typedef enum {
  @abstract
  Initializes and returns a profile view object.
  */
-- (instancetype)init;
+- (id)init;
 
 
 /*!
@@ -73,7 +73,8 @@ typedef enum {
  @param profileID       The Facebook ID of the user, place or object for which a picture should be fetched and displayed.
  @param pictureCropping The cropping to use for the profile picture.
  */
-- (instancetype)initWithProfileID:(NSString *)profileID
-                  pictureCropping:(FBProfilePictureCropping)pictureCropping;
+- (id)initWithProfileID:(NSString*)profileID
+     pictureCropping:(FBProfilePictureCropping)pictureCropping;
+
 
 @end

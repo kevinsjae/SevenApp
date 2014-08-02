@@ -7,6 +7,7 @@
 //
 
 #import "FacebookHelper.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation FacebookHelper
 

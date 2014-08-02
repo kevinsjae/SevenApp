@@ -18,9 +18,8 @@
 #import <UIKit/UIKit.h>
 
 #import "FBAppCall.h"
-#import "FBLinkShareParams.h"
-#import "FBOpenGraphActionParams.h"
-#import "FBPhotoParams.h"
+#import "FBOpenGraphActionShareDialogParams.h"
+#import "FBShareDialogParams.h"
 
 @class FBSession;
 @protocol FBOpenGraphAction;
@@ -68,9 +67,9 @@ typedef void (^FBOSIntegratedShareDialogHandler)(FBOSIntegratedShareDialogResult
 
  */
 typedef void (^FBDialogAppCallCompletionHandler)(
-                                                 FBAppCall *call,
-                                                 NSDictionary *results,
-                                                 NSError *error);
+FBAppCall *call,
+NSDictionary *results,
+NSError *error);
 
 /*!
  @class FBDialogs
@@ -83,8 +82,6 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  plist entry. See `[FBSettings defaultUrlSchemeSuffix]`.
  */
 @interface FBDialogs : NSObject
-
-#pragma mark - OSIntegratedShareDialog
 
 /*!
  @abstract
@@ -111,10 +108,10 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  @return YES if the dialog was presented, NO if not (in the case of a NO result, the handler
  will still be called, with an error indicating the reason the dialog was not displayed)
  */
-+ (BOOL)presentOSIntegratedShareDialogModallyFrom:(UIViewController *)viewController
-                                      initialText:(NSString *)initialText
-                                            image:(UIImage *)image
-                                              url:(NSURL *)url
++ (BOOL)presentOSIntegratedShareDialogModallyFrom:(UIViewController*)viewController
+                                      initialText:(NSString*)initialText
+                                            image:(UIImage*)image
+                                              url:(NSURL*)url
                                           handler:(FBOSIntegratedShareDialogHandler)handler;
 
 /*!
@@ -143,10 +140,10 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  @return YES if the dialog was presented, NO if not (in the case of a NO result, the handler
  will still be called, with an error indicating the reason the dialog was not displayed)
  */
-+ (BOOL)presentOSIntegratedShareDialogModallyFrom:(UIViewController *)viewController
-                                      initialText:(NSString *)initialText
-                                           images:(NSArray *)images
-                                             urls:(NSArray *)urls
++ (BOOL)presentOSIntegratedShareDialogModallyFrom:(UIViewController*)viewController
+                                      initialText:(NSString*)initialText
+                                           images:(NSArray*)images
+                                             urls:(NSArray*)urls
                                           handler:(FBOSIntegratedShareDialogHandler)handler;
 
 /*!
@@ -180,11 +177,11 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  @return YES if the dialog was presented, NO if not (in the case of a NO result, the handler
  will still be called, with an error indicating the reason the dialog was not displayed)
  */
-+ (BOOL)presentOSIntegratedShareDialogModallyFrom:(UIViewController *)viewController
-                                          session:(FBSession *)session
-                                      initialText:(NSString *)initialText
-                                           images:(NSArray *)images
-                                             urls:(NSArray *)urls
++ (BOOL)presentOSIntegratedShareDialogModallyFrom:(UIViewController*)viewController
+                                          session:(FBSession*)session
+                                      initialText:(NSString*)initialText
+                                           images:(NSArray*)images
+                                             urls:(NSArray*)urls
                                           handler:(FBOSIntegratedShareDialogHandler)handler;
 
 /*!
@@ -200,26 +197,7 @@ typedef void (^FBDialogAppCallCompletionHandler)(
 
  @return YES if the dialog would be presented for the session, and NO if not
  */
-+ (BOOL)canPresentOSIntegratedShareDialogWithSession:(FBSession *)session;
-
-#pragma mark - Native Share Dialog
-
-/*!
- @abstract
- Determines whether a call to presentShareDialogWithOpenGraphActionParams:clientState:handler:
- will successfully present a dialog in the Facebook application. This is useful for applications
- that need to modify the available UI controls depending on whether the dialog is
- available on the current platform.
-
- @param params The parameters for the FB share dialog.
-
- @return YES if the dialog would be presented, and NO if not
-
- @discussion A return value of YES here indicates that the corresponding
- presentShareDialogWithOpenGraphActionParams method will return a non-nil FBAppCall for
- the same params. And vice versa.
-*/
-+ (BOOL)canPresentShareDialogWithOpenGraphActionParams:(FBOpenGraphActionParams *)params;
++ (BOOL)canPresentOSIntegratedShareDialogWithSession:(FBSession*)session;
 
 /*!
  @abstract
@@ -235,22 +213,8 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  @discussion A return value of YES here indicates that the corresponding
  presentShareDialogWithParams method will return a non-nil FBAppCall for the same
  params. And vice versa.
-*/
-+ (BOOL)canPresentShareDialogWithParams:(FBLinkShareParams *)params;
-
-/*!
- @abstract
- Determines whether a call to presentShareDialogWithPhotoParams: will successfully
- present a dialog in the Facebook application. This is useful for applications that
- need to modify the available UI controls depending on whether the dialog is
- available on the current platform.
-
- @return YES if the dialog would be presented, and NO if not
-
- @discussion A return value of YES here indicates that the corresponding
- presentShareDialogWithPhotoParams method will return a non-nil FBAppCall.
-*/
-+ (BOOL)canPresentShareDialogWithPhotos;
+ */
++ (BOOL)canPresentShareDialogWithParams:(FBShareDialogParams *)params;
 
 /*!
  @abstract
@@ -282,7 +246,7 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  @discussion A non-nil FBAppCall object is only returned if the corresponding
  canPresentShareDialogWithParams method is also returning YES for the same params.
  */
-+ (FBAppCall *)presentShareDialogWithParams:(FBLinkShareParams *)params
++ (FBAppCall *)presentShareDialogWithParams:(FBShareDialogParams *)params
                                 clientState:(NSDictionary *)clientState
                                     handler:(FBDialogAppCallCompletionHandler)handler;
 
@@ -395,100 +359,20 @@ typedef void (^FBDialogAppCallCompletionHandler)(
 
 /*!
  @abstract
- Presents a dialog in the Facebook application that allows the user to share the
- supplied photo(s). No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Facebook app, and will cause the
- current app to be suspended. When the share is complete, the Facebook app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
+ Determines whether a call to presentShareDialogWithOpenGraphActionParams:clientState:handler:
+ will successfully present a dialog in the Facebook application. This is useful for applications
+ that need to modify the available UI controls depending on whether the dialog is
+ available on the current platform.
 
  @param params The parameters for the FB share dialog.
 
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
+ @return YES if the dialog would be presented, and NO if not
 
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentShareDialogWithPhotoParams method is also returning YES for the same params.
+ @discussion A return value of YES here indicates that the corresponding
+ presentShareDialogWithOpenGraphActionParams method will return a non-nil FBAppCall for
+ the same params. And vice versa.
  */
-+ (FBAppCall *)presentShareDialogWithPhotoParams:(FBPhotoParams *)params
-                                     clientState:(NSDictionary *)clientState
-                                         handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook application that allows the user to share the
- supplied photo(s). No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Facebook app, and will cause the
- current app to be suspended. When the share is complete, the Facebook app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param photos An NSArray containing UIImages to be shared. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentShareDialogWithPhotoParams method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentShareDialogWithPhotos:(NSArray *)photos
-                                       handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook application that allows the user to share the
- supplied photo(s). No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Facebook app, and will cause the
- current app to be suspended. When the share is complete, the Facebook app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param photos An NSArray containing UIImages to be shared.
-
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentShareDialogWithPhotoParams method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentShareDialogWithPhotos:(NSArray *)photos
-                                clientState:(NSDictionary *)clientState
-                                    handler:(FBDialogAppCallCompletionHandler)handler;
++ (BOOL)canPresentShareDialogWithOpenGraphActionParams:(FBOpenGraphActionShareDialogParams *)params;
 
 /*!
  @abstract
@@ -520,7 +404,7 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  @discussion A non-nil FBAppCall object is only returned if the corresponding
  canPresentShareDialogWithOpenGraphActionParams method is also returning YES for the same params.
  */
-+ (FBAppCall *)presentShareDialogWithOpenGraphActionParams:(FBOpenGraphActionParams *)params
++ (FBAppCall *)presentShareDialogWithOpenGraphActionParams:(FBOpenGraphActionShareDialogParams *)params
                                                clientState:(NSDictionary *)clientState
                                                    handler:(FBDialogAppCallCompletionHandler)handler;
 
@@ -556,10 +440,11 @@ typedef void (^FBDialogAppCallCompletionHandler)(
 
  @discussion A non-nil FBAppCall object is only returned if the corresponding
  canPresentShareDialogWithOpenGraphActionParams method is also returning YES for the same params.
- */+ (FBAppCall *)presentShareDialogWithOpenGraphAction:(id<FBOpenGraphAction>)action
-                                             actionType:(NSString *)actionType
-                                    previewPropertyName:(NSString *)previewPropertyName
-                                                handler:(FBDialogAppCallCompletionHandler)handler;
+ */
++ (FBAppCall *)presentShareDialogWithOpenGraphAction:(id<FBOpenGraphAction>)action
+                                          actionType:(NSString *)actionType
+                                 previewPropertyName:(NSString *)previewPropertyName
+                                             handler:(FBDialogAppCallCompletionHandler) handler;
 
 /*!
  @abstract
@@ -602,396 +487,6 @@ typedef void (^FBDialogAppCallCompletionHandler)(
                                           actionType:(NSString *)actionType
                                  previewPropertyName:(NSString *)previewPropertyName
                                          clientState:(NSDictionary *)clientState
-                                             handler:(FBDialogAppCallCompletionHandler)handler;
-
-#pragma mark - Message Dialog
-
-/*!
- @abstract
- Determines whether a call to `presentMessageDialogWithOpenGraphActionParams:...` will
- successfully present a dialog in the Facebook Messenger app. This is useful for applications
- that need to modify the available UI controls depending on whether the dialog is
- available on the current platform.
-
- @param params the dialog parameters
-
- @return YES if the dialog would be presented, and NO if not
-*/
-+ (BOOL)canPresentMessageDialogWithOpenGraphActionParams:(FBOpenGraphActionParams *)params;
-
-/*!
- @abstract
- Determines whether a call to `presentMessageDialogWithParams:...` will successfully
- present a dialog in the Facebook Messenger app. This is useful for applications that
- need to modify the available UI controls depending on whether the dialog is
- available on the current platform.
-
- @param params the dialog parameters
-
- @return YES if the dialog would be presented, and NO if not
-*/
-+ (BOOL)canPresentMessageDialogWithParams:(FBLinkShareParams *)params;
-
-/*!
- @abstract
- Determines whether a call to `presentMessageDialogWithPhotos:...` will successfully
- present a dialog in the Facebook Messenger app. This is useful for applications that
- need to modify the available UI controls depending on whether the dialog is
- available on the current platform.
-
- @return YES if the dialog would be presented, and NO if not
-*/
-+ (BOOL)canPresentMessageDialogWithPhotos;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to publish an Open
- Graph action. No session is required, and the app does not need to be authorized to call
- this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param params The parameters for the Open Graph action dialog.
-
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- `canPresentMessageDialogWithOpenGraphActionParams:` method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentMessageDialogWithOpenGraphActionParams:(FBOpenGraphActionParams *)params
-                                                 clientState:(NSDictionary *)clientState
-                                                     handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to publish the
- supplied Open Graph action. No session is required, and the app does not need to be
- authorized to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param action The Open Graph action to be published. May not be nil.
-
- @param actionType the fully-specified Open Graph action type of the action (e.g.,
- my_app_namespace:my_action).
-
- @param previewPropertyName the name of the property on the action that represents the
- primary Open Graph object associated with the action; this object will be displayed in the
- preview portion of the share dialog.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentMessageDialogWithOpenGraphActionParams method is also returning YES for the same params.
- */+ (FBAppCall *)presentMessageDialogWithOpenGraphAction:(id<FBOpenGraphAction>)action
-                                               actionType:(NSString *)actionType
-                                      previewPropertyName:(NSString *)previewPropertyName
-                                                  handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to publish the
- supplied Open Graph action. No session is required, and the app does not need to be
- authorized to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param action The Open Graph action to be published. May not be nil.
-
- @param actionType the fully-specified Open Graph action type of the action (e.g.,
- my_app_namespace:my_action).
-
- @param previewPropertyName the name of the property on the action that represents the
- primary Open Graph object associated with the action; this object will be displayed in the
- preview portion of the share dialog.
-
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentMessageDialogWithOpenGraphActionParams method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentMessageDialogWithOpenGraphAction:(id<FBOpenGraphAction>)action
-                                            actionType:(NSString *)actionType
-                                   previewPropertyName:(NSString *)previewPropertyName
-                                           clientState:(NSDictionary *)clientState
-                                               handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to send the
- supplied photo(s). No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param params The parameters for the Message Dialog
-
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- `canPresentMessageDialogWithPhotos` method is also returning YES.
- */
-+ (FBAppCall *)presentMessageDialogWithPhotoParams:(FBPhotoParams *)params
-                                       clientState:(NSDictionary *)clientState
-                                           handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to send the
- supplied photo(s). No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param photos An NSArray containing UIImages to be shared.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- `canPresentMessageDialogWithPhotos` method is also returning YES.
- */
-+ (FBAppCall *)presentMessageDialogWithPhotos:(NSArray *)photos
-                                      handler:(FBDialogAppCallCompletionHandler)handler;
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to send the
- supplied photo(s). No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param photos An NSArray containing UIImages to be shared.
-
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- `canPresentMessageDialogWithPhotos` method is also returning YES.
-*/
-+ (FBAppCall *)presentMessageDialogWithPhotos:(NSArray *)photos
-                                  clientState:(NSDictionary *)clientState
-                                      handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to share a status
- update that may include text, images, or URLs. No session is required, and the app
- does not need to be authorized to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param params The parameters for the Message Dialog. The "friends" and "place" properties
- will be ignored as the Facebook Messenger app does not support tagging.
-
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- `canPresentMessageDialogWithParams:` method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentMessageDialogWithParams:(FBLinkShareParams *)params
-                                  clientState:(NSDictionary *)clientState
-                                      handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to share the
- supplied link. No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param link The URL link to be attached to the post.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentMessageDialogWithParams method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentMessageDialogWithLink:(NSURL *)link
-                                    handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to share the
- supplied link. No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param link The URL link to be attached to the post.
-
- @param name The name, or title associated with the link. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentMessageDialogWithParams method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentMessageDialogWithLink:(NSURL *)link
-                                       name:(NSString *)name
-                                    handler:(FBDialogAppCallCompletionHandler)handler;
-
-/*!
- @abstract
- Presents a dialog in the Facebook Messenger app that allows the user to share the
- supplied link. No session is required, and the app does not need to be authorized
- to call this.
-
- Note that this will perform an app switch to the Messenger app, and will cause the
- current app to be suspended. When the share is complete, the Messenger app will redirect
- to a url of the form "fb{APP_ID}://" that the application must handle. The app should
- then call [FBAppCall handleOpenURL:sourceApplication:fallbackHandler:] to trigger
- the appropriate handling. Note that FBAppCall will first try to call the completion
- handler associated with this method, but since during an app switch, the calling app
- may be suspended or killed, the app must also give a fallbackHandler to the
- handleOpenURL: method in FBAppCall.
-
- @param link The URL link to be attached to the post.
-
- @param name The name, or title associated with the link. May be nil.
-
- @param caption The caption to be used with the link. May be nil.
-
- @param description The description associated with the link. May be nil.
-
- @param picture The link to a thumbnail to associate with the link. May be nil.
-
- @param clientState An NSDictionary that's passed through when the completion handler
- is called. This is useful for the app to maintain state about the share request that
- was made so as to have appropriate action when the handler is called. May be nil.
-
- @param handler A completion handler that may be called when the status update is
- complete. May be nil. If non-nil, the handler will always be called asynchronously.
-
- @return An FBAppCall object that will also be passed into the provided
- FBAppCallCompletionHandler.
-
- @discussion A non-nil FBAppCall object is only returned if the corresponding
- canPresentMessageDialogWithParams method is also returning YES for the same params.
- */
-+ (FBAppCall *)presentMessageDialogWithLink:(NSURL *)link
-                                       name:(NSString *)name
-                                    caption:(NSString *)caption
-                                description:(NSString *)description
-                                    picture:(NSURL *)picture
-                                clientState:(NSDictionary *)clientState
-                                    handler:(FBDialogAppCallCompletionHandler)handler;
+                                             handler:(FBDialogAppCallCompletionHandler) handler;
 
 @end

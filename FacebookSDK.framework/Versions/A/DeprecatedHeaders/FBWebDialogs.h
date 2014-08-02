@@ -21,20 +21,18 @@
 @protocol FBWebDialogsDelegate;
 
 /*!
- @typedef NS_ENUM (NSUInteger, FBWebDialogResult)
+ @typedef FBWebDialogResult enum
 
  @abstract
  Passed to a handler to indicate the result of a dialog being displayed to the user.
-
- @discussion Note `FBWebDialogResultDialogCompleted` is also used for cancelled operations.
 */
-typedef NS_ENUM(NSUInteger, FBWebDialogResult) {
+typedef enum {
     /*! Indicates that the dialog action completed successfully. Note, that cancel operations represent completed dialog operations.
      The url argument may be used to distinguish between success and user-cancelled cases */
-    FBWebDialogResultDialogCompleted = 0,
+    FBWebDialogResultDialogCompleted,
     /*! Indicates that the dialog operation was not completed. This occurs in cases such as the closure of the web-view using the X in the upper left corner. */
     FBWebDialogResultDialogNotCompleted
-};
+} FBWebDialogResult;
 
 /*!
  @typedef

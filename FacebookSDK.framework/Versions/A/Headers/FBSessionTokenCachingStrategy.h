@@ -17,7 +17,6 @@
 #import <Foundation/Foundation.h>
 
 #import "FBAccessTokenData.h"
-#import "FBSDKMacros.h"
 
 /*!
  @class
@@ -41,7 +40,7 @@
  information is cached, for example if you prefer to use the filesystem or make a network connection to fetch and
  persist cached tokens.  Inheritors should override the cacheTokenInformation, fetchTokenInformation, and clearToken methods.
  Doing this enables your application to implement any token caching scheme, including no caching at all (see
- `[FBSessionTokenCachingStrategy nullCacheInstance]`.
+ `[FBSessionTokenCachingStrategy* nullCacheInstance ]`.
 
  Direct use of `FBSessionTokenCachingStrategy`is an advanced technique. Most applications use <FBSession> objects without
  passing an `FBSessionTokenCachingStrategy`, which yields default caching to `NSUserDefaults`.
@@ -51,7 +50,7 @@
 /*!
  @abstract Initializes and returns an instance
  */
-- (instancetype)init;
+- (id)init;
 
 /*!
  @abstract
@@ -60,7 +59,7 @@
  @param tokenInformationKeyName     Specifies a key name to use for cached token information in NSUserDefaults, nil
  indicates a default value of @"FBAccessTokenInformationKey"
  */
-- (instancetype)initWithUserDefaultTokenInformationKeyName:(NSString *)tokenInformationKeyName;
+- (id)initWithUserDefaultTokenInformationKeyName:(NSString*)tokenInformationKeyName;
 
 /*!
  @abstract
@@ -70,14 +69,14 @@
  @discussion You should favor overriding this instead of `cacheFBAccessTokenData` only if you intend
  to cache additional data not captured by the FBAccessTokenData type.
  */
-- (void)cacheTokenInformation:(NSDictionary *)tokenInformation;
+- (void)cacheTokenInformation:(NSDictionary*)tokenInformation;
 
 /*!
  @abstract Cache the supplied token.
  @param accessToken The token instance.
  @discussion This essentially wraps a call to `cacheTokenInformation` so you should
  override this when providing a custom token caching strategy.
- */
+*/
 - (void)cacheFBAccessTokenData:(FBAccessTokenData *)accessToken;
 
 /*!
@@ -91,7 +90,7 @@
  to cache additional data not captured by the FBAccessTokenData type.
 
  */
-- (NSDictionary *)fetchTokenInformation;
+- (NSDictionary*)fetchTokenInformation;
 
 /*!
  @abstract
@@ -117,13 +116,13 @@
  @abstract
  Helper function called by the SDK as well as apps, in order to fetch the default strategy instance.
  */
-+ (FBSessionTokenCachingStrategy *)defaultInstance;
++ (FBSessionTokenCachingStrategy*)defaultInstance;
 
 /*!
  @abstract
  Helper function to return a FBSessionTokenCachingStrategy instance that does not perform any caching.
  */
-+ (FBSessionTokenCachingStrategy *)nullCacheInstance;
++ (FBSessionTokenCachingStrategy*)nullCacheInstance;
 
 /*!
  @abstract
@@ -132,33 +131,30 @@
 
  @param tokenInformation            Dictionary containing token information to be validated
  */
-+ (BOOL)isValidTokenInformation:(NSDictionary *)tokenInformation;
++ (BOOL)isValidTokenInformation:(NSDictionary*)tokenInformation;
 
 @end
 
 // The key to use with token information dictionaries to get and set the token value
-FBSDK_EXTERN NSString *const FBTokenInformationTokenKey;
+extern NSString *const FBTokenInformationTokenKey;
 
 // The to use with token information dictionaries to get and set the expiration date
-FBSDK_EXTERN NSString *const FBTokenInformationExpirationDateKey;
+extern NSString *const FBTokenInformationExpirationDateKey;
 
 // The to use with token information dictionaries to get and set the refresh date
-FBSDK_EXTERN NSString *const FBTokenInformationRefreshDateKey;
+extern NSString *const FBTokenInformationRefreshDateKey;
 
 // The key to use with token information dictionaries to get the related user's fbid
-FBSDK_EXTERN NSString *const FBTokenInformationUserFBIDKey;
+extern NSString *const FBTokenInformationUserFBIDKey;
 
 // The key to use with token information dictionaries to determine whether the token was fetched via Facebook Login
-FBSDK_EXTERN NSString *const FBTokenInformationIsFacebookLoginKey;
+extern NSString *const FBTokenInformationIsFacebookLoginKey;
 
 // The key to use with token information dictionaries to determine whether the token was fetched via the OS
-FBSDK_EXTERN NSString *const FBTokenInformationLoginTypeLoginKey;
+extern NSString *const FBTokenInformationLoginTypeLoginKey;
 
 // The key to use with token information dictionaries to get the latest known permissions
-FBSDK_EXTERN NSString *const FBTokenInformationPermissionsKey;
-
-// The key to use with token information dictionaries to get the latest known declined permissions
-FBSDK_EXTERN NSString *const FBTokenInformationDeclinedPermissionsKey;
+extern NSString *const FBTokenInformationPermissionsKey;
 
 // The key to use with token information dictionaries to get the date the permissions were last refreshed.
-FBSDK_EXTERN NSString *const FBTokenInformationPermissionsRefreshDateKey;
+extern NSString *const FBTokenInformationPermissionsRefreshDateKey;

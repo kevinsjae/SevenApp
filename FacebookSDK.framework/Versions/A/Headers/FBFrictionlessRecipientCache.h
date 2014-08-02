@@ -33,6 +33,12 @@
  */
 @interface FBFrictionlessRecipientCache : FBCacheDescriptor<FBWebDialogsDelegate>
 
+/*!
+ @abstract
+ Initializes an empty cache instance
+ */
+- (id)init;
+
 /*! @abstract An array containing the list of known FBIDs for recipients enabled for frictionless requests */
 @property (nonatomic, readwrite, copy) NSArray *recipientIDs;
 
@@ -53,7 +59,7 @@
  @param users An NSArray of NSString, NSNumber of `FBGraphUser` objects
  representing users to check
  */
-- (BOOL)areFrictionlessRecipients:(NSArray *)users;
+- (BOOL)areFrictionlessRecipients:(NSArray*)users;
 
 /*!
  @abstract

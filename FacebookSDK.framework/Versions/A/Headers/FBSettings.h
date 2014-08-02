@@ -17,38 +17,33 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGBase.h>
 
-#import "FBSDKMacros.h"
-
 /*
  * Constants defining logging behavior.  Use with <[FBSettings setLoggingBehavior]>.
  */
 
 /*! Log requests from FBRequest* classes */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorFBRequests;
+extern NSString *const FBLoggingBehaviorFBRequests;
 
 /*! Log requests from FBURLConnection* classes */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorFBURLConnections;
+extern NSString *const FBLoggingBehaviorFBURLConnections;
 
 /*! Include access token in logging. */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorAccessTokens;
+extern NSString *const FBLoggingBehaviorAccessTokens;
 
 /*! Log session state transitions. */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorSessionStateTransitions;
+extern NSString *const FBLoggingBehaviorSessionStateTransitions;
 
 /*! Log performance characteristics */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorPerformanceCharacteristics;
+extern NSString *const FBLoggingBehaviorPerformanceCharacteristics;
 
 /*! Log FBAppEvents interactions */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorAppEvents;
+extern NSString *const FBLoggingBehaviorAppEvents;
 
 /*! Log Informational occurrences */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorInformational;
-
-/*! Log cache errors. */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorCacheErrors;
+extern NSString *const FBLoggingBehaviorInformational;
 
 /*! Log errors likely to be preventable by the developer. This is in the default set of enabled logging behaviors. */
-FBSDK_EXTERN NSString *const FBLoggingBehaviorDeveloperErrors;
+extern NSString *const FBLoggingBehaviorDeveloperErrors;
 
 @class FBGraphObject;
 
@@ -72,27 +67,9 @@ typedef enum : NSUInteger {
 #if defined(DEBUG) || defined(FB_BUILD_ONLY)
     FBBetaFeaturesShareDialog           = 1 << 0,
     FBBetaFeaturesOpenGraphShareDialog  = 1 << 1,
-    FBBetaFeaturesLikeButton            = 1 << 2,
 #endif
 } FBBetaFeatures;
 
-/*!
- @typedef
- @abstract Indicates if this app should be restricted
- */
-typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
-    /*! The default treatment indicating the app is not restricted. */
-    FBRestrictedTreatmentNO = 0,
-
-    /*! Indicates the app is restricted. */
-    FBRestrictedTreatmentYES = 1
-};
-
-/*!
- @class FBSettings
-
- @abstract Allows configuration of SDK behavior.
-*/
 @interface FBSettings : NSObject
 
 /*!
@@ -215,7 +192,7 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
 
  @param appID The default Facebook App ID to be used by the SDK.
  */
-+ (void)setDefaultAppID:(NSString *)appID;
++ (void)setDefaultAppID:(NSString*)appID;
 
 /*!
  @method
@@ -224,7 +201,7 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
  set, the default will be read from the application's plist. The SDK allows the appID
  to be overridden per instance in certain cases (e.g. per instance of FBSession)
  */
-+ (NSString *)defaultAppID;
++ (NSString*)defaultAppID;
 
 /*!
  @method
@@ -233,7 +210,7 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
 
  @param urlSchemeSuffix The default url scheme suffix to be used by the SDK.
  */
-+ (void)setDefaultUrlSchemeSuffix:(NSString *)urlSchemeSuffix;
++ (void)setDefaultUrlSchemeSuffix:(NSString*)urlSchemeSuffix;
 
 /*!
  @method
@@ -241,7 +218,7 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
  @abstract Get the default url scheme suffix used for sessions.  If not
  explicitly set, the default will be read from the application's plist value for 'FacebookUrlSchemeSuffix'.
  */
-+ (NSString *)defaultUrlSchemeSuffix;
++ (NSString*)defaultUrlSchemeSuffix;
 
 /*!
  @method
@@ -250,14 +227,14 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
 
  @param bundleName The name of the bundle (MyFBBundle).
  */
-+ (void)setResourceBundleName:(NSString *)bundleName;
++ (void)setResourceBundleName:(NSString*)bundleName;
 
 /*!
  @method
 
  @abstract Get the name of the bundle to override the SDK images and text
  */
-+ (NSString *)resourceBundleName;
++ (NSString*)resourceBundleName;
 
 /*!
  @method
@@ -266,14 +243,14 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
 
  @param facebookDomainPart The domain part to be inserted into facebook.com
  */
-+ (void)setFacebookDomainPart:(NSString *)facebookDomainPart;
++ (void)setFacebookDomainPart:(NSString*)facebookDomainPart;
 
 /*!
  @method
 
  @abstract Get the Facebook domain part
  */
-+ (NSString *)facebookDomainPart;
++ (NSString*)facebookDomainPart;
 
 /*!
  @method
@@ -334,23 +311,5 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
  @param limitEventAndDataUsage   The desired value.
  */
 + (void)setLimitEventAndDataUsage:(BOOL)limitEventAndDataUsage;
-
-/*!
- @method
- @abstract Returns YES if the legacy Graph API mode is enabled
-*/
-+ (BOOL)isPlatformCompatibilityEnabled;
-
-/*!
- @method
- @abstract Configures the SDK to use the legacy platform.
- @param enable indicates whether to use the legacy mode
- @discussion Setting this flag has several effects:
-   - FBRequests will target v1.0 of the Graph API.
-   - Login will use the prior behavior without abilities to decline permission.
-   - Specific new features such as `FBLikeButton` that require the current platform
-     will not work.
-*/
-+ (void)enablePlatformCompatibility:(BOOL)enable;
 
 @end

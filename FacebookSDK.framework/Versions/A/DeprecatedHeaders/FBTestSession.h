@@ -16,14 +16,12 @@
 
 #import "FBSession.h"
 
-#import "FBSDKMacros.h"
-
-#if defined(DEBUG) && !defined(SAFE_TO_USE_FBTESTSESSION)
-#define SAFE_TO_USE_FBTESTSESSION
+#if defined (DEBUG)
+    #define SAFE_TO_USE_FBTESTSESSION
 #endif
 
 #if !defined(SAFE_TO_USE_FBTESTSESSION)
-#pragma message ("warning: using FBTestSession, which is designed for unit-testing uses only, in non-DEBUG code -- ensure this is what you really want")
+    #pragma message ("warning: using FBTestSession, which is designed for unit-testing uses only, in non-DEBUG code -- ensure this is what you really want")
 #endif
 
 /*!
@@ -31,13 +29,13 @@
  you need a second unique test user in a test case. Using the same tag each time reduces
  the proliferation of test users.
  */
-FBSDK_EXTERN NSString *kSecondTestUserTag;
+extern NSString *kSecondTestUserTag;
 /*!
  Consider using this tag to pass to sessionWithSharedUserWithPermissions:uniqueUserTag: when
  you need a third unique test user in a test case. Using the same tag each time reduces
  the proliferation of test users.
  */
-FBSDK_EXTERN NSString *kThirdTestUserTag;
+extern NSString *kThirdTestUserTag;
 
 /*!
  @class FBTestSession
@@ -73,8 +71,6 @@ FBSDK_EXTERN NSString *kThirdTestUserTag;
 @property (readonly, copy) NSString *appAccessToken;
 /// The ID of the test user associated with this session.
 @property (readonly, copy) NSString *testUserID;
-/// The name of the test user associated with this session.
-@property (readonly, copy) NSString *testUserName;
 /// The App ID of the test app as configured in the plist.
 @property (readonly, copy) NSString *testAppID;
 /// The App Secret of the test app as configured in the plist.
@@ -98,8 +94,8 @@ FBSDK_EXTERN NSString *kThirdTestUserTag;
 
  @param permissions     array of strings naming permissions to authorize; nil indicates
  a common default set of permissions should be used for unit testing
- */
-+ (instancetype)sessionWithSharedUserWithPermissions:(NSArray *)permissions;
+  */
++ (id)sessionWithSharedUserWithPermissions:(NSArray*)permissions;
 
 /*!
  @abstract
@@ -122,8 +118,8 @@ FBSDK_EXTERN NSString *kThirdTestUserTag;
  this case, consider using kSecondTestUserTag and kThirdTestUserTag so these users can be shared
  with other, similar, tests.
  */
-+ (instancetype)sessionWithSharedUserWithPermissions:(NSArray *)permissions
-                                       uniqueUserTag:(NSString *)uniqueUserTag;
++ (id)sessionWithSharedUserWithPermissions:(NSArray*)permissions
+                             uniqueUserTag:(NSString*)uniqueUserTag;
 
 /*!
  @abstract
@@ -137,6 +133,6 @@ FBSDK_EXTERN NSString *kThirdTestUserTag;
  @param permissions     array of strings naming permissions to authorize; nil indicates
  a common default set of permissions should be used for unit testing
  */
-+ (instancetype)sessionWithPrivateUserWithPermissions:(NSArray *)permissions;
++ (id)sessionWithPrivateUserWithPermissions:(NSArray*)permissions;
 
 @end
