@@ -43,6 +43,12 @@ static NSArray *movieList;
 
     [self.pageControl setNumberOfPages:[movieList count]];
     [self.pageControl setCurrentPage:0];
+
+    [self setupFonts];
+}
+
+-(void)setupFonts {
+    [self.labelSubtitle setFont:FontRegular(16)];
 }
 
 -(void)addPlayers {
@@ -243,8 +249,6 @@ static NSArray *movieList;
                 installedDict[fbId] = installed;
 
             NSLog(@"id %@ name %@ installed %@", fbId, name, installed);
-            if (!name)
-                NSLog(@"No name");
         }
 
         PFQuery *query = [PFQuery queryWithClassName:@"FacebookFriend"];
