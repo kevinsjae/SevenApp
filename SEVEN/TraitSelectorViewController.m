@@ -71,7 +71,7 @@
 }
 
 -(void)didClickRight:(id)sender {
-
+    [self saveTraits];
 }
 
 -(void)didClickLeft:(id)sender {
@@ -187,5 +187,43 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)saveTraits {
+    NSMutableArray *selectedTraits = [NSMutableArray array];
+    for (int i=0; i<[isSelected count]; i++) {
+        if ([isSelected[i] boolValue]) {
+            [selectedTraits addObject:allTraits[i]];
+        }
+    }
+
+    PFRelation *traitsRelation = [[PFUser currentUser] relationForKey:@"traits"];
+    [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for (PFObject *object in objects) {
+            if (![selectedTraits containsObject:object[@"trait"]]) {
+                // if a trait exists that is not one of the selected ones, remove it
+                [traitsRelation removeObject:object];
+                [object deleteInBackground];
+            }
+            else {
+                // if a trait already exists, remove it from the new traits list
+                [selectedTraits removeObject:object[@"trait"]];
+            }
+        }
+
+        // make all new traits into traits for the user
+        for (NSString *trait in selectedTraits) {
+            PFObject *traitObject = [PFObject objectWithClassName:@"Trait"];
+
+            traitObject[@"trait"] = trait;
+            traitObject[@"user"] = [PFUser currentUser];
+            [traitObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [traitsRelation addObject:traitObject];
+                    [[PFUser currentUser] saveInBackground];
+                }
+            }];
+        }
+    }];
+}
 
 @end
