@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum TraitMode {
+    TraitModeSelect,
+    TraitModeAdjust
+} TraitMode;
+
 @interface TraitSelectorViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UILabel *labelMessage;
     NSMutableArray *allTraits;
     NSMutableArray *allColors;
     NSMutableArray *isSelected;
+
+    NSMutableArray *allSelectedTraits;
+
+    IBOutlet UITableView *tableview;
+
+    BOOL mode;
 }
 @end

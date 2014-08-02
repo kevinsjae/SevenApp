@@ -8,6 +8,7 @@
 
 #import "TraitSelectorViewController.h"
 #import "TraitSelectorCell.h"
+#import "TraitAdjustorCell.h"
 
 @interface TraitSelectorViewController ()
 
@@ -53,12 +54,24 @@
         [isSelected addObject:@NO];
     }
 
+    allSelectedTraits = [NSMutableArray array]; // array of Trait objects
+
+    mode = TraitModeSelect;
     [self enableNavigation:NO];
 }
 
 -(void)setupFonts {
-    NSString *message = @"Pick seven traits to get endorsed";
-    NSArray *highlights = @[@"get endorsed"];
+    NSString *message;
+    NSArray *highlights;
+    if (mode == TraitModeSelect) {
+        message = @"Pick seven traits to get endorsed";
+        highlights = @[@"get endorsed"];
+    }
+    else {
+        message = @"Now swipe to adjust your traits";
+        highlights = @[@"traits"];
+    }
+
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:message];
     [titleString addAttribute:NSFontAttributeName value:FontRegular(15) range:[message rangeOfString:message]];
     [titleString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[message rangeOfString:message]];
@@ -71,7 +84,28 @@
 }
 
 -(void)didClickRight:(id)sender {
-    [self saveTraits];
+    if (mode == TraitModeSelect) {
+        [self enableNavigation:NO];
+        [self saveTraitsWithCompletion:^{
+            mode = TraitModeAdjust;
+            NSMutableArray *rows = [NSMutableArray array];
+            for (int i=0; i<[isSelected count]; i++) {
+                if ([isSelected[i] boolValue] == NO)
+                    [rows addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+            [tableview deleteRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationTop];
+
+            [UIView animateWithDuration:.25 animations:^{
+                [labelMessage setAlpha:0];
+            } completion:^(BOOL finished) {
+                [self setupFonts];
+                [UIView animateWithDuration:.25 animations:^{
+                    [labelMessage setAlpha:1];
+                    [tableview reloadData];
+                }];
+            }];
+        }];
+    }
 }
 
 -(void)didClickLeft:(id)sender {
@@ -151,30 +185,46 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [allTraits count];
+    if (mode == TraitModeSelect)
+        return [allTraits count];
+    else
+        return [allSelectedTraits count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TraitSelectorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TraitSelectorCell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (mode == TraitModeSelect) {
+        TraitSelectorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TraitSelectorCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    NSInteger row = indexPath.row;
-    [cell setupWithInfo:@{@"trait":allTraits[row], @"color":allColors[row], @"selected":isSelected[row]}];
+        NSInteger row = indexPath.row;
+        [cell setupWithInfo:@{@"trait":allTraits[row], @"color":allColors[row], @"selected":isSelected[row]}];
+        
+        return cell;
+    }
+    else {
+        TraitAdjustorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TraitAdjustorCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    return cell;
+        NSInteger row = indexPath.row;
+        [cell setupWithInfo:@{@"trait":allTraits[row], @"color":allColors[row]}];
+
+        return cell;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSInteger row = indexPath.row;
-    BOOL isCurrentlySelected = [isSelected[row] boolValue];
-    if (!isCurrentlySelected) {
-        if ([self traitsSelected] >= 7)
-            return;
-    }
-    isSelected[row] = @(!isCurrentlySelected);
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (mode == TraitModeSelect) {
+        NSInteger row = indexPath.row;
+        BOOL isCurrentlySelected = [isSelected[row] boolValue];
+        if (!isCurrentlySelected) {
+            if ([self traitsSelected] >= 7)
+                return;
+        }
+        isSelected[row] = @(!isCurrentlySelected);
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
-    [self enableNavigation:([self traitsSelected] > 0)];
+        [self enableNavigation:([self traitsSelected] > 0)];
+    }
 }
 
 /*
@@ -188,7 +238,9 @@
 }
 */
 
--(void)saveTraits {
+-(void)saveTraitsWithCompletion:(void(^)())completion {
+    [allSelectedTraits removeAllObjects];
+
     NSMutableArray *selectedTraits = [NSMutableArray array];
     for (int i=0; i<[isSelected count]; i++) {
         if ([isSelected[i] boolValue]) {
@@ -207,6 +259,7 @@
             else {
                 // if a trait already exists, remove it from the new traits list
                 [selectedTraits removeObject:object[@"trait"]];
+                [allSelectedTraits addObject:object];
             }
         }
 
@@ -222,7 +275,10 @@
                     [[PFUser currentUser] saveInBackground];
                 }
             }];
+            [allSelectedTraits addObject:traitObject];
         }
+
+        completion();
     }];
 }
 

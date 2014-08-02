@@ -1,14 +1,14 @@
 //
-//  TraitSelectorCell.m
+//  TraitAdjustorCell.m
 //  SEVEN
 //
 //  Created by Bobby Ren on 8/2/14.
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "TraitSelectorCell.h"
+#import "TraitAdjustorCell.h"
 
-@implementation TraitSelectorCell
+@implementation TraitAdjustorCell
 -(void)setupWithInfo:(NSDictionary *)info {
     [labelTrait setFont:FontMedium(14)];
     [labelTrait setTextColor:[UIColor whiteColor]];
@@ -17,10 +17,6 @@
     [labelTrait setText:trait];
 
     UIColor *color = info[@"color"];
-    self.contentView.backgroundColor = color;
-
-    BOOL isSelected = [info[@"selected"] boolValue];
-    [opaqueView setHidden:!isSelected];
-    [iconConfirm setHidden:!isSelected];
+    colorView.backgroundColor = color;
 }
 @end

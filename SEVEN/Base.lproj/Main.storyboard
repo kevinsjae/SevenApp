@@ -387,7 +387,7 @@ Show off your smile by creating a visual profile.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KzN-zF-Ow4">
+                                                <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KzN-zF-Ow4" userLabel="View - opaque">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -401,7 +401,47 @@ Show off your smile by creating a visual profile.</string>
                                         <connections>
                                             <outlet property="iconConfirm" destination="jKz-az-yw5" id="0oe-oI-tcA"/>
                                             <outlet property="labelTrait" destination="RM1-T3-Wxg" id="UAw-DO-IeN"/>
-                                            <outlet property="overlayView" destination="KzN-zF-Ow4" id="li9-Rq-DXt"/>
+                                            <outlet property="opaqueView" destination="KzN-zF-Ow4" id="GgH-Mf-AMQ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TraitAdjustorCell" id="KqA-4N-K3I" customClass="TraitAdjustorCell">
+                                        <rect key="frame" x="0.0" y="73" width="320" height="51"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KqA-4N-K3I" id="9TF-JB-noU">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTn-za-gIs" userLabel="View - color">
+                                                    <rect key="frame" x="-300" y="0.0" width="320" height="51"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="51" id="0ib-r3-GeG"/>
+                                                        <constraint firstAttribute="width" constant="320" id="qaR-0S-bS6"/>
+                                                    </constraints>
+                                                </view>
+                                                <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUr-2J-T9a" userLabel="View - opaque">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-0n-ufY">
+                                                    <rect key="frame" x="36" y="8" width="248" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MTn-za-gIs" firstAttribute="top" secondItem="9TF-JB-noU" secondAttribute="top" id="CZu-Qb-7CP"/>
+                                                <constraint firstItem="MTn-za-gIs" firstAttribute="leading" secondItem="9TF-JB-noU" secondAttribute="leading" constant="-300" id="ZGj-D0-OWU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="colorView" destination="MTn-za-gIs" id="HdC-Ef-RyO"/>
+                                            <outlet property="constraintLeftOffset" destination="ZGj-D0-OWU" id="pbn-dy-Qik"/>
+                                            <outlet property="labelTrait" destination="7fJ-0n-ufY" id="AGt-SU-yNo"/>
+                                            <outlet property="opaqueView" destination="VUr-2J-T9a" id="fEc-fw-VdD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -424,6 +464,7 @@ Show off your smile by creating a visual profile.</string>
                     <navigationItem key="navigationItem" title="SEVEN" id="0zX-pH-eMf"/>
                     <connections>
                         <outlet property="labelMessage" destination="Tur-uo-bbR" id="8ax-8f-9Oa"/>
+                        <outlet property="tableview" destination="mcW-fs-oyu" id="usN-T5-deJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AfQ-71-Jki" userLabel="First Responder" sceneMemberID="firstResponder"/>

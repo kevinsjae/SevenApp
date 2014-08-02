@@ -84,6 +84,7 @@
 		9EEB9C2E198D184C0031B4AF /* TraitSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEB9C2D198D184C0031B4AF /* TraitSelectorCell.m */; };
 		9EEB9C31198D22A40031B4AF /* seven_icon_confirm_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */; };
 		9EEB9C32198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEB9C30198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png */; };
+		9EEB9C35198D58370031B4AF /* TraitAdjustorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEB9C34198D58370031B4AF /* TraitAdjustorCell.m */; };
 		9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */; };
 		9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEBB8631985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m */; };
 		9EEBF33F198CFD27005ED301 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEBF33E198CFD27005ED301 /* FacebookSDK.framework */; };
@@ -208,6 +209,8 @@
 		9EEB9C2D198D184C0031B4AF /* TraitSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TraitSelectorCell.m; sourceTree = "<group>"; };
 		9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_confirm_white@2x.png"; sourceTree = "<group>"; };
 		9EEB9C30198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_checklistconfirm_white@2x.png"; sourceTree = "<group>"; };
+		9EEB9C33198D58370031B4AF /* TraitAdjustorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraitAdjustorCell.h; sourceTree = "<group>"; };
+		9EEB9C34198D58370031B4AF /* TraitAdjustorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TraitAdjustorCell.m; sourceTree = "<group>"; };
 		9EEBB85F1985B1B10023CE0F /* CreateProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateProfileViewController.h; sourceTree = "<group>"; };
 		9EEBB8601985B1B10023CE0F /* CreateProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateProfileViewController.m; sourceTree = "<group>"; };
 		9EEBB8621985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSlideFromRightTransitionSegue.h; sourceTree = "<group>"; };
@@ -446,6 +449,8 @@
 				9E3E24F6198670B000870666 /* VideoProgressIndicator.m */,
 				9EEB9C2C198D184C0031B4AF /* TraitSelectorCell.h */,
 				9EEB9C2D198D184C0031B4AF /* TraitSelectorCell.m */,
+				9EEB9C33198D58370031B4AF /* TraitAdjustorCell.h */,
+				9EEB9C34198D58370031B4AF /* TraitAdjustorCell.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -694,6 +699,7 @@
 				9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */,
 				9E79B7FE196435AA00559838 /* main.m in Sources */,
 				9E79B85D1964382100559838 /* LoginViewController.m in Sources */,
+				9EEB9C35198D58370031B4AF /* TraitAdjustorCell.m in Sources */,
 				9EEB9C2E198D184C0031B4AF /* TraitSelectorCell.m in Sources */,
 				9E3E25041987F85E00870666 /* BRCameraViewController.m in Sources */,
 				9E79B84E1964363600559838 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,

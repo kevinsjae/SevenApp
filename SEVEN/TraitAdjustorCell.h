@@ -1,5 +1,5 @@
 //
-//  TraitSelectorCell.h
+//  TraitAdjustorCell.h
 //  SEVEN
 //
 //  Created by Bobby Ren on 8/2/14.
@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TraitSelectorCell : UITableViewCell
+@interface TraitAdjustorCell : UITableViewCell
 {
     IBOutlet UIView *opaqueView;
+    IBOutlet UIView *colorView;
     IBOutlet UILabel *labelTrait;
-    IBOutlet UIImageView *iconConfirm;
+
+    IBOutlet NSLayoutConstraint *constraintLeftOffset;
 }
 
 -(void)setupWithInfo:(NSDictionary *)info;
