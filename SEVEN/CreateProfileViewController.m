@@ -45,7 +45,7 @@
 }
 
 -(void)setupFonts {
-    NSString *message = @"SEVEN is about real people who are looking for the perfect date.\n\nShow off your smile by creating a visual profile.";
+    NSString *message = @"SEVEN is all about real people who are looking for the perfect date.\n\nShow off your smile by creating a visual profile.";
     NSArray *highlights = @[@"real people", @"visual profile"];
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:message];
     [titleString addAttribute:NSFontAttributeName value:FontRegular(15) range:[message rangeOfString:message]];
@@ -132,7 +132,6 @@
 #pragma mark Gesture
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]] && gesture.state == UIGestureRecognizerStateEnded) {
-
 #if TESTING
         float duration = 0.1;
 #else

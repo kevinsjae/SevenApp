@@ -30,6 +30,7 @@
      */
     // facebook
     [PFFacebookUtils initializeFacebook];
+    // if keep getting error com.facebook.sdk Code=2, must log out of facebook app and facebook setting on iphone, delete app, and try again
 
 #if TESTING
     NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];

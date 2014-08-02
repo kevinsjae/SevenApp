@@ -20,6 +20,8 @@
 
 #define COL_LIGHTBLUE [UIColor colorWithRed:0 green:125.0/255.0 blue:176.0/255.0 alpha:1]
 
+#define UIColorFromHex(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 #define FontRegular(x) [UIFont fontWithName:@"GothamHTF-Book" size:x]
 #define FontMedium(x) [UIFont fontWithName:@"GothamHTF-Medium" size:x]
 

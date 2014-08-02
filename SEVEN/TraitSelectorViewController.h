@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TraitSelectorViewController : UIViewController
-
+@interface TraitSelectorViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    IBOutlet UILabel *labelMessage;
+    NSMutableArray *allTraits;
+    NSMutableArray *allColors;
+}
 @end
