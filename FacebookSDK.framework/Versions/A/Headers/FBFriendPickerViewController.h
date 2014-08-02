@@ -25,32 +25,32 @@
 @class FBFriendPickerCacheDescriptor;
 
 /*!
- @typedef NS_ENUM (NSUInteger, FBFriendSortOrdering)
+ @typedef FBFriendSortOrdering enum
 
  @abstract Indicates the order in which friends should be listed in the friend picker.
 
  @discussion
  */
-typedef NS_ENUM(NSUInteger, FBFriendSortOrdering) {
+typedef enum {
     /*! Sort friends by first, middle, last names. */
-    FBFriendSortByFirstName = 0,
+    FBFriendSortByFirstName,
     /*! Sort friends by last, first, middle names. */
     FBFriendSortByLastName
-};
+} FBFriendSortOrdering;
 
 /*!
- @typedef NS_ENUM (NSUInteger, FBFriendDisplayOrdering)
+ @typedef FBFriendDisplayOrdering enum
 
  @abstract Indicates whether friends should be displayed first-name-first or last-name-first.
 
  @discussion
  */
-typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
+typedef enum {
     /*! Display friends as First Middle Last. */
-    FBFriendDisplayByFirstName = 0,
+    FBFriendDisplayByFirstName,
     /*! Display friends as Last First Middle. */
     FBFriendDisplayByLastName,
-};
+} FBFriendDisplayOrdering;
 
 
 /*!
@@ -148,10 +148,16 @@ typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
 /*!
  @abstract
  Initializes a friend picker view controller.
+ */
+- (id)init;
+
+/*!
+ @abstract
+ Initializes a friend picker view controller.
 
  @param aDecoder        An unarchiver object.
  */
-- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithCoder:(NSCoder *)aDecoder;
 
 /*!
  @abstract
@@ -160,7 +166,7 @@ typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
  @param nibNameOrNil            The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
  @param nibBundleOrNil          The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If nil, this method looks for the nib file in the main bundle.
  */
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 /*!
  @abstract
@@ -173,7 +179,7 @@ typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
 
  @param cacheDescriptor     The <FBCacheDescriptor> containing the cache query properties.
  */
-- (void)configureUsingCachedDescriptor:(FBCacheDescriptor *)cacheDescriptor;
+- (void)configureUsingCachedDescriptor:(FBCacheDescriptor*)cacheDescriptor;
 
 /*!
  @abstract
@@ -212,7 +218,7 @@ typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
  the view controller. It may also be used to configure the `FBFriendPickerViewController`
  object.
  */
-+ (FBCacheDescriptor *)cacheDescriptor;
++ (FBCacheDescriptor*)cacheDescriptor;
 
 /*!
  @method
@@ -228,7 +234,7 @@ typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
  @param userID              The profile ID of the user whose friends will be displayed. A nil value implies a "me" alias.
  @param fieldsForRequest    The set of additional fields to include in the request for friend data.
  */
-+ (FBCacheDescriptor *)cacheDescriptorWithUserID:(NSString *)userID fieldsForRequest:(NSSet *)fieldsForRequest;
++ (FBCacheDescriptor*)cacheDescriptorWithUserID:(NSString*)userID fieldsForRequest:(NSSet*)fieldsForRequest;
 
 @end
 
@@ -275,7 +281,7 @@ typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
  @param user                An <FBGraphUser> object representing the friend.
  */
 - (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
-                 shouldIncludeUser:(id<FBGraphUser>)user;
+                 shouldIncludeUser:(id <FBGraphUser>)user;
 
 /*!
  @abstract

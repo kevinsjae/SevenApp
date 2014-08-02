@@ -16,12 +16,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBSDKMacros.h"
 #import "FBSession.h"
 
 /*!
 
- @typedef NS_ENUM (NSUInteger, FBAppEventsFlushBehavior)
+ @typedef FBAppEventsFlushBehavior enum
 
  @abstract
  Control when <FBAppEvents> sends log events to the server
@@ -29,24 +28,24 @@
  @discussion
 
  */
-typedef NS_ENUM(NSUInteger, FBAppEventsFlushBehavior) {
+typedef enum {
 
     /*! Flush automatically: periodically (once a minute or every 100 logged events) and always at app reactivation. */
-    FBAppEventsFlushBehaviorAuto = 0,
+    FBAppEventsFlushBehaviorAuto,
 
     /*! Only flush when the `flush` method is called. When an app is moved to background/terminated, the
      events are persisted and re-established at activation, but they will only be written with an
      explicit call to `flush`. */
     FBAppEventsFlushBehaviorExplicitOnly,
 
-};
+} FBAppEventsFlushBehavior;
 
 /*
  * Constant used by NSNotificationCenter for results of flushing AppEvents event logs
  */
 
 /*! NSNotificationCenter name indicating a result of a failed log flush attempt */
-FBSDK_EXTERN NSString *const FBAppEventsLoggingResultNotification;
+extern NSString *const FBAppEventsLoggingResultNotification;
 
 
 // Predefined event names for logging events common to many apps.  Logging occurs through the `logEvent` family of methods on `FBAppEvents`.
@@ -55,50 +54,50 @@ FBSDK_EXTERN NSString *const FBAppEventsLoggingResultNotification;
 // General purpose
 
 /*! Log this event when an app is being activated, typically in the AppDelegate's applicationDidBecomeActive. */
-FBSDK_EXTERN NSString *const FBAppEventNameActivatedApp;
+extern NSString *const FBAppEventNameActivatedApp;
 
 /*! Log this event when a user has completed registration with the app. */
-FBSDK_EXTERN NSString *const FBAppEventNameCompletedRegistration;
+extern NSString *const FBAppEventNameCompletedRegistration;
 
 /*! Log this event when a user has viewed a form of content in the app. */
-FBSDK_EXTERN NSString *const FBAppEventNameViewedContent;
+extern NSString *const FBAppEventNameViewedContent;
 
 /*! Log this event when a user has performed a search within the app. */
-FBSDK_EXTERN NSString *const FBAppEventNameSearched;
+extern NSString *const FBAppEventNameSearched;
 
 /*! Log this event when the user has rated an item in the app.  The valueToSum passed to logEvent should be the numeric rating. */
-FBSDK_EXTERN NSString *const FBAppEventNameRated;
+extern NSString *const FBAppEventNameRated;
 
 /*! Log this event when the user has completed a tutorial in the app. */
-FBSDK_EXTERN NSString *const FBAppEventNameCompletedTutorial;
+extern NSString *const FBAppEventNameCompletedTutorial;
 
 // Ecommerce related
 
 /*! Log this event when the user has added an item to their cart.  The valueToSum passed to logEvent should be the item's price. */
-FBSDK_EXTERN NSString *const FBAppEventNameAddedToCart;
+extern NSString *const FBAppEventNameAddedToCart;
 
 /*! Log this event when the user has added an item to their wishlist.  The valueToSum passed to logEvent should be the item's price. */
-FBSDK_EXTERN NSString *const FBAppEventNameAddedToWishlist;
+extern NSString *const FBAppEventNameAddedToWishlist;
 
 /*! Log this event when the user has entered the checkout process.  The valueToSum passed to logEvent should be the total price in the cart. */
-FBSDK_EXTERN NSString *const FBAppEventNameInitiatedCheckout;
+extern NSString *const FBAppEventNameInitiatedCheckout;
 
 /*! Log this event when the user has entered their payment info. */
-FBSDK_EXTERN NSString *const FBAppEventNameAddedPaymentInfo;
+extern NSString *const FBAppEventNameAddedPaymentInfo;
 
 /*! Log this event when the user has completed a purchase.  The `[FBAppEvents logPurchase]` method is a shortcut for logging this event. */
-FBSDK_EXTERN NSString *const FBAppEventNamePurchased;
+extern NSString *const FBAppEventNamePurchased;
 
 // Gaming related
 
 /*! Log this event when the user has achieved a level in the app. */
-FBSDK_EXTERN NSString *const FBAppEventNameAchievedLevel;
+extern NSString *const FBAppEventNameAchievedLevel;
 
 /*! Log this event when the user has unlocked an achievement in the app. */
-FBSDK_EXTERN NSString *const FBAppEventNameUnlockedAchievement;
+extern NSString *const FBAppEventNameUnlockedAchievement;
 
 /*! Log this event when the user has spent app credits.  The valueToSum passed to logEvent should be the number of credits spent. */
-FBSDK_EXTERN NSString *const FBAppEventNameSpentCredits;
+extern NSString *const FBAppEventNameSpentCredits;
 
 
 
@@ -106,37 +105,37 @@ FBSDK_EXTERN NSString *const FBAppEventNameSpentCredits;
 // of methods on `FBAppEvents`.  Common event names are provided in the `FBAppEventName*` constants.
 
 /*! Parameter key used to specify currency used with logged event.  E.g. "USD", "EUR", "GBP".  See ISO-4217 for specific values.  One reference for these is <http://en.wikipedia.org/wiki/ISO_4217>. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameCurrency;
+extern NSString *const FBAppEventParameterNameCurrency;
 
 /*! Parameter key used to specify method user has used to register for the app, e.g., "Facebook", "email", "Twitter", etc */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameRegistrationMethod;
+extern NSString *const FBAppEventParameterNameRegistrationMethod;
 
 /*! Parameter key used to specify a generic content type/family for the logged event, e.g. "music", "photo", "video".  Options to use will vary based upon what the app is all about. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameContentType;
+extern NSString *const FBAppEventParameterNameContentType;
 
 /*! Parameter key used to specify an ID for the specific piece of content being logged about.  Could be an EAN, article identifier, etc., depending on the nature of the app. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameContentID;
+extern NSString *const FBAppEventParameterNameContentID;
 
 /*! Parameter key used to specify the string provided by the user for a search operation. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameSearchString;
+extern NSString *const FBAppEventParameterNameSearchString;
 
 /*! Parameter key used to specify whether the activity being logged about was successful or not.  `FBAppEventParameterValueYes` and `FBAppEventParameterValueNo` are good canonical values to use for this parameter. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameSuccess;
+extern NSString *const FBAppEventParameterNameSuccess;
 
 /*! Parameter key used to specify the maximum rating available for the `FBAppEventNameRate` event.  E.g., "5" or "10". */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameMaxRatingValue;
+extern NSString *const FBAppEventParameterNameMaxRatingValue;
 
 /*! Parameter key used to specify whether payment info is available for the `FBAppEventNameInitiatedCheckout` event.  `FBAppEventParameterValueYes` and `FBAppEventParameterValueNo` are good canonical values to use for this parameter. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNamePaymentInfoAvailable;
+extern NSString *const FBAppEventParameterNamePaymentInfoAvailable;
 
 /*! Parameter key used to specify how many items are being processed for an `FBAppEventNameInitiatedCheckout` or `FBAppEventNamePurchased` event. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameNumItems;
+extern NSString *const FBAppEventParameterNameNumItems;
 
 /*! Parameter key used to specify the level achieved in a `FBAppEventNameAchieved` event. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameLevel;
+extern NSString *const FBAppEventParameterNameLevel;
 
 /*! Parameter key used to specify a description appropriate to the event being logged.  E.g., the name of the achievement unlocked in the `FBAppEventNameAchievementUnlocked` event. */
-FBSDK_EXTERN NSString *const FBAppEventParameterNameDescription;
+extern NSString *const FBAppEventParameterNameDescription;
 
 
 
@@ -144,10 +143,10 @@ FBSDK_EXTERN NSString *const FBAppEventParameterNameDescription;
 // of methods on `FBAppEvents`.  Common event parameters are provided in the `FBAppEventParameterName*` constants.
 
 /*! Yes-valued parameter value to be used with parameter keys that need a Yes/No value */
-FBSDK_EXTERN NSString *const FBAppEventParameterValueYes;
+extern NSString *const FBAppEventParameterValueYes;
 
 /*! No-valued parameter value to be used with parameter keys that need a Yes/No value */
-FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
+extern NSString *const FBAppEventParameterValueNo;
 
 
 /*!
@@ -193,7 +192,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
 
  + There is a limit on the number of unique event names an app can use, on the order of 300.
  + There is a limit to the number of unique parameter names in the provided parameters that can
- be used per event, on the order of 25.  This is not just for an individual call, but for all
+ be used per event, on the order of 10.  This is not just for an individual call, but for all
  invocations for that eventName.
  + Event names and parameter names (the keys in the NSDictionary) must be between 2 and 40 characters, and
  must consist of alphanumeric characters, _, -, or spaces.
