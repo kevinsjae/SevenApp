@@ -13,5 +13,6 @@
     IBOutlet UILabel *labelMessage;
     NSMutableArray *allTraits;
     NSMutableArray *allColors;
+    NSMutableArray *isSelected;
 }
 @end

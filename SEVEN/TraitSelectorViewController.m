@@ -43,8 +43,15 @@
     self.navigationItem.leftBarButtonItem = left;
     
     [self setupFonts];
+
+    allTraits = [NSMutableArray array];
+    allColors = [NSMutableArray array];
     [self randomizeTraits];
     [self randomizeColors];
+    isSelected = [NSMutableArray array];
+    for (int i=0; i<[allTraits count]; i++) {
+        [isSelected addObject:@NO];
+    }
 }
 
 -(void)setupFonts {
@@ -75,7 +82,6 @@
 }
 
 -(void)randomizeTraits {
-    allTraits = [NSMutableArray array];
     NSMutableArray *traitsLeft = [ALL_TRAITS mutableCopy];
     while ([traitsLeft count] > 0) {
         int index = arc4random() % [traitsLeft count];
@@ -85,29 +91,42 @@
 }
 
 -(void)randomizeColors {
-    allColors = [NSMutableArray array];
-    [allColors addObject:[self randomColorFromLastColor:nil]];
-    for (int i=1; i<[allTraits count]; i++) {
+    [allColors addObject:[self randomColorFromLastColor:nil lastTwo:nil]];
+    [allColors addObject:[self randomColorFromLastColor:allColors[0] lastTwo:nil]];
+    for (int i=2; i<[allTraits count]; i++) {
         UIColor *lastColor = allColors[i-1];
-        [allColors addObject:[self randomColorFromLastColor:lastColor]];
+        UIColor *lastTwo = allColors[i-2];
+        [allColors addObject:[self randomColorFromLastColor:lastColor lastTwo:lastTwo]];
     }
 }
 
--(UIColor *)randomColorFromLastColor:(UIColor *)lastColor {
+-(UIColor *)randomColorFromLastColor:(UIColor *)lastColor lastTwo:(UIColor *)lastTwo {
     static const int numColors = 10;
     int ALL_COLORS[numColors] = {0xbdd200, 0xff0e0e, 0x670063, 0x9e005d, 0x2ed0ff, 0xff6015, 0x00809c, 0x07a5cb, 0xdf0000, 0x009c8e};
 
     const CGFloat* lastColorComponents = CGColorGetComponents( lastColor.CGColor);
 
-    UIColor *color = nil;
-    while (!color) {
+    while (1) {
         int index = arc4random() % numColors;
         UIColor *newColor = UIColorFromHex(ALL_COLORS[index]);
-        const CGFloat* newColorComponents = CGColorGetComponents(newColor.CGColor);
-        if (!lastColor || newColorComponents[0] != lastColorComponents[0] || newColorComponents[1] != lastColorComponents[1] || newColorComponents[2] != lastColorComponents[2])
-            color = newColor;
+        const CGFloat* newColorComponents = CGColorGetComponents(   newColor.CGColor);
+        if (!lastColor) {
+            return newColor;
+        }
+        float dist = fabs(newColorComponents[0] - lastColorComponents[0]) + fabs(newColorComponents[1] != lastColorComponents[1]) + fabs(newColorComponents[2] != lastColorComponents[2]);
+        NSLog(@"distance between %@ and %@: %f", lastColor, newColor, dist);
+        if (dist <= 1)
+            continue;
+        if (!lastTwo)
+            return newColor;
+
+        const CGFloat* lastColorComponents2 = CGColorGetComponents( lastTwo.CGColor);
+        float dist2 = fabs(newColorComponents[0] - lastColorComponents2[0]) + fabs(newColorComponents[1] != lastColorComponents2[1]) + fabs(newColorComponents[2] != lastColorComponents2[2]);
+        if (dist2 <= 2.2)
+            continue;
+
+        return newColor;
     }
-    return color;
 }
 
 #pragma mark TableViewDataSource
@@ -123,7 +142,7 @@
     TraitSelectorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TraitSelectorCell"];
 
     NSInteger row = indexPath.row;
-    [cell setupWithInfo:@{@"trait":allTraits[row], @"color":allColors[row]}];
+    [cell setupWithInfo:@{@"trait":allTraits[row], @"color":allColors[row], @"selected":isSelected[row]}];
 
     return cell;
 }

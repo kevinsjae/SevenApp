@@ -14,5 +14,9 @@
     UIColor *color = info[@"color"];
     self.contentView.backgroundColor = color;
     [labelTrait setText:trait];
+
+    BOOL isSelected = [info[@"selected"] boolValue];
+    [overlayView setHidden:!isSelected];
+    [iconConfirm setHidden:!isSelected];
 }
 @end
