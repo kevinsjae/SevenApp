@@ -12,9 +12,15 @@
 -(void)setupWithInfo:(NSDictionary *)info {
     [labelTrait setFont:FontMedium(14)];
     [labelTrait setTextColor:[UIColor whiteColor]];
+//    [labelTrait setBackgroundColor:[UIColor grayColor]];
 
     trait = info[@"trait"];
     [labelTrait setText:trait];
+    CGRect rect = [trait boundingRectWithSize:CGSizeMake(self.contentView.frame.size.width, labelTrait.frame.size.height)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{NSFontAttributeName:labelTrait.font}
+                                              context:nil];
+    constraintLabelWidth.constant = rect.size.width+10;
 
     UIColor *color = info[@"color"];
     colorView.backgroundColor = color;
@@ -36,11 +42,17 @@
 }
 
 -(void)updateLevel {
-    constraintLeftOffset.constant = MIN_X_OFFSET + (level+1) * PIXELS_PER_LEVEL;
+    constraintLeftOffsetColor.constant = MIN_X_OFFSET + (level+1) * PIXELS_PER_LEVEL;
     [colorView setNeedsUpdateConstraints];
-    [UIView animateWithDuration:.5 animations:^{
-        [colorView layoutIfNeeded];
-    }];
+    [colorView layoutIfNeeded];
+    float barRightBorderPosition = constraintLeftOffsetColor.constant;
+    float textRightBorderPosition = 20 + constraintLabelWidth.constant;
+    float diff = barRightBorderPosition - textRightBorderPosition;
+    if (diff < 20)
+        diff = 20;
+    constraintLeftOffsetLabel.constant = diff;
+    [labelTrait setNeedsUpdateConstraints];
+    [labelTrait layoutIfNeeded];
 }
 
 -(void)handleGesture:(UIGestureRecognizer *)gesture {

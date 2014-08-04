@@ -25,7 +25,9 @@
     IBOutlet UIView *colorView;
     IBOutlet UILabel *labelTrait;
 
-    IBOutlet NSLayoutConstraint *constraintLeftOffset;
+    IBOutlet NSLayoutConstraint *constraintLeftOffsetColor;
+    IBOutlet NSLayoutConstraint *constraintLabelWidth;
+    IBOutlet NSLayoutConstraint *constraintLeftOffsetLabel;
 
     NSString *trait;
     int level;
