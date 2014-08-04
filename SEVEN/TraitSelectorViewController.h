@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TraitAdjustorCell.h"
 
 typedef enum TraitMode {
     TraitModeSelect,
     TraitModeAdjust
 } TraitMode;
 
-@interface TraitSelectorViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface TraitSelectorViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TraitAdjustorDelegate>
 {
     IBOutlet UILabel *labelMessage;
     NSMutableArray *allTraits;
@@ -21,6 +22,8 @@ typedef enum TraitMode {
     NSMutableArray *isSelected;
 
     NSMutableArray *allSelectedTraits;
+    NSMutableArray *allSelectedColors; // to keep rows consistent in coloring
+    NSMutableDictionary *allLevels;
 
     IBOutlet UITableView *tableview;
 

@@ -382,7 +382,7 @@ Show off your smile by creating a visual profile.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RM1-T3-Wxg">
-                                                    <rect key="frame" x="26" y="7" width="248" height="36"/>
+                                                    <rect key="frame" x="20" y="7" width="248" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
@@ -411,35 +411,47 @@ Show off your smile by creating a visual profile.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTn-za-gIs" userLabel="View - color">
-                                                    <rect key="frame" x="-300" y="0.0" width="320" height="51"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="51" id="0ib-r3-GeG"/>
-                                                        <constraint firstAttribute="width" constant="320" id="qaR-0S-bS6"/>
-                                                    </constraints>
-                                                </view>
-                                                <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUr-2J-T9a" userLabel="View - opaque">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTn-za-gIs" userLabel="View - color">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-0n-ufY">
-                                                    <rect key="frame" x="36" y="8" width="248" height="36"/>
+                                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUr-2J-T9a" userLabel="View - opaque">
+                                                    <rect key="frame" x="20" y="0.0" width="320" height="51"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="320" id="dtm-hy-Gac"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-0n-ufY">
+                                                    <rect key="frame" x="20" y="8" width="248" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="248" id="0HT-yc-dhv"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="MTn-za-gIs" firstAttribute="top" secondItem="9TF-JB-noU" secondAttribute="top" id="CZu-Qb-7CP"/>
-                                                <constraint firstItem="MTn-za-gIs" firstAttribute="leading" secondItem="9TF-JB-noU" secondAttribute="leading" constant="-300" id="ZGj-D0-OWU"/>
+                                                <constraint firstAttribute="bottom" secondItem="MTn-za-gIs" secondAttribute="bottom" id="AaR-kv-qCP"/>
+                                                <constraint firstItem="MTn-za-gIs" firstAttribute="leading" secondItem="9TF-JB-noU" secondAttribute="leading" id="FAG-2t-5XT"/>
+                                                <constraint firstItem="7fJ-0n-ufY" firstAttribute="top" secondItem="9TF-JB-noU" secondAttribute="top" constant="8" id="OFo-c6-zLa"/>
+                                                <constraint firstAttribute="trailing" secondItem="MTn-za-gIs" secondAttribute="trailing" id="ONF-eO-XLh"/>
+                                                <constraint firstAttribute="bottom" secondItem="VUr-2J-T9a" secondAttribute="bottom" id="OS7-yb-hPr"/>
+                                                <constraint firstItem="7fJ-0n-ufY" firstAttribute="leading" secondItem="9TF-JB-noU" secondAttribute="leading" constant="20" id="U2k-2L-wSn"/>
+                                                <constraint firstAttribute="bottom" secondItem="7fJ-0n-ufY" secondAttribute="bottom" constant="7" id="WHY-2J-PPR"/>
+                                                <constraint firstItem="MTn-za-gIs" firstAttribute="top" secondItem="9TF-JB-noU" secondAttribute="top" id="b6I-Q4-54h"/>
+                                                <constraint firstItem="VUr-2J-T9a" firstAttribute="top" secondItem="9TF-JB-noU" secondAttribute="top" id="poM-UR-D7u"/>
+                                                <constraint firstItem="VUr-2J-T9a" firstAttribute="leading" secondItem="9TF-JB-noU" secondAttribute="leading" constant="20" id="saS-gS-UiD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="colorView" destination="MTn-za-gIs" id="HdC-Ef-RyO"/>
-                                            <outlet property="constraintLeftOffset" destination="ZGj-D0-OWU" id="pbn-dy-Qik"/>
+                                            <outlet property="constraintLabelWidth" destination="0HT-yc-dhv" id="saZ-m5-09N"/>
+                                            <outlet property="constraintLeftOffsetColor" destination="saS-gS-UiD" id="ir0-KI-HLG"/>
+                                            <outlet property="constraintLeftOffsetLabel" destination="U2k-2L-wSn" id="fCc-bO-qy7"/>
                                             <outlet property="labelTrait" destination="7fJ-0n-ufY" id="AGt-SU-yNo"/>
                                             <outlet property="opaqueView" destination="VUr-2J-T9a" id="fEc-fw-VdD"/>
                                         </connections>
