@@ -7,6 +7,7 @@
 //
 
 #import "LookingForViewController.h"
+#import "MBProgressHUD.h"
 
 @implementation LookingForViewController
 
@@ -110,9 +111,24 @@
 }
 
 -(void)saveLookingFor {
-    [[PFUser currentUser] setObject:@(lookingForGender) forKey:@"lookingFor"];
-    [[PFUser currentUser] saveInBackground];
+    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [progress setMode:MBProgressHUDModeIndeterminate];
+    [progress setLabelText:@"Updating your selection"];
 
-//    [self performSegueWithIdentifier:@"SignupGoToLocation" sender:self];
+    [[PFUser currentUser] setObject:@(lookingForGender) forKey:@"lookingFor"];
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            [progress setLabelText:@"Error updating selection"];
+            progress.detailsLabelText = error.description;
+            progress.mode = MBProgressHUDModeText;
+            [progress hide:YES afterDelay:3];
+            return;
+        }
+        progress.mode = MBProgressHUDModeText;
+        progress.labelText = @"You are now ready to rock!";
+        [progress hide:YES afterDelay:3];
+        //    [self performSegueWithIdentifier:@"SignupGoToLocation" sender:self];
+    }];
+
 }
 @end
