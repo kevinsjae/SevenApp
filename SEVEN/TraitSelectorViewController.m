@@ -323,6 +323,8 @@
     [progress setMode:MBProgressHUDModeIndeterminate];
     [progress setLabelText:@"Saving traits"];
 
+    NSMutableArray *processedTraits = [NSMutableArray array];
+
     PFRelation *traitsRelation = [[PFUser currentUser] relationForKey:@"traits"];
     [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
@@ -336,7 +338,7 @@
         for (PFObject *object in objects) {
             if ([allSelectedTraits containsObject:object[@"trait"]]) {
                 object[@"level"] = allLevels[object[@"trait"]];
-                [allSelectedTraits removeObject:object[@"trait"]];
+                [processedTraits addObject:object[@"trait"]];
                 [object saveInBackground];
             }
             else {
@@ -345,14 +347,13 @@
             }
         }
 
-        if ([allSelectedTraits count] > 0) {
+        if ([allSelectedTraits count] != [processedTraits count]) {
             NSLog(@"Oops, we are missing some traits");
             // should add it
         }
 
-        [progress setLabelText:@"Done updating traits"];
-        progress.mode = MBProgressHUDModeText;
-        [progress hide:YES afterDelay:3];
+        [progress hide:YES];
+        [self performSegueWithIdentifier:@"TraitsToLookingFor" sender:self];
     }];
 }
 
