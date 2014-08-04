@@ -21,6 +21,8 @@ typedef enum TraitMode {
     NSMutableArray *isSelected;
 
     NSMutableArray *allSelectedTraits;
+    NSMutableArray *allSelectedColors; // to keep rows consistent in coloring
+    NSMutableArray *allLevels;
 
     IBOutlet UITableView *tableview;
 

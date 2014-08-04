@@ -47,6 +47,7 @@
 
     allTraits = [NSMutableArray array];
     allColors = [NSMutableArray array];
+    allLevels = [NSMutableArray array];
     [self randomizeTraits];
     [self randomizeColors];
     isSelected = [NSMutableArray array];
@@ -54,7 +55,8 @@
         [isSelected addObject:@NO];
     }
 
-    allSelectedTraits = [NSMutableArray array]; // array of Trait objects
+    allSelectedTraits = [NSMutableArray array];
+    allSelectedColors = [NSMutableArray array];
 
     mode = TraitModeSelect;
     [self enableNavigation:NO];
@@ -87,29 +89,18 @@
     if (mode == TraitModeSelect) {
         [self enableNavigation:NO];
         [self saveTraitsWithCompletion:^{
-            mode = TraitModeAdjust;
-            NSMutableArray *rows = [NSMutableArray array];
-            for (int i=0; i<[isSelected count]; i++) {
-                if ([isSelected[i] boolValue] == NO)
-                    [rows addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-            }
-            [tableview deleteRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationTop];
-
-            [UIView animateWithDuration:.25 animations:^{
-                [labelMessage setAlpha:0];
-            } completion:^(BOOL finished) {
-                [self setupFonts];
-                [UIView animateWithDuration:.25 animations:^{
-                    [labelMessage setAlpha:1];
-                    [tableview reloadData];
-                }];
-            }];
+            [self startAdjustingTraits];
         }];
     }
 }
 
 -(void)didClickLeft:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (mode == TraitModeSelect) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        [self cancelAdjustingTraits];
+    }
 }
 
 -(void)enableNavigation:(BOOL)enabled {
@@ -206,7 +197,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         NSInteger row = indexPath.row;
-        [cell setupWithInfo:@{@"trait":allTraits[row], @"color":allColors[row]}];
+        [cell setupWithInfo:@{@"trait":allSelectedTraits[row], @"color":allSelectedColors[row], @"level":allLevels[row]}];
 
         return cell;
     }
@@ -239,15 +230,17 @@
 */
 
 -(void)saveTraitsWithCompletion:(void(^)())completion {
-    [allSelectedTraits removeAllObjects];
-
     NSMutableArray *selectedTraits = [NSMutableArray array];
     for (int i=0; i<[isSelected count]; i++) {
         if ([isSelected[i] boolValue]) {
             [selectedTraits addObject:allTraits[i]];
+            [allSelectedTraits addObject:allTraits[i]];
+            [allSelectedColors addObject:allColors[i]];
         }
     }
+    completion(); // goes to startAdjustingTraits
 
+    // using selectedTraits, updates existing or creates new traits, and removes unselected traits from user relation
     PFRelation *traitsRelation = [[PFUser currentUser] relationForKey:@"traits"];
     [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         for (PFObject *object in objects) {
@@ -259,7 +252,6 @@
             else {
                 // if a trait already exists, remove it from the new traits list
                 [selectedTraits removeObject:object[@"trait"]];
-                [allSelectedTraits addObject:object];
             }
         }
 
@@ -275,11 +267,43 @@
                     [[PFUser currentUser] saveInBackground];
                 }
             }];
-            [allSelectedTraits addObject:traitObject];
         }
 
-        completion();
     }];
 }
 
+-(void)startAdjustingTraits {
+    [allLevels removeAllObjects]; // if we've adjusted, need to save old allLevels values
+
+    NSMutableArray *rows = [NSMutableArray array];
+    for (int i=0; i<[isSelected count]; i++) {
+        if ([isSelected[i] boolValue] == NO) {
+            [rows addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        }
+        else {
+            [allLevels addObject:@(arc4random()%MAX_TRAIT_LEVEL)];
+        }
+    }
+
+    // when table deletes rows, the data source must already match the number of rows existing
+    mode = TraitModeAdjust;
+    [tableview deleteRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationTop];
+
+    [UIView animateWithDuration:.25 animations:^{
+        [labelMessage setAlpha:0];
+    } completion:^(BOOL finished) {
+        [self setupFonts];
+        [UIView animateWithDuration:.25 animations:^{
+            [labelMessage setAlpha:1];
+            [tableview reloadData];
+        }];
+    }];
+}
+
+-(void)cancelAdjustingTraits {
+    mode = TraitModeSelect;
+    [allSelectedTraits removeAllObjects];
+    [allSelectedColors removeAllObjects];
+    [tableview reloadData];
+}
 @end

@@ -18,5 +18,19 @@
 
     UIColor *color = info[@"color"];
     colorView.backgroundColor = color;
+
+    if (info[@"level"]) {
+        level = [info[@"level"] intValue];
+    }
+
+    [self updateLevel];
+}
+
+-(void)updateLevel {
+    constraintLeftOffset.constant = MIN_X_OFFSET + level * PIXELS_PER_LEVEL;
+    [colorView setNeedsUpdateConstraints];
+    [UIView animateWithDuration:.5 animations:^{
+        [colorView layoutIfNeeded];
+    }];
 }
 @end
