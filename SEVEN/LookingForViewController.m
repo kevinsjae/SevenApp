@@ -26,6 +26,7 @@
     self.navigationItem.leftBarButtonItem = left;
 
     [self setupFonts];
+    [self updateSelection:nil];
 }
 
 -(void)setupFonts {
@@ -69,21 +70,49 @@
 
 -(void)didClickRight:(id)sender {
     NSLog(@"Saving traits");
+    [self saveLookingFor];
 }
 
 -(IBAction)didClickButton:(id)sender {
+    [self updateSelection:sender];
+}
+
+-(void)updateSelection:(id)sender {
+    for (UIImageView *icon in @[iconGirls, iconGuys, iconBoth]) {
+        [icon setAlpha:.25];
+    }
+    for (UILabel *label in @[labelGuys, labelGirls, labelBoth]) {
+        [label setAlpha:.5];
+    }
+
     if (sender == buttonGuys) {
         NSLog(@"Guys");
+        [iconGuys setAlpha:1];
+        [labelGuys setAlpha:1];
+        lookingForGender = MALE;
     }
     else if (sender == buttonGirls) {
         NSLog(@"Girls");
+        [iconGirls setAlpha:1];
+        [labelGirls setAlpha:1];
+        lookingForGender = FEMALE;
     }
     else if (sender == buttonBoth) {
         NSLog(@"Both");
+        [iconBoth setAlpha:1];
+        [labelBoth setAlpha:1];
+        lookingForGender = BOTH;
     }
     else {
-        NSLog(@"Invalid selection");
+        NSLog(@"none selected");
+        lookingForGender = OTHER;
     }
 }
 
+-(void)saveLookingFor {
+    [[PFUser currentUser] setObject:@(lookingForGender) forKey:@"lookingFor"];
+    [[PFUser currentUser] saveInBackground];
+
+//    [self performSegueWithIdentifier:@"SignupGoToLocation" sender:self];
+}
 @end

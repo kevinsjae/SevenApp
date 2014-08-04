@@ -716,6 +716,9 @@ Show off your smile by creating a visual profile.</string>
                         <outlet property="buttonBoth" destination="Os8-vH-d5d" id="VrF-FG-wKq"/>
                         <outlet property="buttonGirls" destination="wDs-7j-moo" id="NNH-Ft-agE"/>
                         <outlet property="buttonGuys" destination="MhI-Ci-cgP" id="jQa-YM-3cg"/>
+                        <outlet property="iconBoth" destination="exl-ib-9D8" id="gdP-49-LRQ"/>
+                        <outlet property="iconGirls" destination="2m9-x1-hx8" id="Tt1-6T-cHF"/>
+                        <outlet property="iconGuys" destination="tfM-ub-hRP" id="5UB-0A-rr2"/>
                         <outlet property="labelBoth" destination="Ldd-dy-yof" id="Bj7-y3-Fv4"/>
                         <outlet property="labelGirls" destination="SSV-l8-zJb" id="60K-oe-lg4"/>
                         <outlet property="labelGuys" destination="WOp-U1-esX" id="23h-gS-OFN"/>

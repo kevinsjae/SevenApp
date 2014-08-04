@@ -19,6 +19,12 @@
     IBOutlet UIButton *buttonGuys;
     IBOutlet UIButton *buttonGirls;
     IBOutlet UIButton *buttonBoth;
+
+    IBOutlet UIImageView *iconGuys;
+    IBOutlet UIImageView *iconGirls;
+    IBOutlet UIImageView *iconBoth;
+
+    Gender lookingForGender;
 }
 
 -(IBAction)didClickButton:(id)sender;
