@@ -9,6 +9,8 @@
 #import "TraitSelectorViewController.h"
 #import "TraitSelectorCell.h"
 #import "TraitAdjustorCell.h"
+#import "UIAlertView+MKBlockAdditions.h"
+#import "MBProgressHUD.h"
 
 @interface TraitSelectorViewController ()
 
@@ -47,7 +49,7 @@
 
     allTraits = [NSMutableArray array];
     allColors = [NSMutableArray array];
-    allLevels = [NSMutableArray array];
+    allLevels = [NSMutableDictionary dictionary];
     [self randomizeTraits];
     [self randomizeColors];
     isSelected = [NSMutableArray array];
@@ -91,6 +93,9 @@
         [self saveTraitsWithCompletion:^{
             [self startAdjustingTraits];
         }];
+    }
+    else {
+        [self saveTraitLevels];
     }
 }
 
@@ -195,9 +200,13 @@
     else {
         TraitAdjustorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TraitAdjustorCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        cell.delegate = self;
+        
         NSInteger row = indexPath.row;
-        [cell setupWithInfo:@{@"trait":allSelectedTraits[row], @"color":allSelectedColors[row], @"level":allLevels[row]}];
+        NSNumber *level = allLevels[allSelectedTraits[row]]; // may not have been created yet if needs web request
+        if (!level)
+            level = @0;
+        [cell setupWithInfo:@{@"trait":allSelectedTraits[row], @"color":allSelectedColors[row], @"level":level}];
 
         return cell;
     }
@@ -238,8 +247,6 @@
             [allSelectedColors addObject:allColors[i]];
         }
     }
-    completion(); // goes to startAdjustingTraits
-
     // using selectedTraits, updates existing or creates new traits, and removes unselected traits from user relation
     PFRelation *traitsRelation = [[PFUser currentUser] relationForKey:@"traits"];
     [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -248,6 +255,9 @@
                 // if a trait exists that is not one of the selected ones, remove it
                 [traitsRelation removeObject:object];
                 [object deleteInBackground];
+
+                // delete the trait level
+                [allLevels removeObjectForKey:object[@"trait"]];
             }
             else {
                 // if a trait already exists, remove it from the new traits list
@@ -267,21 +277,21 @@
                     [[PFUser currentUser] saveInBackground];
                 }
             }];
+
+            //allLevels[trait] = @(0);
+            allLevels[trait] = @(arc4random()%MAX_TRAIT_LEVEL);
         }
 
+        completion(); // goes to startAdjustingTraits
     }];
 }
 
 -(void)startAdjustingTraits {
-    [allLevels removeAllObjects]; // if we've adjusted, need to save old allLevels values
 
     NSMutableArray *rows = [NSMutableArray array];
     for (int i=0; i<[isSelected count]; i++) {
         if ([isSelected[i] boolValue] == NO) {
             [rows addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-        }
-        else {
-            [allLevels addObject:@(arc4random()%MAX_TRAIT_LEVEL)];
         }
     }
 
@@ -296,6 +306,7 @@
         [UIView animateWithDuration:.25 animations:^{
             [labelMessage setAlpha:1];
             [tableview reloadData];
+            [self enableNavigation:YES];
         }];
     }];
 }
@@ -305,5 +316,48 @@
     [allSelectedTraits removeAllObjects];
     [allSelectedColors removeAllObjects];
     [tableview reloadData];
+}
+
+-(void)saveTraitLevels {
+    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [progress setMode:MBProgressHUDModeIndeterminate];
+    [progress setLabelText:@"Saving traits"];
+
+    PFRelation *traitsRelation = [[PFUser currentUser] relationForKey:@"traits"];
+    [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            [progress setLabelText:@"Error updating traits"];
+            progress.detailsLabelText = error.description;
+            progress.mode = MBProgressHUDModeText;
+            [progress hide:YES afterDelay:3];
+            return;
+        }
+
+        for (PFObject *object in objects) {
+            if ([allSelectedTraits containsObject:object[@"trait"]]) {
+                object[@"level"] = allLevels[object[@"trait"]];
+                [allSelectedTraits removeObject:object[@"trait"]];
+                [object saveInBackground];
+            }
+            else {
+                NSLog(@"User has a trait stored that he deselected!");
+                [object deleteInBackground];
+            }
+        }
+
+        if ([allSelectedTraits count] > 0) {
+            NSLog(@"Oops, we are missing some traits");
+            // should add it
+        }
+
+        [progress setLabelText:@"Done updating traits"];
+        progress.mode = MBProgressHUDModeText;
+        [progress hide:YES afterDelay:3];
+    }];
+}
+
+#pragma mark TraitAdjustorDelegate
+-(void)didChangeTrait:(NSString *)trait level:(int)level {
+    allLevels[trait] = @(level);
 }
 @end
