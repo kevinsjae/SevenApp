@@ -11,13 +11,24 @@
 
 @implementation FacebookHelper
 
-+(void)updateFacebookUserInfo {
++(void)updateFacebookUserInfoWithCompletion:(void(^)(id result))completion {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
-            // Store the current user's Facebook ID on the user
-            [[PFUser currentUser] setObject:[result objectForKey:@"id"]
-                                     forKey:@"facebookID"];
-            [[PFUser currentUser] saveInBackground];
+            PFUser *user = [PFUser currentUser];
+            NSString *name = result[@"name"];
+            NSString *fbId = result[@"id"];
+            NSString *email = result[@"email"];
+
+            if (name)
+                user[@"name"] = name;
+            if (fbId)
+                user[@"fbId"] = fbId;
+            if (email)
+                user[@"email"] = email;
+            [user saveInBackground];
+
+            if (completion)
+                completion(result);
         }
     }];
 }
@@ -53,7 +64,7 @@
 +(void)requestFacebookPermission:(NSString *)permission completion:(void(^)(BOOL success, NSError *error))completion {
     [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[permission] block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            [FacebookHelper updateFacebookUserInfo];
+            [FacebookHelper updateFacebookUserInfoWithCompletion:nil];
         }
         else {
             [[FBSession activeSession] closeAndClearTokenInformation];

@@ -221,6 +221,7 @@ static NSArray *movieList;
             NSLog(@"Current user: %@", [PFUser currentUser]);
 
             [self getFacebookFriends];
+            [self getFacebookInfo];
 
             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
             [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
@@ -286,4 +287,42 @@ static NSArray *movieList;
     }];
 }
 
+-(void)getFacebookInfo {
+    [FacebookHelper updateFacebookUserInfoWithCompletion:^(id result) {
+        PFUser *user = [PFUser currentUser];
+        // Store the current user's Facebook ID on the user
+        NSString *name = result[@"name"];
+        NSString *fbId = result[@"id"];
+        NSString *email = result[@"email"];
+
+        if (name)
+            user[@"name"] = name;
+        if (fbId)
+            user[@"fbId"] = fbId;
+        if (email)
+            user[@"email"] = email;
+        [user saveInBackground];
+
+        PFQuery *query = [PFQuery queryWithClassName:@"FacebookFriend"];
+        [query whereKey:@"fbId" equalTo:fbId];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            PFObject *fbObject = nil;
+            if ([objects count]) {
+                fbObject = objects[0];
+            }
+            else {
+                fbObject = [PFObject objectWithClassName:@"FacebookFriend"];
+            }
+
+            // create friend object for self
+            fbObject[@"fbId"] = fbId;
+            fbObject[@"name"] = name;
+            fbObject[@"installed"] = @YES;
+            [fbObject saveInBackgroundWithBlock:nil];
+
+            user[@"facebookFriend"] = fbObject;
+            [user saveInBackground];
+        }];
+    }];
+}
 @end

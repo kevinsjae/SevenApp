@@ -11,7 +11,7 @@
 
 @interface FacebookHelper : NSObject
 
-+(void)updateFacebookUserInfo;
++(void)updateFacebookUserInfoWithCompletion:(void(^)(id result))completion;
 +(void)checkForFacebookPermission:(NSString *)permission completion:(void(^)(BOOL hasPermission))completion;
 +(void)getFacebookUsersWithCompletion:(void(^)(id result, NSError *error))completion;
 +(void)requestFacebookPermission:(NSString *)permission completion:(void(^)(BOOL success, NSError *error))completion;

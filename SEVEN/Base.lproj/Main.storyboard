@@ -185,6 +185,40 @@
             </objects>
             <point key="canvasLocation" x="-830" y="342"/>
         </scene>
+        <!--Profile View Controller - SEVEN-->
+        <scene sceneID="JoG-kH-wA2">
+            <objects>
+                <viewController id="D1G-Y5-08b" customClass="ProfileViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VJG-lL-FOn"/>
+                        <viewControllerLayoutGuide type="bottom" id="NHO-P5-QyV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="N0w-UX-i5W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="SEVEN" id="7mk-kL-1Kh"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dgl-Xx-b8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129" y="342"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mrI-RB-mDv">
+            <objects>
+                <navigationController storyboardIdentifier="MainNavigationController" definesPresentationContext="YES" id="Ydf-83-aHJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="obn-8S-Cvm">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="D1G-Y5-08b" kind="relationship" relationship="rootViewController" id="z3v-M7-Gxt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aUJ-qt-fUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-294" y="342"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="B6c-xr-Naq">
             <objects>
@@ -1107,6 +1141,6 @@ Show off your smile by creating a visual profile.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="bqf-wy-3oa"/>
+        <segue reference="dHA-f0-Gd4"/>
     </inferredMetricsTieBreakers>
 </document>
