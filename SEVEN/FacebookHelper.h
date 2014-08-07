@@ -19,4 +19,7 @@
 // a slightly different friends request
 +(void)getFriendsWithCompletion:(void(^)(NSMutableArray *results, NSError *error))completion;
 
+// for Seven
++(void)getFacebookFriends;
++(void)getFacebookInfo;
 @end

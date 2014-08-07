@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProfileVideoPreviewViewController.h"
 
 @class AVPlayer;
 @class AVPlayerLayer;
-@interface ProfileViewController : ProfileVideoPreviewViewController
+@interface ProfileViewController : UIViewController
+{
+    IBOutlet UIView *viewName;
+    IBOutlet UILabel *labelName;
 
--(void)playCurrentMedia;
+    IBOutlet UIView *viewVideo;
+    AVPlayer *player;
+}
+@property (nonatomic) PFObject *facebookFriend;
+@property (nonatomic) NSString *name;
+@property (nonatomic) PFObject *profileVideo;
+@property (nonatomic) NSArray *traits;
 @end
