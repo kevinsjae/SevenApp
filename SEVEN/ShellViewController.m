@@ -9,6 +9,7 @@
 #import "ShellViewController.h"
 #import "ProfilePagedBrowserViewController.h"
 #import "ProfileFastScrollViewController.h"
+#import "MBProgressHUD.h"
 
 @interface ShellViewController ()
 
@@ -30,6 +31,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    progress.mode = MBProgressHUDModeIndeterminate;
+    progress.labelText = @"Loading users";
+
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         allUsers = [objects mutableCopy];
 
@@ -38,6 +43,7 @@
                 //                [allUsers removeObject:user];
                 break;
             }
+            [progress hide:YES];
             [self switchToPagedProfile];
         }
     }];

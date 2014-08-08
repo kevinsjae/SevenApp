@@ -11,7 +11,7 @@
 
 @class ProfileFastScrollViewController;
 @class ProfilePagedBrowserViewController;
-
+@class MBProgressHUD;
 @interface ShellViewController : UIViewController <ProfileScrollProtocol>
 {
     ProfileFastScrollViewController *fastProfile;
@@ -20,6 +20,8 @@
     int currentPage;
 
     NSMutableArray *allUsers;
+
+    MBProgressHUD *progress;
 }
 
 
