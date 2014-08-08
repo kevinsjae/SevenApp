@@ -7,13 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileScrollProtocol.h"
 
 @class ProfileFastScrollViewController;
 @class ProfilePagedBrowserViewController;
 
-@interface ShellViewController : UIViewController
+@interface ShellViewController : UIViewController <ProfileScrollProtocol>
 {
     ProfileFastScrollViewController *fastProfile;
     ProfilePagedBrowserViewController *pagedProfile;
+
+    int currentPage;
+
+    NSMutableArray *allUsers;
 }
+
+
 @end

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define SMALL_PAGE_WIDTH 240
+
 @interface SmallPagedFlowLayout : UICollectionViewFlowLayout
 
 @end

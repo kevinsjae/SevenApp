@@ -15,6 +15,8 @@
 
 @implementation ProfilePagedBrowserViewController
 
+@synthesize allUsers;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,20 +35,11 @@
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
 
-    // load all users
-    [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        allUsers = [objects mutableCopy];
+    if (!profileViewControllers)
+        profileViewControllers = [NSMutableDictionary dictionary];
 
-        for (PFUser *user in allUsers) {
-            if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-//                [allUsers removeObject:user];
-                break;
-            }
-        }
-
-        [self setupPages];
-    }];
-
+    [self setupPages];
+    
     // double tap to close
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     tap.numberOfTapsRequired = 2;
@@ -64,11 +57,12 @@
         return;
 
     PFUser *user = allUsers[page];
-    if (!currentPage) {
+    if (!profileViewControllers[user.objectId]) {
         ProfileViewController *controller = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         [controller setUser:user];
-        currentPage = controller;
+        profileViewControllers[user.objectId] = controller;
     }
+    currentPage = profileViewControllers[user.objectId];
 
     [super loadCurrentPage];
 }
@@ -79,11 +73,12 @@
     }
 
     PFUser *user = allUsers[page-1];
-    if (!prevPage) {
+    if (!profileViewControllers[user.objectId]) {
         ProfileViewController *controller = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         [controller setUser:user];
-        prevPage = controller;
+        profileViewControllers[user.objectId] = controller;
     }
+    prevPage = profileViewControllers[user.objectId];
 
     [super loadLeftPage];
 }
@@ -94,11 +89,12 @@
     }
 
     PFUser *user = allUsers[page+1];
-    if (!nextPage) {
+    if (!profileViewControllers[user.objectId]) {
         ProfileViewController *controller = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         [controller setUser:user];
-        nextPage = controller;
+        profileViewControllers[user.objectId] = controller;
     }
+    nextPage = profileViewControllers[user.objectId];
 
     [super loadRightPage];
 }
@@ -113,15 +109,20 @@
 
 -(void)pageLeft {
     page -= 1;
+    [self.delegate didScrollToPage:page];
     [super pageLeft];
 }
 
 -(void)pageRight {
     page += 1;
+    [self.delegate didScrollToPage:page];
     [super pageRight];
 }
 
-
+-(void)jumpToPage:(int)_page animated:(BOOL)animated {
+    page = _page;
+    [self setupPages];
+}
 /*
 #pragma mark - Navigation
 

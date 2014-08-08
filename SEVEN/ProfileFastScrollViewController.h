@@ -7,12 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileScrollProtocol.h"
 
 @interface ProfileFastScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 {
-    NSMutableArray *allUsers;
     IBOutlet UICollectionView *_collectionView;
 
     NSMutableDictionary *profileViewControllers;
+    int page;
 }
+
+@property (nonatomic) id<ProfileScrollProtocol> delegate;
+@property (nonatomic) NSMutableArray *allUsers;
+
+-(void)jumpToPage:(int)page animated:(BOOL)animated;
 @end

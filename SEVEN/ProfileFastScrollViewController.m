@@ -8,12 +8,15 @@
 
 #import "ProfileFastScrollViewController.h"
 #import "ProfileViewController.h"
+#import "SmallPagedFlowLayout.h"
 
 @interface ProfileFastScrollViewController ()
 
 @end
 
 @implementation ProfileFastScrollViewController
+
+@synthesize allUsers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,18 +33,7 @@
     // Do any additional setup after loading the view.
 
     // load all users
-    [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        allUsers = [objects mutableCopy];
-
-        for (PFUser *user in allUsers) {
-            if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-                //                [allUsers removeObject:user];
-                break;
-            }
-        }
-
         [_collectionView reloadData];
-    }];
     if (!profileViewControllers)
         profileViewControllers = [NSMutableDictionary dictionary];
     [_collectionView reloadData];
@@ -103,6 +95,19 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Select Item
+}
+
+#pragma mark other scrollview
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    page = scrollView.contentOffset.x / SMALL_PAGE_WIDTH;
+    [self.delegate didScrollToPage:page];
+}
+
+-(void)jumpToPage:(int)_page animated:(BOOL)animated {
+    page = _page;
+    float offsetX = page * SMALL_PAGE_WIDTH;
+    _collectionView.contentOffset = CGPointMake(offsetX, 0);
+    NSLog(@"offset: %f", _collectionView.contentOffset.x);
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout

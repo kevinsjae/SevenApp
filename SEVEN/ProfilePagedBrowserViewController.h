@@ -7,10 +7,16 @@
 //
 
 #import "LazyPagedViewController.h"
+#import "ProfileScrollProtocol.h"
 
 @interface ProfilePagedBrowserViewController : LazyPagedViewController
 {
     int page;
-    NSMutableArray *allUsers;
+    NSMutableDictionary *profileViewControllers;
 }
+
+@property (nonatomic) id<ProfileScrollProtocol> delegate;
+@property (nonatomic) NSMutableArray *allUsers;
+
+-(void)jumpToPage:(int)page animated:(BOOL)animated;
 @end

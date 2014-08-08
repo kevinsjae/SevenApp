@@ -109,13 +109,13 @@
 -(UIEdgeInsets)sectionInset {
     float top = 0;
     float bottom = 0;
-    float left = 40;
-    float right = 40;
+    float left = (self.collectionView.frame.size.width - SMALL_PAGE_WIDTH)/2;
+    float right = left;
     return UIEdgeInsetsMake(top, left, bottom, right);
 }
  
 -(CGSize)itemSize {
-    float width = 240;
+    int width = SMALL_PAGE_WIDTH;
     // must preserve ratio or we get weird offsets at top and bottom
     return CGSizeMake(width, self.collectionView.frame.size.height/self.collectionView.frame.size.width*width);
 }
