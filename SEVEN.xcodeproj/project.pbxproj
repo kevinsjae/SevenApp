@@ -43,6 +43,7 @@
 		9E72927D1994F894006A2AC1 /* ProfilePagedBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */; };
 		9E729280199504EF006A2AC1 /* ProfileFastScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927F199504EF006A2AC1 /* ProfileFastScrollViewController.m */; };
 		9E72928819950A6B006A2AC1 /* SmallPagedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */; };
+		9E72928B19952E8A006A2AC1 /* ShellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72928A19952E8A006A2AC1 /* ShellViewController.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -154,6 +155,8 @@
 		9E72927F199504EF006A2AC1 /* ProfileFastScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileFastScrollViewController.m; sourceTree = "<group>"; };
 		9E72928619950A6B006A2AC1 /* SmallPagedFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallPagedFlowLayout.h; sourceTree = "<group>"; };
 		9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallPagedFlowLayout.m; sourceTree = "<group>"; };
+		9E72928919952E8A006A2AC1 /* ShellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShellViewController.h; sourceTree = "<group>"; };
+		9E72928A19952E8A006A2AC1 /* ShellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShellViewController.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -484,6 +487,8 @@
 				9E72927F199504EF006A2AC1 /* ProfileFastScrollViewController.m */,
 				9E72928619950A6B006A2AC1 /* SmallPagedFlowLayout.h */,
 				9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */,
+				9E72928919952E8A006A2AC1 /* ShellViewController.h */,
+				9E72928A19952E8A006A2AC1 /* ShellViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -719,6 +724,7 @@
 				9E79B8591964363600559838 /* UIImage+RoundedCorner.m in Sources */,
 				9E973AF819884F3F00142E6C /* TraitSelectorViewController.m in Sources */,
 				9E79B808196435AA00559838 /* ViewController.m in Sources */,
+				9E72928B19952E8A006A2AC1 /* ShellViewController.m in Sources */,
 				9E01243119671B040080543B /* CommonStyledViewController.m in Sources */,
 				9E23769D1981537F007ED7D8 /* IntroViewController.m in Sources */,
 				9E79B84F1964363600559838 /* GPLocationHelper.m in Sources */,

@@ -28,10 +28,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
 
     // load all users
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -49,6 +45,9 @@
     if (!profileViewControllers)
         profileViewControllers = [NSMutableDictionary dictionary];
     [_collectionView reloadData];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [_collectionView addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -141,5 +140,10 @@
     return newColor;
 }
 
-
+#pragma mark tap
+-(void)handleGesture:(UIGestureRecognizer *)gesture {
+    if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:fastscroll:tapped" object:nil];
+    }
+}
 @end

@@ -330,17 +330,36 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="iyQ-kl-NeZ" kind="relationship" relationship="rootViewController" id="3JN-0Q-zHV"/>
+                        <segue destination="JA5-hz-zmR" kind="relationship" relationship="rootViewController" id="a8y-1s-Q0m"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUJ-qt-fUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-294" y="342"/>
         </scene>
+        <!--Shell View Controller-->
+        <scene sceneID="0fN-ci-Yr8">
+            <objects>
+                <viewController id="JA5-hz-zmR" customClass="ShellViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zyf-9E-yeh"/>
+                        <viewControllerLayoutGuide type="bottom" id="pwP-EL-Pp2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dyz-Jt-geF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lUc-zv-NNk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mL0-3g-PYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101" y="342"/>
+        </scene>
         <!--Profile Fast Scroll View Controller-->
         <scene sceneID="9rB-hF-t97">
             <objects>
-                <viewController id="iyQ-kl-NeZ" customClass="ProfileFastScrollViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileFastScrollViewController" id="iyQ-kl-NeZ" customClass="ProfileFastScrollViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEh-zv-fcA"/>
                         <viewControllerLayoutGuide type="bottom" id="yKo-b4-ZUd"/>
@@ -356,7 +375,7 @@
                                 <collectionViewLayout key="collectionViewLayout" id="EAy-YF-6pz" customClass="SmallPagedFlowLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="zQg-md-FoR">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="480"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -382,12 +401,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lO7-fJ-zTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="142" y="342"/>
+            <point key="canvasLocation" x="598" y="949"/>
         </scene>
         <!--Profile Paged Browser View Controller-->
         <scene sceneID="3Y7-On-5us">
             <objects>
-                <viewController id="Z6X-Nd-0oc" customClass="ProfilePagedBrowserViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfilePagedBrowserViewController" id="Z6X-Nd-0oc" customClass="ProfilePagedBrowserViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="otj-jS-JD1"/>
                         <viewControllerLayoutGuide type="bottom" id="tNV-zJ-PAq"/>

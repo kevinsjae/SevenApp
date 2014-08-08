@@ -28,6 +28,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
 
     // load all users
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -42,6 +46,11 @@
 
         [self setupPages];
     }];
+
+    // double tap to close
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    tap.numberOfTapsRequired = 2;
+    [scrollView addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,5 +132,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)handleGesture:(UIGestureRecognizer *)gesture {
+    if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:full:tapped" object:nil];
+    }
+}
 
 @end
