@@ -272,25 +272,30 @@
                                 <rect key="frame" x="0.0" y="508" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <view alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w2M-xj-Qe1" userLabel="View - bg">
+                                    <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2M-xj-Qe1" userLabel="View - bg">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euN-E9-mZX">
-                                                <rect key="frame" x="79" y="8" width="162" height="43"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euN-E9-mZX">
+                                        <rect key="frame" x="77" y="8" width="162" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="4Hn-gp-CrB"/>
-                                    <constraint firstAttribute="width" constant="320" id="RdO-ar-T5P"/>
+                                    <constraint firstAttribute="bottom" secondItem="w2M-xj-Qe1" secondAttribute="bottom" id="60m-gq-wz3"/>
+                                    <constraint firstAttribute="height" constant="60" id="8IM-aO-xst"/>
+                                    <constraint firstAttribute="trailing" secondItem="w2M-xj-Qe1" secondAttribute="trailing" id="9AR-5p-dOm"/>
+                                    <constraint firstItem="euN-E9-mZX" firstAttribute="centerY" secondItem="oW3-Kz-Evj" secondAttribute="centerY" id="9Hb-Vy-kT3"/>
+                                    <constraint firstItem="euN-E9-mZX" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="top" constant="8" id="Gmy-v9-AHT"/>
+                                    <constraint firstItem="w2M-xj-Qe1" firstAttribute="leading" secondItem="oW3-Kz-Evj" secondAttribute="leading" id="Q1a-dP-has"/>
+                                    <constraint firstItem="w2M-xj-Qe1" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="top" id="Wx3-vq-RIY"/>
+                                    <constraint firstItem="euN-E9-mZX" firstAttribute="centerX" secondItem="oW3-Kz-Evj" secondAttribute="centerX" constant="-2" id="dZ8-WO-5R3"/>
+                                    <constraint firstItem="euN-E9-mZX" firstAttribute="leading" secondItem="oW3-Kz-Evj" secondAttribute="leading" constant="77" id="rDR-R3-POq"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -298,10 +303,11 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="W9o-uF-GJ1" secondAttribute="trailing" id="6KG-E5-55M"/>
                             <constraint firstItem="W9o-uF-GJ1" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="FkX-KD-7fU"/>
-                            <constraint firstItem="oW3-Kz-Evj" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="Iq4-3p-o2s"/>
+                            <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="bottom" id="InY-tF-t1a"/>
+                            <constraint firstAttribute="trailing" secondItem="oW3-Kz-Evj" secondAttribute="trailing" id="OYh-6e-npK"/>
                             <constraint firstItem="W9o-uF-GJ1" firstAttribute="top" secondItem="VJG-lL-FOn" secondAttribute="bottom" constant="42" id="WI5-nW-5lh"/>
                             <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="W9o-uF-GJ1" secondAttribute="bottom" constant="59" id="XBs-vJ-W5O"/>
-                            <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="bottom" id="g43-DX-UAE"/>
+                            <constraint firstItem="oW3-Kz-Evj" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="i3d-0a-K0F"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SEVEN" id="7mk-kL-1Kh"/>
@@ -346,7 +352,7 @@
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QFU-g2-WF0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.84705882349999995" green="0.10980392160000001" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="EAy-YF-6pz" customClass="SmallPagedFlowLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="zQg-md-FoR">
@@ -366,7 +372,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Test" id="zV5-E7-0Hi"/>
                     <connections>

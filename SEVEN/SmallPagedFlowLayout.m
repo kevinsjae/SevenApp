@@ -48,9 +48,15 @@
     cellFrame.size.width = self.itemSize.width;
     cellFrame.size.height = self.itemSize.height;
 
+    /*
+    NSLog(@"index %d row %d col %d page %d", indexPath.row, row, column, page);
+    if (page > 0)
+        NSLog(@"Here");
+     */
+
     if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal)
     {
-        cellFrame.origin.x += page * self.itemSize.width + self.sectionInset.left;
+        cellFrame.origin.x += page * (self.itemSize.width+self.minimumInteritemSpacing) + self.sectionInset.left;
     }
 
     return cellFrame;
@@ -106,7 +112,6 @@
     float left = 40;
     float right = 40;
     return UIEdgeInsetsMake(top, left, bottom, right);
-
 }
  
 -(CGSize)itemSize {

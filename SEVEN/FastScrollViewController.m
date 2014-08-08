@@ -46,9 +46,6 @@
 
         [_collectionView reloadData];
     }];
-//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-
     if (!profileViewControllers)
         profileViewControllers = [NSMutableDictionary dictionary];
     [_collectionView reloadData];
@@ -69,6 +66,7 @@
         [controller setUser:user];
         profileViewControllers[user.objectId] = controller;
         //controller.view.transform = CGAffineTransformMakeScale(.5, .5);
+        [controller setHideTable:YES];
     }
     return profileViewControllers[user.objectId];
 }
@@ -96,6 +94,9 @@
     controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
     controller.view.backgroundColor = [self randomColor];
     [cell.contentView addSubview:controller.view];
+
+    [controller.view setNeedsLayout];
+    [controller.view layoutIfNeeded];
     return cell;
 }
 

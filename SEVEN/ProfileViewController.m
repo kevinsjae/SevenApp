@@ -28,6 +28,11 @@
     [self setupFonts];
     allColors = [NSMutableArray array];
     self.view.backgroundColor = [UIColor greenColor];
+
+    if (self.hideTable) {
+        [tableview setHidden:YES];
+        [viewName setHidden:YES];
+    }
 }
 
 -(void)loadUserInfo {
