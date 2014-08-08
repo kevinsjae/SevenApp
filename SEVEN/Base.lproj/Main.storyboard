@@ -188,7 +188,7 @@
         <!--Profile View Controller - SEVEN-->
         <scene sceneID="JoG-kH-wA2">
             <objects>
-                <viewController id="D1G-Y5-08b" customClass="ProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D1G-Y5-08b" customClass="ProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VJG-lL-FOn"/>
                         <viewControllerLayoutGuide type="bottom" id="NHO-P5-QyV"/>
@@ -302,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dgl-Xx-b8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="129" y="342"/>
+            <point key="canvasLocation" x="598" y="278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mrI-RB-mDv">
@@ -312,12 +312,43 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="D1G-Y5-08b" kind="relationship" relationship="rootViewController" id="z3v-M7-Gxt"/>
+                        <segue destination="Z6X-Nd-0oc" kind="relationship" relationship="rootViewController" id="e99-GG-6kl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUJ-qt-fUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-294" y="342"/>
+        </scene>
+        <!--Profile Paged Browser View Controller-->
+        <scene sceneID="3Y7-On-5us">
+            <objects>
+                <viewController id="Z6X-Nd-0oc" customClass="ProfilePagedBrowserViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="otj-jS-JD1"/>
+                        <viewControllerLayoutGuide type="bottom" id="tNV-zJ-PAq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qtn-S9-esw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kV8-wA-VXu">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Z6X-Nd-0oc" id="vHm-F4-nKn"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xxp-NB-gR9"/>
+                    <connections>
+                        <outlet property="scrollView" destination="kV8-wA-VXu" id="SeU-mc-kMg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QoN-Tx-50P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="149" y="342"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B6c-xr-Naq">

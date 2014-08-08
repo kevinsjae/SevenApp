@@ -31,6 +31,8 @@
 
 -(void)loadUserInfo {
     // load things that require the user to be fully loaded
+    NSLog(@"Loading userInfo for %@", self.user[@"name"]);
+
     self.facebookFriend = [self.user objectForKey:@"facebookFriend"];
     [self.facebookFriend fetchIfNeeded];
 

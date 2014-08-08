@@ -39,6 +39,8 @@
 		9E3E24FE19869FB200870666 /* seven_icon_close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E24FC19869FB200870666 /* seven_icon_close_white@2x.png */; };
 		9E3E25041987F85E00870666 /* BRCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E25031987F85E00870666 /* BRCameraViewController.m */; };
 		9E3E25061988139C00870666 /* rotateCamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E25051988139C00870666 /* rotateCamera@2x.png */; };
+		9E72927A1994F7E7006A2AC1 /* LazyPagedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */; };
+		9E72927D1994F894006A2AC1 /* ProfilePagedBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -142,6 +144,10 @@
 		9E3E25021987F85E00870666 /* BRCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCameraViewController.h; sourceTree = "<group>"; };
 		9E3E25031987F85E00870666 /* BRCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCameraViewController.m; sourceTree = "<group>"; };
 		9E3E25051988139C00870666 /* rotateCamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rotateCamera@2x.png"; sourceTree = "<group>"; };
+		9E7292781994F7E7006A2AC1 /* LazyPagedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LazyPagedViewController.h; sourceTree = "<group>"; };
+		9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LazyPagedViewController.m; sourceTree = "<group>"; };
+		9E72927B1994F894006A2AC1 /* ProfilePagedBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePagedBrowserViewController.h; sourceTree = "<group>"; };
+		9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePagedBrowserViewController.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -464,6 +470,10 @@
 			children = (
 				9EA479181993D777007587CC /* ProfileViewController.h */,
 				9EA479191993D777007587CC /* ProfileViewController.m */,
+				9E7292781994F7E7006A2AC1 /* LazyPagedViewController.h */,
+				9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */,
+				9E72927B1994F894006A2AC1 /* ProfilePagedBrowserViewController.h */,
+				9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -691,6 +701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E79B82F1964362400559838 /* ParseBase.m in Sources */,
+				9E72927D1994F894006A2AC1 /* ProfilePagedBrowserViewController.m in Sources */,
 				9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */,
 				9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */,
 				9E79B8551964363600559838 /* NSObject+Notify.m in Sources */,
@@ -716,6 +727,7 @@
 				9EEB9C35198D58370031B4AF /* TraitAdjustorCell.m in Sources */,
 				9EEB9C2E198D184C0031B4AF /* TraitSelectorCell.m in Sources */,
 				9E3E25041987F85E00870666 /* BRCameraViewController.m in Sources */,
+				9E72927A1994F7E7006A2AC1 /* LazyPagedViewController.m in Sources */,
 				9E79B84E1964363600559838 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				9E79B85A1964363600559838 /* Util.m in Sources */,
 				9E3E24FA1986879500870666 /* ProfileVideoPreviewViewController.m in Sources */,

@@ -10,6 +10,7 @@
 #define SEVEN_Constants_h
 
 #define _appDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
+#define _storyboard _appDelegate.window.rootViewController.storyboard
 
 #define TESTING 0
 
