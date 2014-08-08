@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FastScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface ProfileFastScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 {
     NSMutableArray *allUsers;
     IBOutlet UICollectionView *_collectionView;

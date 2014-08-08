@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "FastScrollViewController.h"
+#import "ProfileFastScrollViewController.h"
 #import "ProfileViewController.h"
 
-@interface FastScrollViewController ()
+@interface ProfileFastScrollViewController ()
 
 @end
 
-@implementation FastScrollViewController
+@implementation ProfileFastScrollViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,16 +83,16 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
 
-    cell.contentView.backgroundColor = [self randomColor];
+//    cell.contentView.backgroundColor = [self randomColor];
 
     for (UIView *subview in cell.contentView.subviews)
         [subview removeFromSuperview];
 
     ProfileViewController *controller = [self profileForIndex:indexPath];
     controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-    controller.view.backgroundColor = [self randomColor];
+//    controller.view.backgroundColor = [self randomColor];
     [cell.contentView addSubview:controller.view];
 
     [controller.view setNeedsLayout];
