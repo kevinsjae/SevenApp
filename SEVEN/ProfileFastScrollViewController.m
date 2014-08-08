@@ -6,14 +6,17 @@
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "FastScrollViewController.h"
+#import "ProfileFastScrollViewController.h"
 #import "ProfileViewController.h"
+#import "SmallPagedFlowLayout.h"
 
-@interface FastScrollViewController ()
+@interface ProfileFastScrollViewController ()
 
 @end
 
-@implementation FastScrollViewController
+@implementation ProfileFastScrollViewController
+
+@synthesize allUsers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,27 +31,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
 
     // load all users
-    [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        allUsers = [objects mutableCopy];
-
-        for (PFUser *user in allUsers) {
-            if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-                //                [allUsers removeObject:user];
-                break;
-            }
-        }
-
         [_collectionView reloadData];
-    }];
     if (!profileViewControllers)
         profileViewControllers = [NSMutableDictionary dictionary];
     [_collectionView reloadData];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [_collectionView addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,16 +74,16 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
 
-    cell.contentView.backgroundColor = [self randomColor];
+//    cell.contentView.backgroundColor = [self randomColor];
 
     for (UIView *subview in cell.contentView.subviews)
         [subview removeFromSuperview];
 
     ProfileViewController *controller = [self profileForIndex:indexPath];
     controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-    controller.view.backgroundColor = [self randomColor];
+//    controller.view.backgroundColor = [self randomColor];
     [cell.contentView addSubview:controller.view];
 
     [controller.view setNeedsLayout];
@@ -104,6 +95,19 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Select Item
+}
+
+#pragma mark other scrollview
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    page = scrollView.contentOffset.x / SMALL_PAGE_WIDTH;
+    [self.delegate didScrollToPage:page];
+}
+
+-(void)jumpToPage:(int)_page animated:(BOOL)animated {
+    page = _page;
+    float offsetX = page * SMALL_PAGE_WIDTH;
+    _collectionView.contentOffset = CGPointMake(offsetX, 0);
+    NSLog(@"offset: %f", _collectionView.contentOffset.x);
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout
@@ -141,5 +145,10 @@
     return newColor;
 }
 
-
+#pragma mark tap
+-(void)handleGesture:(UIGestureRecognizer *)gesture {
+    if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:fastscroll:tapped" object:nil];
+    }
+}
 @end
