@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "FacebookHelper.h"
 
 @implementation AppDelegate
 
@@ -18,7 +19,10 @@
                   clientKey:@"Oqu48KsSu2fg8SFEJjoAElCIqaSPDpPqxW5QceBM"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
-    /*
+    // facebook
+    [PFFacebookUtils initializeFacebook];
+    // if keep getting error com.facebook.sdk Code=2, must log out of facebook app and facebook setting on iphone, delete app, and try again
+
     PFUser *user = [PFUser currentUser];
     if (user) {
         NSLog(@"Logged in");
@@ -27,10 +31,6 @@
     else {
         NSLog(@"Not logged in");
     }
-     */
-    // facebook
-    [PFFacebookUtils initializeFacebook];
-    // if keep getting error com.facebook.sdk Code=2, must log out of facebook app and facebook setting on iphone, delete app, and try again
 
 #if TESTING
     NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
@@ -80,6 +80,13 @@
 }
 
 -(void)goToProfile {
+    // check user info
+    PFObject *facebookUser = [[PFUser currentUser] objectForKey:@"facebookFriend"];
+    if (!facebookUser) {
+        NSLog(@"No user!");
+        [FacebookHelper getFacebookInfo];
+    }
+
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"MainNavigationController"];
     if (![self.window.rootViewController isKindOfClass:[rootNav class]]) {

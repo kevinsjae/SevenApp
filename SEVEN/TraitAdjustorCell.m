@@ -37,8 +37,10 @@
     for (UIGestureRecognizer * gesture in self.contentView.gestureRecognizers) {
         [self.contentView removeGestureRecognizer:gesture];
     }
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    [self.contentView addGestureRecognizer:pan];
+    if (self.canAdjust) {
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [self.contentView addGestureRecognizer:pan];
+    }
 }
 
 -(void)updateLevel {

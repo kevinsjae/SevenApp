@@ -220,69 +220,12 @@ static NSArray *movieList;
             NSLog(@"User: %@", user);
             NSLog(@"Current user: %@", [PFUser currentUser]);
 
-            [self getFacebookFriends];
+            [FacebookHelper getFacebookFriends];
+            [FacebookHelper getFacebookInfo];
 
             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
             [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
         }
-    }];
-}
-
--(void)getFacebookFriends {
-    [FacebookHelper getFriendsWithCompletion:^(NSMutableArray *results, NSError *error) {
-        NSLog(@"Results: %lu error: %@", (unsigned long)[results count], error);
-        NSMutableArray *fbIds = [NSMutableArray array];
-        NSMutableDictionary *namesDict = [NSMutableDictionary dictionary];
-        NSMutableDictionary *installedDict = [NSMutableDictionary dictionary];
-        for (NSDictionary *dict in results) {
-            NSString *fbId = dict[@"id"];
-            NSString *name = dict[@"name"];
-            NSNumber *installed = dict[@"installed"];
-            if (!installed)
-                installed = @NO;
-
-            if (fbId)
-                [fbIds addObject:fbId];
-            if (name)
-                namesDict[fbId] = name;
-            if (installed)
-                installedDict[fbId] = installed;
-
-            NSLog(@"id %@ name %@ installed %@", fbId, name, installed);
-        }
-
-        PFQuery *query = [PFQuery queryWithClassName:@"FacebookFriend"];
-        [query setLimit:9999];
-        [query whereKey:@"fbId" containedIn:fbIds];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            PFRelation *connections = [[PFUser currentUser] relationForKey:@"connections"];
-
-            // if a FacebookFriend already exists, add it to this user's connections and remove them from the list
-            for (PFObject *object in objects) {
-                [connections addObject:object];
-
-                NSString *foundID = object[@"fbId"];
-                [fbIds removeObject:foundID];
-            }
-
-            // create friend objects for all new facebook friends
-            for (NSNumber *fbId in fbIds) {
-                PFObject *friend = [PFObject objectWithClassName:@"FacebookFriend"];
-                friend[@"fbId"] = fbId;
-
-                if (namesDict[fbId])
-                    friend[@"name"] = namesDict[fbId];
-                friend[@"installed"] = installedDict[fbId];
-                [friend saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    [connections addObject:friend];
-                }];
-            }
-
-            
-            [[PFUser currentUser] saveEventually];
-
-            NSLog(@"Found %lu total facebook friends, %lu existing, %lu new connections", (unsigned long)results.count, (unsigned long)objects.count, fbIds.count);
-        }];
     }];
 }
 
