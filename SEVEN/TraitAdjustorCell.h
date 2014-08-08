@@ -37,6 +37,7 @@
 }
 
 @property (nonatomic, weak) id delegate;
+@property (nonatomic) BOOL canAdjust;
 
 -(void)setupWithInfo:(NSDictionary *)info;
 @end

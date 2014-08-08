@@ -10,14 +10,19 @@
 
 @class AVPlayer;
 @class AVPlayerLayer;
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UIView *viewName;
     IBOutlet UILabel *labelName;
 
     IBOutlet UIView *viewVideo;
+
+    IBOutlet UITableView *tableview;
+
+    NSMutableArray *allColors;
     AVPlayer *player;
 }
+@property (nonatomic) PFUser *user;
 @property (nonatomic) PFObject *facebookFriend;
 @property (nonatomic) NSString *name;
 @property (nonatomic) PFObject *profileVideo;
