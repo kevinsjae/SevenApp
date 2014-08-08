@@ -41,6 +41,8 @@
 		9E3E25061988139C00870666 /* rotateCamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E25051988139C00870666 /* rotateCamera@2x.png */; };
 		9E72927A1994F7E7006A2AC1 /* LazyPagedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */; };
 		9E72927D1994F894006A2AC1 /* ProfilePagedBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */; };
+		9E729280199504EF006A2AC1 /* FastScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927F199504EF006A2AC1 /* FastScrollViewController.m */; };
+		9E72928819950A6B006A2AC1 /* SmallPagedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
 		9E79B7F4196435AA00559838 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F3196435AA00559838 /* CoreGraphics.framework */; };
 		9E79B7F6196435AA00559838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F5196435AA00559838 /* UIKit.framework */; };
@@ -148,6 +150,10 @@
 		9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LazyPagedViewController.m; sourceTree = "<group>"; };
 		9E72927B1994F894006A2AC1 /* ProfilePagedBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePagedBrowserViewController.h; sourceTree = "<group>"; };
 		9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePagedBrowserViewController.m; sourceTree = "<group>"; };
+		9E72927E199504EF006A2AC1 /* FastScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastScrollViewController.h; sourceTree = "<group>"; };
+		9E72927F199504EF006A2AC1 /* FastScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastScrollViewController.m; sourceTree = "<group>"; };
+		9E72928619950A6B006A2AC1 /* SmallPagedFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallPagedFlowLayout.h; sourceTree = "<group>"; };
+		9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallPagedFlowLayout.m; sourceTree = "<group>"; };
 		9E79B7EE196435AA00559838 /* SEVEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEVEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E79B7F1196435AA00559838 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9E79B7F3196435AA00559838 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -474,6 +480,10 @@
 				9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */,
 				9E72927B1994F894006A2AC1 /* ProfilePagedBrowserViewController.h */,
 				9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */,
+				9E72927E199504EF006A2AC1 /* FastScrollViewController.h */,
+				9E72927F199504EF006A2AC1 /* FastScrollViewController.m */,
+				9E72928619950A6B006A2AC1 /* SmallPagedFlowLayout.h */,
+				9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -717,10 +727,12 @@
 				9EB1D029198FEFDD00065AB0 /* LookingForViewController.m in Sources */,
 				9E79B8501964363600559838 /* NSObject+MKBlockAdditions.m in Sources */,
 				9E79B8571964363600559838 /* UIImage+Alpha.m in Sources */,
+				9E729280199504EF006A2AC1 /* FastScrollViewController.m in Sources */,
 				9E79B8581964363600559838 /* UIImage+Resize.m in Sources */,
 				9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */,
 				9E79B8521964363600559838 /* UIAlertView+MKBlockAdditions.m in Sources */,
 				9E79B802196435AA00559838 /* AppDelegate.m in Sources */,
+				9E72928819950A6B006A2AC1 /* SmallPagedFlowLayout.m in Sources */,
 				9E3E24F41986670100870666 /* EffectsUtils.m in Sources */,
 				9EEBB8611985B1B10023CE0F /* CreateProfileViewController.m in Sources */,
 				9E79B7FE196435AA00559838 /* main.m in Sources */,
