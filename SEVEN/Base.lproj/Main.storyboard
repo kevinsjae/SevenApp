@@ -203,7 +203,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="W9o-uF-GJ1">
-                                <rect key="frame" x="0.0" y="62" width="320" height="447"/>
+                                <rect key="frame" x="0.0" y="62" width="320" height="506"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -269,16 +269,16 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oW3-Kz-Evj" userLabel="View - name">
-                                <rect key="frame" x="0.0" y="508" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2M-xj-Qe1" userLabel="View - bg">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euN-E9-mZX">
-                                        <rect key="frame" x="77" y="8" width="162" height="43"/>
+                                        <rect key="frame" x="77" y="0.0" width="162" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -288,14 +288,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="w2M-xj-Qe1" secondAttribute="bottom" id="60m-gq-wz3"/>
-                                    <constraint firstAttribute="height" constant="60" id="8IM-aO-xst"/>
+                                    <constraint firstAttribute="height" id="8IM-aO-xst"/>
                                     <constraint firstAttribute="trailing" secondItem="w2M-xj-Qe1" secondAttribute="trailing" id="9AR-5p-dOm"/>
-                                    <constraint firstItem="euN-E9-mZX" firstAttribute="centerY" secondItem="oW3-Kz-Evj" secondAttribute="centerY" id="9Hb-Vy-kT3"/>
-                                    <constraint firstItem="euN-E9-mZX" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="top" constant="8" id="Gmy-v9-AHT"/>
                                     <constraint firstItem="w2M-xj-Qe1" firstAttribute="leading" secondItem="oW3-Kz-Evj" secondAttribute="leading" id="Q1a-dP-has"/>
+                                    <constraint firstAttribute="trailing" secondItem="euN-E9-mZX" secondAttribute="trailing" constant="81" id="TJy-32-2sD"/>
                                     <constraint firstItem="w2M-xj-Qe1" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="top" id="Wx3-vq-RIY"/>
-                                    <constraint firstItem="euN-E9-mZX" firstAttribute="centerX" secondItem="oW3-Kz-Evj" secondAttribute="centerX" constant="-2" id="dZ8-WO-5R3"/>
-                                    <constraint firstItem="euN-E9-mZX" firstAttribute="leading" secondItem="oW3-Kz-Evj" secondAttribute="leading" constant="77" id="rDR-R3-POq"/>
+                                    <constraint firstAttribute="bottom" secondItem="euN-E9-mZX" secondAttribute="bottom" id="gqa-Lo-hW9"/>
+                                    <constraint firstItem="euN-E9-mZX" firstAttribute="leading" secondItem="oW3-Kz-Evj" secondAttribute="leading" constant="77" id="nTJ-uY-Ipf"/>
+                                    <constraint firstItem="euN-E9-mZX" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="top" id="zHR-sJ-7nW"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -306,12 +306,13 @@
                             <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="bottom" id="InY-tF-t1a"/>
                             <constraint firstAttribute="trailing" secondItem="oW3-Kz-Evj" secondAttribute="trailing" id="OYh-6e-npK"/>
                             <constraint firstItem="W9o-uF-GJ1" firstAttribute="top" secondItem="VJG-lL-FOn" secondAttribute="bottom" constant="42" id="WI5-nW-5lh"/>
-                            <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="W9o-uF-GJ1" secondAttribute="bottom" constant="59" id="XBs-vJ-W5O"/>
                             <constraint firstItem="oW3-Kz-Evj" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="i3d-0a-K0F"/>
+                            <constraint firstItem="oW3-Kz-Evj" firstAttribute="top" secondItem="W9o-uF-GJ1" secondAttribute="bottom" id="kyC-cy-ppg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SEVEN" id="7mk-kL-1Kh"/>
                     <connections>
+                        <outlet property="constraintNameHeight" destination="8IM-aO-xst" id="Lm8-Q5-ffb"/>
                         <outlet property="labelName" destination="euN-E9-mZX" id="Bbm-gO-KA6"/>
                         <outlet property="tableview" destination="W9o-uF-GJ1" id="Ros-5n-0wm"/>
                         <outlet property="viewName" destination="oW3-Kz-Evj" id="oDe-nk-07g"/>
@@ -371,7 +372,7 @@
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QFU-g2-WF0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="EAy-YF-6pz" customClass="SmallPagedFlowLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="zQg-md-FoR">

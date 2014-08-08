@@ -14,6 +14,7 @@
 {
     IBOutlet UIView *viewName;
     IBOutlet UILabel *labelName;
+    IBOutlet NSLayoutConstraint *constraintNameHeight;
 
     IBOutlet UIView *viewVideo;
 

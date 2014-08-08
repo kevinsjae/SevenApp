@@ -44,7 +44,12 @@
     self.name = self.facebookFriend[@"name"];
     if (self.facebookFriend[@"firstName"])
         self.name = self.facebookFriend[@"firstName"];
-    [labelName setText:self.name];
+    if (self.name) {
+        [labelName setText:self.name];
+        constraintNameHeight.constant = 60;
+        [viewName setNeedsLayout];
+        [viewName layoutIfNeeded];
+    }
 
     PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
     [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

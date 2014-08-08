@@ -44,7 +44,7 @@
 
     CGRect cellFrame = CGRectZero;
     cellFrame.origin.x = column * (self.itemSize.width + self.minimumLineSpacing);
-    cellFrame.origin.y = row * (self.itemSize.height + self.minimumInteritemSpacing);
+    cellFrame.origin.y = row * (self.itemSize.height + self.minimumInteritemSpacing) + (self.collectionView.frame.size.height - self.itemSize.height)/2;
     cellFrame.size.width = self.itemSize.width;
     cellFrame.size.height = self.itemSize.height;
 
