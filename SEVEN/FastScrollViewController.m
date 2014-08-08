@@ -7,6 +7,7 @@
 //
 
 #import "FastScrollViewController.h"
+#import "ProfileViewController.h"
 
 @interface FastScrollViewController ()
 
@@ -27,6 +28,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+
     // load all users
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         allUsers = [objects mutableCopy];
@@ -38,9 +44,13 @@
             }
         }
 
+        [_collectionView reloadData];
     }];
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-        self.edgesForExtendedLayout = UIRectEdgeNone;
+//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    if (!profileViewControllers)
+        profileViewControllers = [NSMutableDictionary dictionary];
     [_collectionView reloadData];
 }
 
@@ -50,9 +60,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(ProfileViewController *)profileForIndex:(NSIndexPath *)index {
+    int ind = index.row;
+
+    PFUser *user = allUsers[ind];
+    if (!profileViewControllers[user.objectId]) {
+        ProfileViewController *controller = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+        [controller setUser:user];
+        profileViewControllers[user.objectId] = controller;
+        //controller.view.transform = CGAffineTransformMakeScale(.5, .5);
+    }
+    return profileViewControllers[user.objectId];
+}
+
 #pragma mark CollectionView Datasource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20; //[allUsers count];
+    return [allUsers count];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -63,9 +86,16 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
+
+    cell.contentView.backgroundColor = [self randomColor];
+
     for (UIView *subview in cell.contentView.subviews)
         [subview removeFromSuperview];
-    [cell.contentView setBackgroundColor:[self randomColor]];
+
+    ProfileViewController *controller = [self profileForIndex:indexPath];
+    controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
+    controller.view.backgroundColor = [self randomColor];
+    [cell.contentView addSubview:controller.view];
     return cell;
 }
 

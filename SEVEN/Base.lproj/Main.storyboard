@@ -200,9 +200,9 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjG-Iu-Hlz" userLabel="View - video">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.30588235289999999" green="0.76078431369999999" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="W9o-uF-GJ1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="W9o-uF-GJ1">
                                 <rect key="frame" x="0.0" y="62" width="320" height="447"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -268,7 +268,7 @@
                                     <outlet property="delegate" destination="D1G-Y5-08b" id="RND-sf-kQw"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oW3-Kz-Evj" userLabel="View - name">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oW3-Kz-Evj" userLabel="View - name">
                                 <rect key="frame" x="0.0" y="508" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -288,9 +288,21 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="4Hn-gp-CrB"/>
+                                    <constraint firstAttribute="width" constant="320" id="RdO-ar-T5P"/>
+                                </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="W9o-uF-GJ1" secondAttribute="trailing" id="6KG-E5-55M"/>
+                            <constraint firstItem="W9o-uF-GJ1" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="FkX-KD-7fU"/>
+                            <constraint firstItem="oW3-Kz-Evj" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="Iq4-3p-o2s"/>
+                            <constraint firstItem="W9o-uF-GJ1" firstAttribute="top" secondItem="VJG-lL-FOn" secondAttribute="bottom" constant="42" id="WI5-nW-5lh"/>
+                            <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="W9o-uF-GJ1" secondAttribute="bottom" constant="59" id="XBs-vJ-W5O"/>
+                            <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="oW3-Kz-Evj" secondAttribute="bottom" id="g43-DX-UAE"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SEVEN" id="7mk-kL-1Kh"/>
                     <connections>
@@ -319,7 +331,7 @@
             </objects>
             <point key="canvasLocation" x="-294" y="342"/>
         </scene>
-        <!--Fast Scroll View Controller-->
+        <!--Fast Scroll View Controller - Test-->
         <scene sceneID="9rB-hF-t97">
             <objects>
                 <viewController id="iyQ-kl-NeZ" customClass="FastScrollViewController" sceneMemberID="viewController">
@@ -331,24 +343,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QFU-g2-WF0">
-                                <rect key="frame" x="0.0" y="100" width="320" height="368"/>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QFU-g2-WF0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="BCf-ep-8xV"/>
-                                    <constraint firstAttribute="height" constant="368" id="Zzr-JI-KMU"/>
-                                </constraints>
+                                <color key="backgroundColor" red="0.84705882349999995" green="0.10980392160000001" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewLayout key="collectionViewLayout" id="EAy-YF-6pz" customClass="SmallPagedFlowLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="zQg-md-FoR">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="332"/>
+                                        <rect key="frame" x="0.0" y="64" width="320" height="480"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="332"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <size key="customSize" width="320" height="332"/>
+                                        <size key="customSize" width="320" height="480"/>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -358,12 +367,8 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="QFU-g2-WF0" firstAttribute="leading" secondItem="rS9-Ha-RSk" secondAttribute="leading" id="Ftj-pD-0n4"/>
-                            <constraint firstItem="QFU-g2-WF0" firstAttribute="top" secondItem="gEh-zv-fcA" secondAttribute="bottom" constant="36" id="l1L-Tp-l19"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="zV5-E7-0Hi"/>
+                    <navigationItem key="navigationItem" title="Test" id="zV5-E7-0Hi"/>
                     <connections>
                         <outlet property="_collectionView" destination="QFU-g2-WF0" id="FNu-4h-NHB"/>
                     </connections>

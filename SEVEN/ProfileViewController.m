@@ -27,6 +27,7 @@
 
     [self setupFonts];
     allColors = [NSMutableArray array];
+    self.view.backgroundColor = [UIColor greenColor];
 }
 
 -(void)loadUserInfo {

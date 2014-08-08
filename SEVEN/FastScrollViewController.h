@@ -12,5 +12,7 @@
 {
     NSMutableArray *allUsers;
     IBOutlet UICollectionView *_collectionView;
+
+    NSMutableDictionary *profileViewControllers;
 }
 @end

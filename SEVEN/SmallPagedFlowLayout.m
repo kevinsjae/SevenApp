@@ -103,14 +103,16 @@
 -(UIEdgeInsets)sectionInset {
     float top = 0;
     float bottom = 0;
-    float left = 20;
-    float right = 20;
+    float left = 40;
+    float right = 40;
     return UIEdgeInsetsMake(top, left, bottom, right);
 
 }
  
 -(CGSize)itemSize {
-    return CGSizeMake(280, self.collectionView.frame.size.height);
+    float width = 240;
+    // must preserve ratio or we get weird offsets at top and bottom
+    return CGSizeMake(width, self.collectionView.frame.size.height/self.collectionView.frame.size.width*width);
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
