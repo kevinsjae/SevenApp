@@ -41,11 +41,16 @@
 
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         allUsers = [objects mutableCopy];
-
-        for (PFUser *user in allUsers) {
-            if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-                //                [allUsers removeObject:user];
-                break;
+        if (error) {
+            progress.labelText = @"Failed to load users!";
+            progress.detailsLabelText = @"Please restart the app and try again";
+            [progress hide:YES afterDelay:3];
+        }
+        else {
+            for (PFUser *user in allUsers) {
+                if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    //                [allUsers removeObject:user];
+                }
             }
             [progress hide:YES];
             [self switchToPagedProfile];
