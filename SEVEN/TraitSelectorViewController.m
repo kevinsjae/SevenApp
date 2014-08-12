@@ -201,6 +201,7 @@
         TraitAdjustorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TraitAdjustorCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
+        cell.canAdjust = YES;
         
         NSInteger row = indexPath.row;
         NSNumber *level = allLevels[allSelectedTraits[row]]; // may not have been created yet if needs web request

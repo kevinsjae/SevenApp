@@ -107,11 +107,15 @@
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"IntroViewController"];
     if (![self.window.rootViewController isKindOfClass:[rootNav class]]) {
-        self.window.rootViewController = rootNav;
-        /*
-        [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+        [UIView animateWithDuration:.5 animations:^{
+            self.window.rootViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.window.rootViewController = rootNav;
+            rootNav.view.alpha = 0;
+            [UIView animateWithDuration:.5 animations:^{
+                rootNav.view.alpha = 1;
+            }];
         }];
-         */
     }
     else {
         [(UINavigationController *)self.window.rootViewController popToRootViewControllerAnimated:YES];

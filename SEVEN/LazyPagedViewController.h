@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonStyledViewController.h"
 
 #define SCROLL_OFFSET_PAST_PAGE -50
 #define SCROLL_OFFSET_NEXT_PAGE 50
@@ -19,7 +20,7 @@ typedef enum {
     ScrollPositionNextPage
 } LazyPagedScrollPosition;
 
-@interface LazyPagedViewController : UIViewController <UIScrollViewDelegate>
+@interface LazyPagedViewController : CommonStyledViewController <UIScrollViewDelegate>
 {
     // scrollview
     IBOutlet UIScrollView *scrollView;

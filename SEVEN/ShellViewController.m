@@ -10,6 +10,7 @@
 #import "ProfilePagedBrowserViewController.h"
 #import "ProfileFastScrollViewController.h"
 #import "MBProgressHUD.h"
+#import "FacebookHelper.h"
 
 @interface ShellViewController ()
 
@@ -41,16 +42,24 @@
 
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         allUsers = [objects mutableCopy];
-
-        for (PFUser *user in allUsers) {
-            if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-                //                [allUsers removeObject:user];
-                break;
+        if (error) {
+            progress.labelText = @"Failed to load users!";
+            progress.detailsLabelText = @"Please restart the app and try again";
+            [progress hide:YES afterDelay:3];
+        }
+        else {
+            for (PFUser *user in allUsers) {
+                if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    //                [allUsers removeObject:user];
+                }
             }
             [progress hide:YES];
             [self switchToPagedProfile];
         }
     }];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(didClickLogOut:)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFastProfile) name:@"profile:full:tapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToPagedProfile) name:@"profile:fastscroll:tapped" object:nil];
@@ -97,6 +106,16 @@
 -(void)didScrollToPage:(int)page {
     currentPage = page;
 }
+
+-(void)didClickLogOut:(id)sender {
+    NSLog(@"Log out");
+    [PFUser logOut];
+    [FacebookHelper logout];
+
+    [_appDelegate goToIntro];
+}
+
+
 /*
 
 #pragma mark - Navigation
