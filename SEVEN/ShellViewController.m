@@ -144,6 +144,11 @@
 
 -(void)didClickMessage:(id)sender {
     NSLog(@"Message");
+
+    // temporary
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Send a message?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [alertView show];
 }
 
 /*
