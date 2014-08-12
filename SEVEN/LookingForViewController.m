@@ -124,9 +124,6 @@
             [progress hide:YES afterDelay:3];
             return;
         }
-        else {
-
-        }
         /*
         progress.mode = MBProgressHUDModeText;
         progress.labelText = @"You are now ready to rock!";

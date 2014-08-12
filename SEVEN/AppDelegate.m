@@ -90,7 +90,7 @@
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"MainNavigationController"];
     if (![self.window.rootViewController isKindOfClass:[rootNav class]]) {
-        [UIView animateWithDuration:.5 animations:^{
+        [UIView animateWithDuration:.5 animations:^{ // todo: animation not working
             self.window.rootViewController.view.alpha = 0;
         } completion:^(BOOL finished) {
             self.window.rootViewController = rootNav;
