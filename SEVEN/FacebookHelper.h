@@ -22,4 +22,6 @@
 // for Seven
 +(void)getFacebookFriends;
 +(void)getFacebookInfo;
+
++(void)logout;
 @end
