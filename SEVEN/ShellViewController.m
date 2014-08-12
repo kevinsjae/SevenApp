@@ -59,8 +59,14 @@
         }
     }];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(didClickLogOut:)];
+    UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"seven_icon_logo_white"]];
+    titleView.contentMode = UIViewContentModeScaleAspectFit;
+    [titleView setFrame:CGRectMake(0, 0, 90, 20)]; // todo: icon is not centered
+    self.navigationItem.titleView = titleView;
 
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(didClickLogOut:)];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Message" style:UIBarButtonItemStyleDone target:self action:@selector(didClickMessage:)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToMiniProfile) name:@"profile:full:tapped" object:nil];
@@ -136,6 +142,9 @@
     [_appDelegate goToIntro];
 }
 
+-(void)didClickMessage:(id)sender {
+    NSLog(@"Message");
+}
 
 /*
 
