@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ProfileScrollProtocol.h"
 
-@class ProfileFastScrollViewController;
-@class ProfilePagedBrowserViewController;
+@class ProfileMiniViewController;
+@class ProfileFullViewController;
+@class ProfileViewController;
 @class MBProgressHUD;
+
 @interface ShellViewController : UIViewController <ProfileScrollProtocol>
 {
-    ProfileFastScrollViewController *fastProfile;
-    ProfilePagedBrowserViewController *pagedProfile;
+    ProfileMiniViewController *miniProfile;
+    ProfileFullViewController *fullProfile;
 
     int currentPage;
 

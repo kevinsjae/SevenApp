@@ -9,16 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "ProfileScrollProtocol.h"
 
-@interface ProfileFastScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@class ProfileViewController;
+@interface ProfileMiniViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 {
     IBOutlet UICollectionView *_collectionView;
-
-    NSMutableDictionary *profileViewControllers;
     int page;
 }
 
 @property (nonatomic) id<ProfileScrollProtocol> delegate;
-@property (nonatomic) NSMutableArray *allUsers;
+@property (nonatomic, weak) NSMutableArray *allUsers;
+@property (nonatomic) NSMutableDictionary *profileViewControllers;
 
 -(void)jumpToPage:(int)page animated:(BOOL)animated;
+-(void)refresh;
+-(ProfileViewController *)profileForIndex:(NSIndexPath *)index;
 @end

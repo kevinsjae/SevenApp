@@ -40,8 +40,7 @@
 		9E3E25041987F85E00870666 /* BRCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E25031987F85E00870666 /* BRCameraViewController.m */; };
 		9E3E25061988139C00870666 /* rotateCamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E25051988139C00870666 /* rotateCamera@2x.png */; };
 		9E72927A1994F7E7006A2AC1 /* LazyPagedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */; };
-		9E72927D1994F894006A2AC1 /* ProfilePagedBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */; };
-		9E729280199504EF006A2AC1 /* ProfileFastScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927F199504EF006A2AC1 /* ProfileFastScrollViewController.m */; };
+		9E729280199504EF006A2AC1 /* ProfileMiniViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927F199504EF006A2AC1 /* ProfileMiniViewController.m */; };
 		9E72928819950A6B006A2AC1 /* SmallPagedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */; };
 		9E72928B19952E8A006A2AC1 /* ShellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72928A19952E8A006A2AC1 /* ShellViewController.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
@@ -87,6 +86,8 @@
 		9EA7931C1985F19300C8A0C9 /* seven_icon_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */; };
 		9EB1D029198FEFDD00065AB0 /* LookingForViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EB1D028198FEFDD00065AB0 /* LookingForViewController.m */; };
 		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
+		9EE91592199CF7E7005225E6 /* ProfileFullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE91591199CF7E7005225E6 /* ProfileFullViewController.m */; };
+		9EE91595199CF87E005225E6 /* SmallPaged2FlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE91594199CF87E005225E6 /* SmallPaged2FlowLayout.m */; };
 		9EEB9C2E198D184C0031B4AF /* TraitSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEB9C2D198D184C0031B4AF /* TraitSelectorCell.m */; };
 		9EEB9C31198D22A40031B4AF /* seven_icon_confirm_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */; };
 		9EEB9C32198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEB9C30198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png */; };
@@ -149,10 +150,8 @@
 		9E3E25051988139C00870666 /* rotateCamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rotateCamera@2x.png"; sourceTree = "<group>"; };
 		9E7292781994F7E7006A2AC1 /* LazyPagedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LazyPagedViewController.h; sourceTree = "<group>"; };
 		9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LazyPagedViewController.m; sourceTree = "<group>"; };
-		9E72927B1994F894006A2AC1 /* ProfilePagedBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePagedBrowserViewController.h; sourceTree = "<group>"; };
-		9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePagedBrowserViewController.m; sourceTree = "<group>"; };
-		9E72927E199504EF006A2AC1 /* ProfileFastScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileFastScrollViewController.h; sourceTree = "<group>"; };
-		9E72927F199504EF006A2AC1 /* ProfileFastScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileFastScrollViewController.m; sourceTree = "<group>"; };
+		9E72927E199504EF006A2AC1 /* ProfileMiniViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileMiniViewController.h; sourceTree = "<group>"; };
+		9E72927F199504EF006A2AC1 /* ProfileMiniViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileMiniViewController.m; sourceTree = "<group>"; };
 		9E72928619950A6B006A2AC1 /* SmallPagedFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallPagedFlowLayout.h; sourceTree = "<group>"; };
 		9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallPagedFlowLayout.m; sourceTree = "<group>"; };
 		9E72928919952E8A006A2AC1 /* ShellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShellViewController.h; sourceTree = "<group>"; };
@@ -224,6 +223,10 @@
 		9EB1D028198FEFDD00065AB0 /* LookingForViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookingForViewController.m; sourceTree = "<group>"; };
 		9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookHelper.h; sourceTree = "<group>"; };
 		9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookHelper.m; sourceTree = "<group>"; };
+		9EE91590199CF7E7005225E6 /* ProfileFullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileFullViewController.h; sourceTree = "<group>"; };
+		9EE91591199CF7E7005225E6 /* ProfileFullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileFullViewController.m; sourceTree = "<group>"; };
+		9EE91593199CF87E005225E6 /* SmallPaged2FlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallPaged2FlowLayout.h; sourceTree = "<group>"; };
+		9EE91594199CF87E005225E6 /* SmallPaged2FlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallPaged2FlowLayout.m; sourceTree = "<group>"; };
 		9EEB9C2C198D184C0031B4AF /* TraitSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraitSelectorCell.h; sourceTree = "<group>"; };
 		9EEB9C2D198D184C0031B4AF /* TraitSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TraitSelectorCell.m; sourceTree = "<group>"; };
 		9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_confirm_white@2x.png"; sourceTree = "<group>"; };
@@ -482,12 +485,14 @@
 				9EA479191993D777007587CC /* ProfileViewController.m */,
 				9E7292781994F7E7006A2AC1 /* LazyPagedViewController.h */,
 				9E7292791994F7E7006A2AC1 /* LazyPagedViewController.m */,
-				9E72927B1994F894006A2AC1 /* ProfilePagedBrowserViewController.h */,
-				9E72927C1994F894006A2AC1 /* ProfilePagedBrowserViewController.m */,
-				9E72927E199504EF006A2AC1 /* ProfileFastScrollViewController.h */,
-				9E72927F199504EF006A2AC1 /* ProfileFastScrollViewController.m */,
+				9E72927E199504EF006A2AC1 /* ProfileMiniViewController.h */,
+				9E72927F199504EF006A2AC1 /* ProfileMiniViewController.m */,
+				9EE91590199CF7E7005225E6 /* ProfileFullViewController.h */,
+				9EE91591199CF7E7005225E6 /* ProfileFullViewController.m */,
 				9E72928619950A6B006A2AC1 /* SmallPagedFlowLayout.h */,
 				9E72928719950A6B006A2AC1 /* SmallPagedFlowLayout.m */,
+				9EE91593199CF87E005225E6 /* SmallPaged2FlowLayout.h */,
+				9EE91594199CF87E005225E6 /* SmallPaged2FlowLayout.m */,
 				9E72928919952E8A006A2AC1 /* ShellViewController.h */,
 				9E72928A19952E8A006A2AC1 /* ShellViewController.m */,
 				9E72928C199530FA006A2AC1 /* ProfileScrollProtocol.h */,
@@ -718,11 +723,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E79B82F1964362400559838 /* ParseBase.m in Sources */,
-				9E72927D1994F894006A2AC1 /* ProfilePagedBrowserViewController.m in Sources */,
 				9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */,
 				9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */,
 				9E79B8551964363600559838 /* NSObject+Notify.m in Sources */,
 				9EA4791A1993D777007587CC /* ProfileViewController.m in Sources */,
+				9EE91592199CF7E7005225E6 /* ProfileFullViewController.m in Sources */,
 				9E79B8591964363600559838 /* UIImage+RoundedCorner.m in Sources */,
 				9E973AF819884F3F00142E6C /* TraitSelectorViewController.m in Sources */,
 				9E79B808196435AA00559838 /* ViewController.m in Sources */,
@@ -735,7 +740,8 @@
 				9EB1D029198FEFDD00065AB0 /* LookingForViewController.m in Sources */,
 				9E79B8501964363600559838 /* NSObject+MKBlockAdditions.m in Sources */,
 				9E79B8571964363600559838 /* UIImage+Alpha.m in Sources */,
-				9E729280199504EF006A2AC1 /* ProfileFastScrollViewController.m in Sources */,
+				9E729280199504EF006A2AC1 /* ProfileMiniViewController.m in Sources */,
+				9EE91595199CF87E005225E6 /* SmallPaged2FlowLayout.m in Sources */,
 				9E79B8581964363600559838 /* UIImage+Resize.m in Sources */,
 				9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */,
 				9E79B8521964363600559838 /* UIAlertView+MKBlockAdditions.m in Sources */,

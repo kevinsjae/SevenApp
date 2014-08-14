@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "ProfileFastScrollViewController.h"
+#import "ProfileMiniViewController.h"
 #import "ProfileViewController.h"
 #import "SmallPagedFlowLayout.h"
 
-@interface ProfileFastScrollViewController ()
+@interface ProfileMiniViewController ()
 
 @end
 
-@implementation ProfileFastScrollViewController
+@implementation ProfileMiniViewController
 
 @synthesize allUsers;
 
@@ -31,13 +31,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.profileViewControllers = [NSMutableDictionary dictionary];
 
     // load all users
-        [_collectionView reloadData];
-    if (!profileViewControllers)
-        profileViewControllers = [NSMutableDictionary dictionary];
     [_collectionView reloadData];
 
+    [self setupGestures];
+}
+
+-(void)setupGestures {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     [_collectionView addGestureRecognizer:tap];
 }
@@ -49,17 +51,19 @@
 }
 
 -(ProfileViewController *)profileForIndex:(NSIndexPath *)index {
-    int ind = index.row;
-
-    PFUser *user = allUsers[ind];
-    if (!profileViewControllers[user.objectId]) {
-        ProfileViewController *controller = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+    PFUser *user = allUsers[index.row];
+    ProfileViewController *controller = self.profileViewControllers[user.objectId];
+    if (!controller) {
+        controller = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         [controller setUser:user];
-        profileViewControllers[user.objectId] = controller;
-        //controller.view.transform = CGAffineTransformMakeScale(.5, .5);
-        [controller setHideTable:YES];
+        self.profileViewControllers[user.objectId] = controller;
     }
-    return profileViewControllers[user.objectId];
+    [controller setHideTable:YES];
+    return controller;
+}
+
+-(void)refresh {
+    [_collectionView reloadData];
 }
 
 #pragma mark CollectionView Datasource
@@ -99,17 +103,20 @@
 
 #pragma mark other scrollview
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    page = scrollView.contentOffset.x / SMALL_PAGE_WIDTH;
+    page = scrollView.contentOffset.x / [self pageWidth];
     [self.delegate didScrollToPage:page];
 }
 
 -(void)jumpToPage:(int)_page animated:(BOOL)animated {
     page = _page;
-    float offsetX = page * SMALL_PAGE_WIDTH;
+    float offsetX = page * [self pageWidth];
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
     NSLog(@"offset: %f", _collectionView.contentOffset.x);
 }
 
+-(float)pageWidth {
+    return SMALL_PAGE_WIDTH;
+}
 #pragma mark – UICollectionViewDelegateFlowLayout
 // doesn't use these values if we have a custom flow layout
 
