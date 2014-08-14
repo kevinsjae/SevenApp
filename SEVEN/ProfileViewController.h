@@ -22,6 +22,8 @@
 
     NSMutableArray *allColors;
     AVPlayer *player;
+
+    BOOL playing;
 }
 @property (nonatomic) PFUser *user;
 @property (nonatomic) PFObject *facebookFriend;

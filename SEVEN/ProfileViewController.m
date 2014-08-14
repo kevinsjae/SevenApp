@@ -51,16 +51,19 @@
         [viewName layoutIfNeeded];
     }
 
-    PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
-    [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.traits = objects;
-        [self randomizeColors];
-        [self reloadData];
-    }];
+    if (!self.hideTable) {
+        PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
+        [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            self.traits = objects;
+            [self randomizeColors];
+            [self reloadData];
+        }];
+    }
 
     self.profileVideo = [self.user objectForKey:@"profileVideo"];
     [self.profileVideo fetchIfNeeded];
     [self playCurrentMedia];
+    self.view.backgroundColor = [self randomColorFromLastColor:nil lastTwo:nil];
 }
 
 -(void)setupFonts {
@@ -96,31 +99,46 @@
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:profileVideoURL];
     player = [[AVPlayer alloc] initWithPlayerItem:item];
     [player addObserver:self forKeyPath:@"status" options:0 context:nil];
+
     AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
     layer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [viewVideo.layer addSublayer:layer];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:item];
+    [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
+    [self readyToPlay];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"status"]) {
         NSLog(@"Status: %@", change);
-        [self readyToPlay];
     }
 }
 
+-(void)notPlaying {
+    // backup for if notification isn't heard, force replay
+    playing = NO;
+    NSLog(@"%@ Not playing", self.user[@"name"]);
+    [self readyToPlay];
+}
+
 -(void)readyToPlay {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notPlaying) object:nil];
     [player play];
+    playing = YES;
+    float duration = CMTimeGetSeconds(player.currentItem.duration);
+    [self performSelector:@selector(notPlaying) withObject:nil afterDelay:duration+.5];
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
+    [self stopListeningFor:AVPlayerItemDidPlayToEndTimeNotification];
     NSLog(@"Player for user %@ reset", self.user[@"name"]);
     [player seekToTime:kCMTimeZero];
-    [player play];
+    AVPlayerItem *item = n.object;
+    [self readyToPlay];
+    if (item != player.currentItem) {
+        NSLog(@"Here");
+    }
+    [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
 }
 
 #pragma mark TableViewDataSource
