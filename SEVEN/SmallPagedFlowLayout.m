@@ -99,7 +99,7 @@
 #pragma mark flow layout delegate
 // these specify the layout for this flow, not the flowlayoutdelegate functions
 -(CGFloat)minimumInteritemSpacing {
-    return 0;
+    return 1;
 }
 
 -(CGFloat)minimumLineSpacing {

@@ -30,6 +30,10 @@
     return contentSize;
 }
 
+-(CGFloat)minimumInteritemSpacing {
+    return 0;
+}
+
 -(CGSize)itemSize {
     int width = 320;
     // must preserve ratio or we get weird offsets at top and bottom
