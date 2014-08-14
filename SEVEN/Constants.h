@@ -36,6 +36,7 @@ typedef enum {
 #define METERS_PER_MILE 1609.344
 #define DebugLog NSLog
 
+#define TRAIT_HEIGHT 40
 #define SMALL_PAGE_WIDTH 240
 
 #endif
