@@ -17,7 +17,7 @@
     NSUInteger count = [self.collectionView.dataSource collectionView:self.collectionView
                                                numberOfItemsInSection:0];
 
-    CGSize canvasSize = self.collectionView.frame.size;
+    CGSize canvasSize = _appDelegate.window.bounds.size;
     CGSize contentSize = self.itemSize;
     if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal)
     {
@@ -32,7 +32,7 @@
 
 - (CGRect)frameForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize canvasSize = self.collectionView.frame.size;
+    CGSize canvasSize = _appDelegate.window.bounds.size;
 
     NSUInteger rowCount = (canvasSize.height - self.itemSize.height) / (self.itemSize.height + self.minimumInteritemSpacing) + 1;
     NSUInteger columnCount = (canvasSize.width - self.itemSize.width) / (self.itemSize.width + self.minimumLineSpacing) + 1;
@@ -44,7 +44,7 @@
 
     CGRect cellFrame = CGRectZero;
     cellFrame.origin.x = column * (self.itemSize.width + self.minimumLineSpacing);
-    cellFrame.origin.y = row * (self.itemSize.height + self.minimumInteritemSpacing) + (self.collectionView.frame.size.height - self.itemSize.height)/2;
+    cellFrame.origin.y = row * (self.itemSize.height + self.minimumInteritemSpacing) + (canvasSize.height - self.itemSize.height)/2;
     cellFrame.size.width = self.itemSize.width;
     cellFrame.size.height = self.itemSize.height;
 
@@ -99,7 +99,7 @@
 #pragma mark flow layout delegate
 // these specify the layout for this flow, not the flowlayoutdelegate functions
 -(CGFloat)minimumInteritemSpacing {
-    return 0;
+    return 1;
 }
 
 -(CGFloat)minimumLineSpacing {
@@ -107,9 +107,10 @@
 }
 
 -(UIEdgeInsets)sectionInset {
+    CGSize canvasSize = _appDelegate.window.bounds.size;
     float top = 0;
     float bottom = 0;
-    float left = (self.collectionView.frame.size.width - SMALL_PAGE_WIDTH)/2;
+    float left = (canvasSize.width - SMALL_PAGE_WIDTH)/2;
     float right = left;
     return UIEdgeInsetsMake(top, left, bottom, right);
 }
@@ -117,7 +118,8 @@
 -(CGSize)itemSize {
     int width = SMALL_PAGE_WIDTH;
     // must preserve ratio or we get weird offsets at top and bottom
-    return CGSizeMake(width, self.collectionView.frame.size.height/self.collectionView.frame.size.width*width);
+    CGSize canvasSize = _appDelegate.window.bounds.size;
+    return CGSizeMake(width, canvasSize.height/canvasSize.width*width);
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
@@ -159,7 +161,7 @@
         }
     }
 
-    return CGPointMake(candidateAttributes.center.x - self.collectionView.bounds.size.width * 0.5f, proposedContentOffset.y);
+    return CGPointMake(candidateAttributes.center.x - collectionViewSize.width * 0.5f, proposedContentOffset.y);
 
 }
 

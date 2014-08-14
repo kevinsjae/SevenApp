@@ -13,8 +13,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "TraitAdjustorCell.h"
 
-#define CELL_HEIGHT 51
-
 @implementation ProfileViewController
 -(void)viewDidLoad {
     if (!self.user) {
@@ -35,6 +33,7 @@
 }
 
 -(void)loadUserInfo {
+    CGRect bounds = self.view.bounds;
     // load things that require the user to be fully loaded
     NSLog(@"Loading userInfo for %@", self.user[@"name"]);
 
@@ -50,6 +49,9 @@
         [viewName setNeedsLayout];
         [viewName layoutIfNeeded];
     }
+    else {
+        constraintNameHeight.constant = 120;
+    }
 
     if (!self.hideTable) {
         PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
@@ -64,6 +66,16 @@
     [self.profileVideo fetchIfNeeded];
     [self playCurrentMedia];
     self.view.backgroundColor = [self randomColorFromLastColor:nil lastTwo:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    CGRect bounds = self.view.bounds;
+
+    if (bounds.size.height <= 480) {
+        // what a hack
+        viewVideo.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(1.2, 1.2), -50, 0);
+    }
 }
 
 -(void)setupFonts {
@@ -135,15 +147,13 @@
     [player seekToTime:kCMTimeZero];
     AVPlayerItem *item = n.object;
     [self readyToPlay];
-    if (item != player.currentItem) {
-        NSLog(@"Here");
-    }
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
 }
 
 #pragma mark TableViewDataSource
 -(void)reloadData {
-    int offset = tableview.frame.size.height - 3 * CELL_HEIGHT;
+    int toShow = MIN(self.traits.count, 3);
+    int offset = tableview.frame.size.height - toShow * TRAIT_HEIGHT;
     tableview.contentInset = UIEdgeInsetsMake(offset, 0, 0, 0);
     [tableview reloadData];
 }
@@ -154,6 +164,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.traits count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return TRAIT_HEIGHT;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

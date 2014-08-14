@@ -17,7 +17,7 @@
     NSUInteger count = [self.collectionView.dataSource collectionView:self.collectionView
                                                numberOfItemsInSection:0];
 
-    CGSize canvasSize = self.collectionView.frame.size;
+    CGSize canvasSize = _appDelegate.window.bounds.size;
     CGSize contentSize = self.itemSize;
     if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal)
     {
@@ -30,11 +30,15 @@
     return contentSize;
 }
 
+-(CGFloat)minimumInteritemSpacing {
+    return 0;
+}
+
 -(CGSize)itemSize {
     int width = 320;
     // must preserve ratio or we get weird offsets at top and bottom
-    CGSize size = CGSizeMake(width, self.collectionView.frame.size.height/self.collectionView.frame.size.width*width);
-    return size;
+    CGSize canvasSize = _appDelegate.window.bounds.size;
+    return CGSizeMake(width, canvasSize.height/canvasSize.width*width);
 }
 
 -(UIEdgeInsets)sectionInset {
