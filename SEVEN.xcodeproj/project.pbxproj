@@ -85,6 +85,10 @@
 		9EA7931B1985F19300C8A0C9 /* seven_icon_facebook_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA793191985F19300C8A0C9 /* seven_icon_facebook_white@2x.png */; };
 		9EA7931C1985F19300C8A0C9 /* seven_icon_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */; };
 		9EB1D029198FEFDD00065AB0 /* LookingForViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EB1D028198FEFDD00065AB0 /* LookingForViewController.m */; };
+		9EC3B593199D0BB90024F3BD /* seven_icon_uparrow_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC3B58F199D0BB90024F3BD /* seven_icon_uparrow_white@2x.png */; };
+		9EC3B594199D0BB90024F3BD /* seven_icon_smalltitlecircle_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC3B590199D0BB90024F3BD /* seven_icon_smalltitlecircle_white@2x.png */; };
+		9EC3B595199D0BB90024F3BD /* seven_icon_message_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC3B591199D0BB90024F3BD /* seven_icon_message_white@2x.png */; };
+		9EC3B596199D0BB90024F3BD /* seven_icon_menu_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC3B592199D0BB90024F3BD /* seven_icon_menu_white@2x.png */; };
 		9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */; };
 		9EE91592199CF7E7005225E6 /* ProfileFullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE91591199CF7E7005225E6 /* ProfileFullViewController.m */; };
 		9EE91595199CF87E005225E6 /* SmallPaged2FlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE91594199CF87E005225E6 /* SmallPaged2FlowLayout.m */; };
@@ -221,6 +225,10 @@
 		9EA7931A1985F19300C8A0C9 /* seven_icon_logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_logo_white@2x.png"; sourceTree = "<group>"; };
 		9EB1D027198FEFDD00065AB0 /* LookingForViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookingForViewController.h; sourceTree = "<group>"; };
 		9EB1D028198FEFDD00065AB0 /* LookingForViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookingForViewController.m; sourceTree = "<group>"; };
+		9EC3B58F199D0BB90024F3BD /* seven_icon_uparrow_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_uparrow_white@2x.png"; sourceTree = "<group>"; };
+		9EC3B590199D0BB90024F3BD /* seven_icon_smalltitlecircle_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_smalltitlecircle_white@2x.png"; sourceTree = "<group>"; };
+		9EC3B591199D0BB90024F3BD /* seven_icon_message_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_message_white@2x.png"; sourceTree = "<group>"; };
+		9EC3B592199D0BB90024F3BD /* seven_icon_menu_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seven_icon_menu_white@2x.png"; sourceTree = "<group>"; };
 		9EC9CEFF196D5B1100EAF3D9 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookHelper.h; sourceTree = "<group>"; };
 		9EC9CF00196D5B1100EAF3D9 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookHelper.m; sourceTree = "<group>"; };
 		9EE91590199CF7E7005225E6 /* ProfileFullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileFullViewController.h; sourceTree = "<group>"; };
@@ -527,6 +535,10 @@
 		9EE24F571964769000F7EA78 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9EC3B58F199D0BB90024F3BD /* seven_icon_uparrow_white@2x.png */,
+				9EC3B590199D0BB90024F3BD /* seven_icon_smalltitlecircle_white@2x.png */,
+				9EC3B591199D0BB90024F3BD /* seven_icon_message_white@2x.png */,
+				9EC3B592199D0BB90024F3BD /* seven_icon_menu_white@2x.png */,
 				9E3E25051988139C00870666 /* rotateCamera@2x.png */,
 				9EEB9C2F198D22A40031B4AF /* seven_icon_confirm_white@2x.png */,
 				9EEB9C30198D22A40031B4AF /* seven_icon_checklistconfirm_white@2x.png */,
@@ -643,6 +655,7 @@
 				9E01240C196703B80080543B /* backArrow@2x.png in Resources */,
 				9E01240B196703B80080543B /* backArrow.png in Resources */,
 				9E0124391967224E0080543B /* connectEmail@2x.png in Resources */,
+				9EC3B594199D0BB90024F3BD /* seven_icon_smalltitlecircle_white@2x.png in Resources */,
 				9E01241E19670C980080543B /* maleAndFemale@2x.png in Resources */,
 				9E2376A719815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 in Resources */,
 				9E01241919670A8B0080543B /* male.png in Resources */,
@@ -651,6 +664,7 @@
 				9E01241D19670C980080543B /* maleAndFemale.png in Resources */,
 				9E3E24FD19869FB200870666 /* seven_icon_back_white@2x.png in Resources */,
 				9EEBF344198D0EE2005ED301 /* GothamHTF-Medium.otf in Resources */,
+				9EC3B593199D0BB90024F3BD /* seven_icon_uparrow_white@2x.png in Resources */,
 				9E01243A1967224E0080543B /* connectFacebook@2x.png in Resources */,
 				9E2376AD19815842007ED7D8 /* SEVEN_ProfileSample_002.mp4 in Resources */,
 				9E79B80A196435AA00559838 /* Images.xcassets in Resources */,
@@ -664,8 +678,10 @@
 				9E01242319670F010080543B /* location@2x.png in Resources */,
 				9E01244B19673F6D0080543B /* iconPlus@2x.png in Resources */,
 				9E01241719670A8B0080543B /* female.png in Resources */,
+				9EC3B595199D0BB90024F3BD /* seven_icon_message_white@2x.png in Resources */,
 				9E01241A19670A8B0080543B /* male@2x.png in Resources */,
 				9E3E25061988139C00870666 /* rotateCamera@2x.png in Resources */,
+				9EC3B596199D0BB90024F3BD /* seven_icon_menu_white@2x.png in Resources */,
 				9E01244A19673F6D0080543B /* iconCheck@2x.png in Resources */,
 				9EEB9C31198D22A40031B4AF /* seven_icon_confirm_white@2x.png in Resources */,
 				9EA7931B1985F19300C8A0C9 /* seven_icon_facebook_white@2x.png in Resources */,

@@ -66,6 +66,10 @@
     [_collectionView reloadData];
 }
 
+-(ProfileViewController *)currentProfile {
+    return [self profileForIndex:[NSIndexPath indexPathForRow:page inSection:0]];
+}
+
 #pragma mark CollectionView Datasource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [allUsers count];

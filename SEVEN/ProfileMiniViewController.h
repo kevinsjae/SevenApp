@@ -23,4 +23,5 @@
 -(void)jumpToPage:(int)page animated:(BOOL)animated;
 -(void)refresh;
 -(ProfileViewController *)profileForIndex:(NSIndexPath *)index;
+-(ProfileViewController *)currentProfile;
 @end
