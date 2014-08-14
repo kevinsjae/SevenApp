@@ -69,27 +69,27 @@
 
 #pragma mark Video
 -(void)playCurrentMedia {
-    PFFile *file = self.profileVideo[@"video"];
-    if (!file) {
-        NSLog(@"No video loaded");
-    }
-#if 1
-    // load videos locally. not ideal, but it seems to be fine without having to stream it
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/%@.mp4", documentsDirectory,self.user.objectId];
 
-        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"profile.mp4"];
-
-        [data writeToFile:filePath atomically:YES];
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    if ([fileManager fileExistsAtPath:filePath]) {
         NSURL *profileVideoURL = [NSURL fileURLWithPath:filePath];
-
         [self playMedia:profileVideoURL];
-    }];
-#else
-    NSURL *profileVideoURL = [NSURL URLWithString:[file url]];
-    [self playMedia:profileVideoURL];
-#endif
+    }
+    else {
+        PFFile *file = self.profileVideo[@"video"];
+        if (!file) {
+            NSLog(@"No video loaded");
+        }
+        // load videos locally. not ideal, but it seems to be fine without having to stream it
+        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            [data writeToFile:filePath atomically:YES];
+            NSURL *profileVideoURL = [NSURL fileURLWithPath:filePath];
+            [self playMedia:profileVideoURL];
+        }];
+    }
 }
 
 -(void)playMedia:(NSURL *)profileVideoURL {
@@ -118,6 +118,7 @@
 }
 
 -(void)playerDidReachEnd:(NSNotification *)n {
+    NSLog(@"Player for user %@ reset", self.user[@"name"]);
     [player seekToTime:kCMTimeZero];
     [player play];
 }
