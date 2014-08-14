@@ -124,10 +124,12 @@
             [progress hide:YES afterDelay:3];
             return;
         }
+        /*
         progress.mode = MBProgressHUDModeText;
         progress.labelText = @"You are now ready to rock!";
         [progress hide:YES afterDelay:3];
-        //    [self performSegueWithIdentifier:@"SignupGoToLocation" sender:self];
+         */
+        [_appDelegate goToProfile];
     }];
 
 }

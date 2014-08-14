@@ -349,9 +349,22 @@
                     <view key="view" contentMode="scaleToFill" id="dyz-Jt-geF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="lUc-zv-NNk"/>
+                    <navigationItem key="navigationItem" id="lUc-zv-NNk">
+                        <barButtonItem key="leftBarButtonItem" image="menu_white.png" style="plain" id="RcS-OM-bNj">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="didClickMenu:" destination="JA5-hz-zmR" id="n6J-5f-wsj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="message_white.png" style="plain" id="jQW-yT-SzT">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="didClickMessage:" destination="JA5-hz-zmR" id="YRb-xM-qud"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mL0-3g-PYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1363,6 +1376,8 @@ Show off your smile by creating a visual profile.</string>
         <image name="connectFacebook.png" width="320" height="60"/>
         <image name="connectInstagram.png" width="319" height="60"/>
         <image name="connectTwitter.png" width="319" height="60"/>
+        <image name="menu_white.png" width="25" height="22"/>
+        <image name="message_white.png" width="25" height="22"/>
         <image name="seven_icon_checklistconfirm_white.png" width="20" height="20"/>
         <image name="seven_icon_facebook_white.png" width="25" height="25"/>
         <image name="seven_icon_logo_white.png" width="180" height="40"/>

@@ -12,6 +12,7 @@
 #import "FacebookHelper.h"
 #import "ProfileFullViewController.h"
 #import "ProfileViewController.h"
+#import "UIActionSheet+MKBlockAdditions.h"
 
 @interface ShellViewController ()
 
@@ -59,9 +60,10 @@
         }
     }];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(didClickLogOut:)];
-
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"seven_icon_logo_white"]];
+    titleView.contentMode = UIViewContentModeScaleAspectFit;
+    [titleView setFrame:CGRectMake(0, 0, 90, 20)]; // todo: icon is not centered
+    self.navigationItem.titleView = titleView;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToMiniProfile) name:@"profile:full:tapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullProfile) name:@"profile:fastscroll:tapped" object:nil];
@@ -128,7 +130,7 @@
     currentPage = page;
 }
 
--(void)didClickLogOut:(id)sender {
+-(void)logout {
     NSLog(@"Log out");
     [PFUser logOut];
     [FacebookHelper logout];
@@ -136,6 +138,25 @@
     [_appDelegate goToIntro];
 }
 
+#pragma mark Navigation items
+-(IBAction)didClickMenu:(id)sender {
+    [UIActionSheet actionSheetWithTitle:nil message:nil buttons:@[@"Logout"] showInView:self.view onDismiss:^(int buttonIndex) {
+        if (buttonIndex == 0) {
+            [self logout];
+        }
+    } onCancel:^{
+        // do nothing, can't have a nil block
+    }];
+}
+
+-(IBAction)didClickMessage:(id)sender {
+    NSLog(@"Message");
+
+    // temporary
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Send a message?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [alertView show];
+}
 
 /*
 

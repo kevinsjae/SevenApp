@@ -246,6 +246,9 @@
             [selectedTraits addObject:allTraits[i]];
             [allSelectedTraits addObject:allTraits[i]];
             [allSelectedColors addObject:allColors[i]];
+
+            // add random levels
+            allLevels[allTraits[i]] = @(arc4random()%MAX_TRAIT_LEVEL);
         }
     }
     // using selectedTraits, updates existing or creates new traits, and removes unselected traits from user relation
@@ -278,9 +281,6 @@
                     [[PFUser currentUser] saveInBackground];
                 }
             }];
-
-            //allLevels[trait] = @(0);
-            allLevels[trait] = @(arc4random()%MAX_TRAIT_LEVEL);
         }
 
         completion(); // goes to startAdjustingTraits
@@ -338,6 +338,10 @@
 
         for (PFObject *object in objects) {
             if ([allSelectedTraits containsObject:object[@"trait"]]) {
+                if (!allLevels[object[@"trait"]]) {
+                    // shouldn't happen - prevent crash
+                    allLevels[object[@"trait"]] = @0;
+                }
                 object[@"level"] = allLevels[object[@"trait"]];
                 [processedTraits addObject:object[@"trait"]];
                 [object saveInBackground];
