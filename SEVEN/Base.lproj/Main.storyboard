@@ -357,10 +357,10 @@
             </objects>
             <point key="canvasLocation" x="101" y="342"/>
         </scene>
-        <!--Profile Fast Scroll View Controller-->
+        <!--Profile Mini View Controller-->
         <scene sceneID="9rB-hF-t97">
             <objects>
-                <viewController storyboardIdentifier="ProfileFastScrollViewController" id="iyQ-kl-NeZ" customClass="ProfileFastScrollViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileMiniViewController" id="iyQ-kl-NeZ" customClass="ProfileMiniViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEh-zv-fcA"/>
                         <viewControllerLayoutGuide type="bottom" id="yKo-b4-ZUd"/>
@@ -402,38 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lO7-fJ-zTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="598" y="949"/>
-        </scene>
-        <!--Profile Paged Browser View Controller-->
-        <scene sceneID="3Y7-On-5us">
-            <objects>
-                <viewController storyboardIdentifier="ProfilePagedBrowserViewController" id="Z6X-Nd-0oc" customClass="ProfilePagedBrowserViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="otj-jS-JD1"/>
-                        <viewControllerLayoutGuide type="bottom" id="tNV-zJ-PAq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qtn-S9-esw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kV8-wA-VXu">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Z6X-Nd-0oc" id="vHm-F4-nKn"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="xxp-NB-gR9"/>
-                    <connections>
-                        <outlet property="scrollView" destination="kV8-wA-VXu" id="SeU-mc-kMg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QoN-Tx-50P" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1113" y="266"/>
+            <point key="canvasLocation" x="598" y="968"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B6c-xr-Naq">
@@ -1340,6 +1309,53 @@ Show off your smile by creating a visual profile.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Thg-49-AzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3542" y="-246"/>
+        </scene>
+        <!--Profile Full View Controller-->
+        <scene sceneID="YyV-Dj-Oqm">
+            <objects>
+                <viewController storyboardIdentifier="ProfileFullViewController" id="cdk-2G-l5c" customClass="ProfileFullViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WsM-5Z-LLo"/>
+                        <viewControllerLayoutGuide type="bottom" id="u4E-BV-AdP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NpO-Kq-QVR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tvF-Re-j4C">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewLayout key="collectionViewLayout" id="iaJ-K1-jcJ" customClass="SmallPaged2FlowLayout"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="ssG-Ih-lUH">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <size key="customSize" width="320" height="480"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="cdk-2G-l5c" id="G7I-dj-0yu"/>
+                                    <outlet property="delegate" destination="cdk-2G-l5c" id="wpn-9B-5UL"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ng9-2T-zKE"/>
+                    <connections>
+                        <outlet property="_collectionView" destination="tvF-Re-j4C" id="X2w-V8-el9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7So-OZ-6th" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1113" y="968"/>
         </scene>
     </scenes>
     <resources>

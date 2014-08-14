@@ -7,10 +7,11 @@
 //
 
 #import "ShellViewController.h"
-#import "ProfilePagedBrowserViewController.h"
-#import "ProfileFastScrollViewController.h"
+#import "ProfileMiniViewController.h"
 #import "MBProgressHUD.h"
 #import "FacebookHelper.h"
+#import "ProfileFullViewController.h"
+#import "ProfileViewController.h"
 
 @interface ShellViewController ()
 
@@ -54,15 +55,16 @@
                 }
             }
             [progress hide:YES];
-            [self switchToPagedProfile];
+            [self switchToFullProfile];
         }
     }];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(didClickLogOut:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(didClickLogOut:)];
+
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFastProfile) name:@"profile:full:tapped" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToPagedProfile) name:@"profile:fastscroll:tapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToMiniProfile) name:@"profile:full:tapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullProfile) name:@"profile:fastscroll:tapped" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,34 +73,53 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)switchToPagedProfile {
-    NSLog(@"Switching to paged");
-    if (!pagedProfile) {
-        pagedProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfilePagedBrowserViewController"];
-        pagedProfile.delegate = self;
-        pagedProfile.allUsers = allUsers;
-        [self.view addSubview:pagedProfile.view];
+-(void)switchToFullProfile {
+    NSLog(@"Switching to full");
+    if (!fullProfile) {
+        fullProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileFullViewController"];
+        fullProfile.delegate = self;
+        fullProfile.allUsers = allUsers;
+        [self.view addSubview:fullProfile.view];
     }
-    [pagedProfile jumpToPage:currentPage animated:NO];
+    [fullProfile jumpToPage:currentPage animated:NO];
+
+    ProfileViewController *profileView = miniProfile.currentProfile;
+    [self.view addSubview:profileView.view];
+    profileView.view.center = self.view.center;
+    float scale = self.view.frame.size.width / SMALL_PAGE_WIDTH;
     [UIView animateWithDuration:.5 animations:^{
-        [fastProfile.view setAlpha:0];
-        [pagedProfile.view setAlpha:1];
+        profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
+    } completion:^(BOOL finished) {
+        [miniProfile.view setAlpha:0];
+        [fullProfile.view setAlpha:1];
+        [fullProfile refresh];
+        [profileView.view removeFromSuperview];
+        profileView.view.transform = CGAffineTransformIdentity;
     }];
 }
 
--(void)switchToFastProfile {
+-(void)switchToMiniProfile {
     NSLog(@"Switching to fast");
-    if (!fastProfile) {
-        fastProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileFastScrollViewController"];
-        fastProfile.delegate = self;
-        fastProfile.allUsers = allUsers;
-        [self.view addSubview:fastProfile.view];
+    if (!miniProfile) {
+        miniProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileMiniViewController"];
+        miniProfile.delegate = self;
+        miniProfile.allUsers = allUsers;
+        [self.view addSubview:miniProfile.view];
     }
-    [fastProfile jumpToPage:currentPage animated:NO];
+    [miniProfile jumpToPage:currentPage animated:NO];
+
+    ProfileViewController *profileView = fullProfile.currentProfile;
+    [self.view addSubview:profileView.view];
+    profileView.view.center = self.view.center;
+    float scale = SMALL_PAGE_WIDTH / self.view.frame.size.width;
+    [fullProfile.view setAlpha:0];
+    [miniProfile.view setAlpha:1];
     [UIView animateWithDuration:.5 animations:^{
-        [pagedProfile.view setAlpha:0];
-        [fastProfile.view setAlpha:1];
+        profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
     } completion:^(BOOL finished) {
+        [miniProfile refresh];
+        [profileView.view removeFromSuperview];
+        profileView.view.transform = CGAffineTransformIdentity;
     }];
 
 }
