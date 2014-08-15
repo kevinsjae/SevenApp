@@ -206,7 +206,7 @@ static NSArray *movieList;
     progress.labelText = @"Connecting to Facebook...";
     progress.mode = MBProgressHUDModeIndeterminate;
     NSLog(@"Trying to log in");
-    [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
+    [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends", @"user_about_me", @"user_birthday", @"user_location"] block:^(PFUser *user, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
             [self.buttonFacebook setUserInteractionEnabled:YES];

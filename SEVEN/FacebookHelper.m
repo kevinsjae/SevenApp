@@ -12,7 +12,10 @@
 @implementation FacebookHelper
 
 +(void)updateFacebookUserInfoWithCompletion:(void(^)(id result))completion {
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+//    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    NSString *graphPath = @"me";
+    //    [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error){
+    [FBRequestConnection startWithGraphPath:graphPath completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             PFUser *user = [PFUser currentUser];
             NSString *name = result[@"name"];
@@ -181,6 +184,8 @@
         NSString *fbId = result[@"id"];
         NSString *email = result[@"email"];
         NSString *firstName = result[@"first_name"];
+        NSDictionary *loc = result[@"location"];
+        NSString *gender = result[@"gender"];
 
         if (name)
             user[@"name"] = name;
@@ -190,6 +195,13 @@
             user[@"email"] = email;
         if (firstName)
             user[@"firstName"] = firstName;
+        if (loc) {
+            if (loc[@"name"])
+                user[@"location"] = loc[@"name"];
+        }
+        if (gender)
+            user[@"gender"] = gender;
+
         [user saveInBackground];
 
         PFQuery *query = [PFQuery queryWithClassName:@"FacebookFriend"];
