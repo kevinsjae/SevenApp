@@ -24,6 +24,7 @@
     // if keep getting error com.facebook.sdk Code=2, must log out of facebook app and facebook setting on iphone, delete app, and try again
 
     PFUser *user = [PFUser currentUser];
+#if 0
     if (user) {
         NSLog(@"Logged in");
         [self goToProfile];
@@ -31,6 +32,7 @@
     else {
         NSLog(@"Not logged in");
     }
+#endif
 
 #if TESTING
     NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
