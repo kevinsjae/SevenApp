@@ -179,8 +179,8 @@
 -(void)setupCamera {
     cameraController = [[BRCameraViewController alloc] init];
     [cameraController setDelegate:self];
-    [cameraController toggleCamera:nil];
     [self.navigationController presentViewController:cameraController animated:NO completion:nil];
+    [cameraController toggleCamera:nil];
 
     CGRect frame = self.view.frame;
     [cameraController addOverlayToFrame:frame]; // avoid the nav bar

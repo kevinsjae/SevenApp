@@ -878,7 +878,7 @@
 				GCC_PREFIX_HEADER = "SEVEN/SEVEN-Prefix.pch";
 				INFOPLIST_FILE = "SEVEN/SEVEN-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0e5a3a62-0352-48eb-bb41-79ef59892757";
+				PROVISIONING_PROFILE = "1047f0f3-ad5d-4a73-8ee9-08c4cd9caa0d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -57,7 +57,6 @@
     self.profileVideo = [self.user objectForKey:@"profileVideo"];
     [self.profileVideo fetchIfNeeded];
     [self playCurrentMedia];
-    self.view.backgroundColor = [self randomColorFromLastColor:nil lastTwo:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
