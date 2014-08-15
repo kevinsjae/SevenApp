@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ProfileDescriptionDelegate <NSObject>
+
+-(void)didClickExpand;
+
+@end
 @interface ProfileDescriptionView : UIView
 @property (nonatomic) PFUser *user;
+@property (nonatomic, weak) id delegate;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonExpand;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
@@ -24,4 +30,6 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintNameWidth;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintDescriptionHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintLookingForHeight;
+
+-(void)setupWithUser:(PFUser *)_user;
 @end
