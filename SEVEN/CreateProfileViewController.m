@@ -179,7 +179,7 @@
 -(void)setupCamera {
     cameraController = [[BRCameraViewController alloc] init];
     [cameraController setDelegate:self];
-//    [self.view addSubview:cameraController.view];
+    [cameraController toggleCamera:nil];
     [self.navigationController presentViewController:cameraController animated:NO completion:nil];
 
     CGRect frame = self.view.frame;

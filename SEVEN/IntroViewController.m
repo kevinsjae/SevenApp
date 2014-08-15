@@ -12,6 +12,7 @@
 #import "FacebookHelper.h"
 #import "EffectsUtils.h"
 #import "MBProgressHUD.h"
+#import <Parse/Parse.h>
 
 static NSArray *movieList;
 
@@ -45,6 +46,10 @@ static NSArray *movieList;
     [self.pageControl setCurrentPage:0];
 
     [self setupFonts];
+
+    // if using loginView
+    //self.loginView.readPermissions = @[@"public_profile"];
+    self.loginView = nil;
 }
 
 -(void)setupFonts {
@@ -187,12 +192,14 @@ static NSArray *movieList;
         [self.buttonFacebook layoutIfNeeded];
         [self.buttonFacebook2 layoutIfNeeded];
     }];
-//#else
+
     self.buttonFacebook.alpha = 0;
     self.buttonFacebook2.alpha = 0;
+    self.loginView.alpha = 0;
     [UIView animateWithDuration:duration animations:^{
         self.buttonFacebook.alpha = 1;
         self.buttonFacebook2.alpha = 1;
+        self.loginView.alpha = 1;
     }];
 #endif
 }
@@ -206,14 +213,24 @@ static NSArray *movieList;
     progress.labelText = @"Connecting to Facebook...";
     progress.mode = MBProgressHUDModeIndeterminate;
     NSLog(@"Trying to log in");
-    [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends", @"user_about_me", @"user_birthday", @"user_location"] block:^(PFUser *user, NSError *error) {
+
+    NSArray *permissions = @[@"public_profile", @"email", @"user_friends", @"user_about_me", @"user_birthday", @"user_location"];
+    [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
             [self.buttonFacebook setUserInteractionEnabled:YES];
             [self.buttonFacebook2 setUserInteractionEnabled:YES];
             progress.labelText = @"Facebook error";
-            progress.detailsLabelText = [NSString stringWithFormat:@"Could not connect your Facebook profile. Error: %@", error.userInfo[@"NSLocalizedFailureReason"]];
-            [progress hide:YES afterDelay:3];
+            progress.mode = MBProgressHUDModeText;
+            if (error.code == 2) {
+                // this is a stupid facebook error that comes up because facebook is integrated in the phone
+                progress.detailsLabelText = @"Please clear your Facebook session by going to Settings > Facebook and select Delete account.";
+                [progress hide:YES afterDelay:5];
+            }
+            else {
+                progress.detailsLabelText = [NSString stringWithFormat:@"Could not connect your Facebook profile. Error: %@", error.userInfo[@"NSLocalizedFailureReason"]];
+                [progress hide:YES afterDelay:3];
+            }
         }
         else {
             [progress hide:YES];
@@ -229,4 +246,64 @@ static NSArray *movieList;
     }];
 }
 
+#pragma mark FBLoginViewDelegate { 
+// these are used if FBLoginButton is used.
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
+                            user:(id<FBGraphUser>)user {
+
+    // link current user
+    NSLog(@"User: %@", user);
+
+    NSString *username = user[@"email"];
+    NSString *password = user[@"id"];
+
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+        NSLog(@"User: %@", user);
+        if (error.code == 101) {
+            // sign up
+            PFUser *user = [PFUser user];
+            user.username = username;
+            user.password = password;
+            [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+        }
+    }];
+}
+
+- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
+    NSString *alertMessage, *alertTitle;
+
+    // If the user should perform an action outside of you app to recover,
+    // the SDK will provide a message for the user, you just need to surface it.
+    // This conveniently handles cases like Facebook password change or unverified Facebook accounts.
+    if ([FBErrorUtility shouldNotifyUserForError:error]) {
+        alertTitle = @"Facebook error";
+        alertMessage = [FBErrorUtility userMessageForError:error];
+
+        // This code will handle session closures that happen outside of the app
+        // You can take a look at our error handling guide to know more about it
+        // https://developers.facebook.com/docs/ios/errors
+    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
+        alertTitle = @"Session Error";
+        alertMessage = @"Your current session is no longer valid. Please log in again.";
+
+        // If the user has cancelled a login, we will do nothing.
+        // You can also choose to show the user a message if cancelling login will result in
+        // the user not being able to complete a task they had initiated in your app
+        // (like accessing FB-stored information or posting to Facebook)
+    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
+        NSLog(@"user cancelled login");
+
+        // For simplicity, this sample handles other errors with a generic message
+        // You can checkout our error handling guide for more detailed information
+        // https://developers.facebook.com/docs/ios/errors
+    } else {
+        alertTitle  = @"Something went wrong";
+        alertMessage = @"Please try again later.";
+        NSLog(@"Unexpected error:%@", error);
+    }
+
+    [UIAlertView alertViewWithTitle:alertTitle message:alertMessage];
+}
 @end

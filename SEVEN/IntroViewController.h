@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class AVPlayer;
-@interface IntroViewController : UIViewController <UIScrollViewDelegate>
+@class FBLoginView;
+@interface IntroViewController : UIViewController <UIScrollViewDelegate, FBLoginViewDelegate>
 {
     NSMutableArray *players;
 }
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIView *barRed;
 @property (weak, nonatomic) IBOutlet UIView *barBlue;
 @property (weak, nonatomic) IBOutlet UIView *barGreen;
+@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
 @property (weak, nonatomic) IBOutlet UIButton *buttonFacebook;
 @property (weak, nonatomic) IBOutlet UIButton *buttonFacebook2;
 

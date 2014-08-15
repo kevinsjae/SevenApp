@@ -235,5 +235,4 @@
     // does this really log us out?
     [[FBSession activeSession] closeAndClearTokenInformation];
 }
-
 @end
