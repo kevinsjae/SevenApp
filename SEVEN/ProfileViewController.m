@@ -12,6 +12,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "TraitAdjustorCell.h"
+#import "ProfileDescriptionView.h"
 
 @implementation ProfileViewController
 -(void)viewDidLoad {
@@ -23,13 +24,14 @@
         [self loadUserInfo];
     }];
 
-    [self setupFonts];
     allColors = [NSMutableArray array];
 
     if (self.hideTable) {
         [tableview setHidden:YES];
-        [viewName setHidden:YES];
+        [viewInfo setHidden:YES];
     }
+
+    initialOffset = constraintNameOffset.constant;
 }
 
 -(void)loadUserInfo {
@@ -40,18 +42,8 @@
     self.facebookFriend = [self.user objectForKey:@"facebookFriend"];
     [self.facebookFriend fetchIfNeeded];
 
-    self.name = self.facebookFriend[@"name"];
-    if (self.facebookFriend[@"firstName"])
-        self.name = self.facebookFriend[@"firstName"];
-    if (self.name) {
-        [labelName setText:self.name];
-        constraintNameHeight.constant = 60;
-        [viewName setNeedsLayout];
-        [viewName layoutIfNeeded];
-    }
-    else {
-        constraintNameHeight.constant = 120;
-    }
+    [viewInfo setupWithUser:self.user];
+    [viewInfo setDelegate:self];
 
     if (!self.hideTable) {
         PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
@@ -76,10 +68,6 @@
         // what a hack
         viewVideo.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(1.2, 1.2), -50, 0);
     }
-}
-
--(void)setupFonts {
-    [labelName setFont:FontMedium(16)];
 }
 
 #pragma mark Video
@@ -229,6 +217,20 @@
 
         return newColor;
     }
+}
+
+#pragma mark ProfileDescriptionDelegate
+-(void)didClickExpand {
+    if (constraintNameOffset.constant < initialOffset) {
+        [constraintNameOffset setConstant:initialOffset];
+    }
+    else {
+        [constraintNameOffset setConstant:40];
+    }
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 @end

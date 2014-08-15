@@ -22,8 +22,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view hidden="YES" alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L7b-2U-X02" userLabel="View - bg">
-                    <rect key="frame" x="298" y="1" width="320" height="568"/>
+                <view alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L7b-2U-X02" userLabel="View - bg">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -44,6 +44,9 @@
                     <state key="normal" image="uparrow_white.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="didClickExpand:" destination="-1" eventType="touchUpInside" id="BwW-db-uaF"/>
+                    </connections>
                 </button>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="location.png" translatesAutoresizingMaskIntoConstraints="NO" id="82t-1W-RPz">
                     <rect key="frame" x="31" y="62" width="20" height="20"/>
@@ -118,7 +121,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.4908759124" blue="0.69174840329999998" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="lyD-9v-Zbh" secondAttribute="centerX" id="3mF-7M-v3w"/>
                 <constraint firstItem="RBp-zo-6g1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="96Q-8L-3Gl"/>

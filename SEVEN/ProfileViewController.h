@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileDescriptionView.h"
 
 @class AVPlayer;
 @class AVPlayerLayer;
-@interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@class ProfileDescriptionView;
+@interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ProfileDescriptionDelegate>
 {
-    IBOutlet UIView *viewName;
-    IBOutlet UILabel *labelName;
-    IBOutlet NSLayoutConstraint *constraintNameHeight;
+    IBOutlet ProfileDescriptionView *viewInfo;
+    IBOutlet NSLayoutConstraint *constraintNameOffset;
+    float initialOffset;
 
     IBOutlet UIView *viewVideo;
 
