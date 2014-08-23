@@ -33,15 +33,21 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
+    UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, 320, 59)];
+    view.backgroundColor = UIColorFromHex(0x2b333f);
+    [self.navigationController.navigationBar insertSubview:view atIndex:0];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // this forces navigation controller to use light content bar
 
     progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     progress.mode = MBProgressHUDModeIndeterminate;
     progress.labelText = @"Loading users";
 
+#if AIRPLANE_MODE
+    allUsers = [@[[PFUser currentUser]] mutableCopy];
+    [self switchToFullProfile];
+#else
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         allUsers = [objects mutableCopy];
         if (error) {
@@ -59,7 +65,7 @@
             [self switchToFullProfile];
         }
     }];
-
+#endif
     UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"seven_icon_logo_white"]];
     titleView.contentMode = UIViewContentModeScaleAspectFit;
     [titleView setFrame:CGRectMake(0, 0, 90, 20)]; // todo: icon is not centered

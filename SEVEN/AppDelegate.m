@@ -15,6 +15,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+
+    // slightly higher title and buttons because nav bar is shorter
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setBackgroundVerticalPositionAdjustment:-2 forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setBackButtonBackgroundVerticalPositionAdjustment:-2 forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:-2 forBarMetrics:UIBarMetricsDefault];
+
+
     [Parse setApplicationId:@"HBwUDQrOSWLhK7Lx2yNYviQ6xe8sJHeBMkpoX3Mm"
                   clientKey:@"Oqu48KsSu2fg8SFEJjoAElCIqaSPDpPqxW5QceBM"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
