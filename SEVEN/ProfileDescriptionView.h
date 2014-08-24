@@ -33,7 +33,7 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintDescriptionHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintLookingForHeight;
 
--(void)setupWithUser:(PFUser *)_user;
+-(void)setupWithUser:(PFUser *)newUser;
 -(void)pointerUp;
 -(void)pointerDown;
 @end
