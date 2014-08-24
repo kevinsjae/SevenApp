@@ -19,7 +19,7 @@
 @property (nonatomic) PFUser *user;
 @property (nonatomic, weak) id delegate;
 
-@property (weak, nonatomic) IBOutlet UIButton *buttonExpand;
+@property (weak, nonatomic) IBOutlet UIImageView *viewExpand;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelGender;
 @property (weak, nonatomic) IBOutlet UILabel *labelAge;
@@ -34,4 +34,6 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintLookingForHeight;
 
 -(void)setupWithUser:(PFUser *)_user;
+-(void)pointerUp;
+-(void)pointerDown;
 @end

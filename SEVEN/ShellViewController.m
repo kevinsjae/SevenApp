@@ -68,7 +68,7 @@
 #endif
     UIImageView *titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"seven_icon_logo_white"]];
     titleView.contentMode = UIViewContentModeScaleAspectFit;
-    [titleView setFrame:CGRectMake(0, 0, 90, 20)]; // todo: icon is not centered
+    [titleView setFrame:CGRectMake(0, 0, 90, 20)];
     self.navigationItem.titleView = titleView;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToMiniProfile) name:@"profile:full:tapped" object:nil];

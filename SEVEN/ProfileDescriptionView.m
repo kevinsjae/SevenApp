@@ -113,4 +113,12 @@
 -(IBAction)didClickExpand:(id)sender {
     [self.delegate didClickExpand];
 }
+
+-(void)pointerUp {
+    [self.viewExpand setTransform:CGAffineTransformIdentity];
+}
+
+-(void)pointerDown {
+    [self.viewExpand setTransform:CGAffineTransformMakeRotation(M_PI)];
+}
 @end

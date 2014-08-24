@@ -14,6 +14,7 @@
                 <outlet property="labelLookingForTitle" destination="md4-bz-IQS" id="GJU-yr-FPg"/>
                 <outlet property="labelName" destination="lyD-9v-Zbh" id="mot-GX-Uic"/>
                 <outlet property="labelOrientation" destination="V7Q-Vh-4fz" id="ude-DY-m30"/>
+                <outlet property="viewExpand" destination="6Xo-zp-aFQ" id="kTs-x9-vn6"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

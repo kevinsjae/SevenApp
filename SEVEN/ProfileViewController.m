@@ -35,6 +35,9 @@
     }
 
     initialOffset = constraintNameOffset.constant;
+
+    // todo: viewInfo and tableview must be resized based on screen
+    [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 -(void)createFakeTraits {
@@ -54,8 +57,27 @@
     PFObject *trait4 = [PFObject objectWithClassName:@"Trait"];
     trait4[@"trait"] = @"Witty4";
     trait4[@"level"] = @99;
+    PFObject *trait5 = [PFObject objectWithClassName:@"Trait"];
+    trait5[@"trait"] = @"Witty4";
+    trait5[@"level"] = @99;
+    PFObject *trait6 = [PFObject objectWithClassName:@"Trait"];
+    trait6[@"trait"] = @"Witty4";
+    trait6[@"level"] = @99;
+    PFObject *trait7 = [PFObject objectWithClassName:@"Trait"];
+    trait7[@"trait"] = @"Witty4";
+    trait7[@"level"] = @99;
+    PFObject *trait8 = [PFObject objectWithClassName:@"Trait"];
+    trait8[@"trait"] = @"Witty4";
+    trait8[@"level"] = @99;
+    PFObject *trait9 = [PFObject objectWithClassName:@"Trait"];
+    trait9[@"trait"] = @"Witty4";
+    trait9[@"level"] = @99;
+    PFObject *trait10 = [PFObject objectWithClassName:@"Trait"];
+    trait10[@"trait"] = @"Witty4";
+    trait10[@"level"] = @99;
 
-    self.traits = @[trait0, trait1, trait2, trait3, trait4];
+
+    self.traits = @[trait0, trait1, trait2, trait3, trait4, trait5, trait6, trait7, trait8, trait9, trait10];
     [self randomizeColors];
 #endif
 }
@@ -145,6 +167,10 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"status"]) {
         NSLog(@"Status: %@", change);
+    }
+    else {
+        NSLog(@"%@ %@", keyPath, change);
+        [self reloadData];
     }
 }
 
@@ -255,6 +281,9 @@
 
 #pragma mark ProfileDescriptionDelegate
 -(void)didClickExpand {
+    // constraintNameOffset is based on vertical distance from the bottom of the screen. That means when
+    // it is down, it is at -40, and when it is up, it should be at -(screensize) < -40
+    // initialOffset should always be -40
     if (constraintNameOffset.constant < initialOffset) {
         [self expandDown];
     }
@@ -270,16 +299,20 @@
     [self.view setNeedsUpdateConstraints];
     [UIView animateWithDuration:.2 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [viewInfo pointerUp];
     }];
 }
 
 -(void)expandUp {
     if (!(constraintNameOffset.constant < initialOffset)) {
-        [constraintNameOffset setConstant:40];
+        [constraintNameOffset setConstant:-(tableview.frame.size.height+1)];
     }
     [self.view setNeedsUpdateConstraints];
     [UIView animateWithDuration:.2 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [viewInfo pointerDown];;
     }];
 }
 
