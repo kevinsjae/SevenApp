@@ -256,13 +256,29 @@
 #pragma mark ProfileDescriptionDelegate
 -(void)didClickExpand {
     if (constraintNameOffset.constant < initialOffset) {
-        [constraintNameOffset setConstant:initialOffset];
+        [self expandDown];
     }
     else {
+        [self expandUp];
+    }
+}
+
+-(void)expandDown {
+    if (constraintNameOffset.constant < initialOffset) {
+        [constraintNameOffset setConstant:initialOffset];
+    }
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(void)expandUp {
+    if (!(constraintNameOffset.constant < initialOffset)) {
         [constraintNameOffset setConstant:40];
     }
     [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration:.5 animations:^{
+    [UIView animateWithDuration:.2 animations:^{
         [self.view layoutIfNeeded];
     }];
 }

@@ -11,6 +11,8 @@
 @protocol ProfileDescriptionDelegate <NSObject>
 
 -(void)didClickExpand;
+-(void)expandUp;
+-(void)expandDown;
 
 @end
 @interface ProfileDescriptionView : UIView

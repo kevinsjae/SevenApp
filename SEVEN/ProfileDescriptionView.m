@@ -30,6 +30,15 @@
         mainView.frame = self.bounds;
 
         [self addSubview:mainView];
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [self addGestureRecognizer:tap];
+        UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [swipeUp setDirection:UISwipeGestureRecognizerDirectionUp];
+        [self addGestureRecognizer:swipeUp];
+        UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [swipeDown setDirection:UISwipeGestureRecognizerDirectionDown];
+        [self addGestureRecognizer:swipeDown];
     }
     return self;
 }
@@ -83,6 +92,24 @@
 }
 */
 
+-(void)handleGesture:(UIGestureRecognizer *)gesture {
+    if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
+        if (gesture.state == UIGestureRecognizerStateEnded) {
+            [self.delegate didClickExpand];
+        }
+    }
+    else if ([gesture isKindOfClass:[UISwipeGestureRecognizer class]]) {
+        UISwipeGestureRecognizer *swipe = (UISwipeGestureRecognizer *)gesture;
+        if (gesture.state == UIGestureRecognizerStateEnded) {
+            if (swipe.direction == UISwipeGestureRecognizerDirectionUp) {
+                [self.delegate expandUp];
+            }
+            else {
+                [self.delegate expandDown];
+            }
+        }
+    }
+}
 -(IBAction)didClickExpand:(id)sender {
     [self.delegate didClickExpand];
 }
