@@ -115,7 +115,6 @@
     page = _page;
     float offsetX = page * [self pageWidth];
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
-    NSLog(@"offset: %f", _collectionView.contentOffset.x);
 }
 
 -(float)pageWidth {

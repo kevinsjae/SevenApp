@@ -157,7 +157,6 @@ static NSArray *movieList;
             [UIView animateWithDuration:duration/3.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 [self.viewLogo layoutIfNeeded];
             } completion:^(BOOL finished) {
-                NSLog(@"Done");
             }];
         }];
     }];

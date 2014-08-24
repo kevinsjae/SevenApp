@@ -19,13 +19,16 @@
     if (!self.user) {
         self.user = [PFUser currentUser];
     }
+    allColors = [NSMutableArray array];
 
+#if AIRPLANE_MODE
+    [self loadUserInfo];
+#else
     [self.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         [self loadUserInfo];
     }];
-
-    allColors = [NSMutableArray array];
-
+#endif
+    
     if (self.hideTable) {
         [tableview setHidden:YES];
         [viewInfo setHidden:YES];
@@ -34,28 +37,60 @@
     initialOffset = constraintNameOffset.constant;
 }
 
+-(void)createFakeTraits {
+#if TESTING & AIRPLANE_MODE
+    PFObject *trait0 = [PFObject objectWithClassName:@"Trait"];
+    trait0[@"trait"] = @"Witty0";
+    trait0[@"level"] = @0;
+    PFObject *trait1 = [PFObject objectWithClassName:@"Trait"];
+    trait1[@"trait"] = @"Witty1";
+    trait1[@"level"] = @25;
+    PFObject *trait2 = [PFObject objectWithClassName:@"Trait"];
+    trait2[@"trait"] = @"Witty2";
+    trait2[@"level"] = @50;
+    PFObject *trait3 = [PFObject objectWithClassName:@"Trait"];
+    trait3[@"trait"] = @"Witty3";
+    trait3[@"level"] = @75;
+    PFObject *trait4 = [PFObject objectWithClassName:@"Trait"];
+    trait4[@"trait"] = @"Witty4";
+    trait4[@"level"] = @99;
+
+    self.traits = @[trait0, trait1, trait2, trait3, trait4];
+    [self randomizeColors];
+#endif
+}
+
 -(void)loadUserInfo {
     CGRect bounds = self.view.bounds;
     // load things that require the user to be fully loaded
     NSLog(@"Loading userInfo for %@", self.user[@"name"]);
 
     self.facebookFriend = [self.user objectForKey:@"facebookFriend"];
+#if !AIRPLANE_MODE
     [self.facebookFriend fetchIfNeeded];
-
+#endif
+    
     [viewInfo setupWithUser:self.user];
     [viewInfo setDelegate:self];
 
     if (!self.hideTable) {
+#if TESTING & AIRPLANE_MODE
+        [self createFakeTraits];
+        [self reloadData];
+#else
         PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
         [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.traits = objects;
             [self randomizeColors];
             [self reloadData];
         }];
+#endif
     }
 
     self.profileVideo = [self.user objectForKey:@"profileVideo"];
+#if !AIRPLANE_MODE
     [self.profileVideo fetchIfNeeded];
+#endif
     [self playCurrentMedia];
 }
 
@@ -139,7 +174,7 @@
 
 #pragma mark TableViewDataSource
 -(void)reloadData {
-    int toShow = MIN(self.traits.count, 3);
+    int toShow = MIN(self.traits.count, 2);
     int offset = tableview.frame.size.height - toShow * TRAIT_HEIGHT;
     tableview.contentInset = UIEdgeInsetsMake(offset, 0, 0, 0);
     [tableview reloadData];
