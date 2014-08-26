@@ -92,12 +92,16 @@
     [fullProfile jumpToPage:currentPage animated:NO];
 
     ProfileViewController *profileView = miniProfile.currentProfile;
+
     [self.view addSubview:profileView.view];
     profileView.view.center = self.view.center;
     float scale = self.view.frame.size.width / SMALL_PAGE_WIDTH;
     [UIView animateWithDuration:.5 animations:^{
         profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
     } completion:^(BOOL finished) {
+        CMTime currentTime = profileView.currentVideoOffset;
+        [fullProfile.currentProfile jumpToVideoTime:currentTime];
+
         [miniProfile.view setAlpha:0];
         [fullProfile.view setAlpha:1];
         [fullProfile refresh];
@@ -125,6 +129,9 @@
     [UIView animateWithDuration:.5 animations:^{
         profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
     } completion:^(BOOL finished) {
+        CMTime currentTime = profileView.currentVideoOffset;
+        [miniProfile.currentProfile jumpToVideoTime:currentTime];
+
         [miniProfile refresh];
         [profileView.view removeFromSuperview];
         profileView.view.transform = CGAffineTransformIdentity;

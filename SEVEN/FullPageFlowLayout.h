@@ -1,5 +1,5 @@
 //
-//  SmallPaged2FlowLayout.h
+//  FullPageFlowLayout.h
 //  SEVEN
 //
 //  Created by Bobby Ren on 8/14/14.
@@ -8,6 +8,6 @@
 
 #import "SmallPagedFlowLayout.h"
 
-@interface SmallPaged2FlowLayout : SmallPagedFlowLayout
+@interface FullPageFlowLayout : SmallPagedFlowLayout
 
 @end

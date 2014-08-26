@@ -1,14 +1,14 @@
 //
-//  SmallPaged2FlowLayout.m
+//  FullPageFlowLayout.m
 //  SEVEN
 //
 //  Created by Bobby Ren on 8/14/14.
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "SmallPaged2FlowLayout.h"
+#import "FullPageFlowLayout.h"
 
-@implementation SmallPaged2FlowLayout
+@implementation FullPageFlowLayout
 
 - (CGSize)collectionViewContentSize
 {

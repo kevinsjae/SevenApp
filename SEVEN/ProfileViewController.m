@@ -7,7 +7,6 @@
 //
 
 #import "ProfileViewController.h"
-#import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -156,9 +155,12 @@
     player = [[AVPlayer alloc] initWithPlayerItem:item];
     [player addObserver:self forKeyPath:@"status" options:0 context:nil];
 
-    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
-    layer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [viewVideo.layer addSublayer:layer];
+    if (self.playerLayer) {
+        [self.playerLayer removeFromSuperlayer];
+    }
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+    self.playerLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [viewVideo.layer addSublayer:self.playerLayer];
 
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
     [self readyToPlay];
@@ -196,6 +198,18 @@
     AVPlayerItem *item = n.object;
     [self readyToPlay];
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
+}
+
+-(CMTime)currentVideoOffset {
+    return player.currentItem.currentTime;
+}
+
+-(void)jumpToVideoTime:(CMTime)newTime {
+    [player seekToTime:newTime];
+}
+
+-(AVPlayer *)player {
+    return player;
 }
 
 #pragma mark TableViewDataSource

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfileDescriptionView.h"
+#import <AVFoundation/AVFoundation.h>
 
 @class AVPlayer;
 @class AVPlayerLayer;
@@ -33,4 +34,10 @@
 @property (nonatomic) PFObject *profileVideo;
 @property (nonatomic) NSArray *traits;
 @property (nonatomic) BOOL hideTable;
+
+-(AVPlayer *)player;
+@property (nonatomic) AVPlayerLayer *playerLayer;
+
+-(CMTime)currentVideoOffset;
+-(void)jumpToVideoTime:(CMTime)newTime;
 @end
