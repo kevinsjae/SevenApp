@@ -118,6 +118,7 @@
 #if !AIRPLANE_MODE
     [self.profileVideo fetchIfNeeded];
 #endif
+    /*
     PFFile *imageFile = self.profileVideo[@"thumb"];
     [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
@@ -125,6 +126,7 @@
             viewVideoFrame.image = image;
         }
     }];
+     */
     [self playCurrentMedia];
 }
 
@@ -140,26 +142,18 @@
 
 #pragma mark Video
 -(void)playCurrentMedia {
-    NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/%@.mp4", documentsDirectory,self.user.objectId];
-
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    if ([fileManager fileExistsAtPath:filePath]) {
-        NSURL *profileVideoURL = [NSURL fileURLWithPath:filePath];
-        [self playMedia:profileVideoURL];
+    PFFile *file = self.profileVideo[@"video"];
+    if (!file) {
+        NSLog(@"No video loaded");
+        [self.profileVideo fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            PFFile *file = self.profileVideo[@"video"];
+            NSURL *url = [NSURL URLWithString:[file url]];
+            [self playMedia:url];
+        }];
     }
     else {
-        PFFile *file = self.profileVideo[@"video"];
-        if (!file) {
-            NSLog(@"No video loaded");
-        }
-        // load videos locally. not ideal, but it seems to be fine without having to stream it
-        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            [data writeToFile:filePath atomically:YES];
-            NSURL *profileVideoURL = [NSURL fileURLWithPath:filePath];
-            [self playMedia:profileVideoURL];
-        }];
+        NSURL *url = [NSURL URLWithString:[file url]];
+        [self playMedia:url];
     }
 }
 

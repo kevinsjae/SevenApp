@@ -191,7 +191,7 @@
 
         NSURL *url = [NSURL fileURLWithPath:myPathDocs];
 
-        AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetMediumQuality];
+        AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
         exporter.outputURL=url;
         exporter.outputFileType = AVFileTypeQuickTimeMovie;
         exporter.videoComposition = MainCompositionInst;
@@ -262,7 +262,8 @@
     // save video to parse
     NSData *data = [NSData dataWithContentsOfURL:profileVideoURL];
     int length = data.length;
-    PFFile *file = [PFFile fileWithData:data];
+    NSString *name = [NSString stringWithFormat:@"profileVideo%@.mp4", [PFUser currentUser].objectId];
+    PFFile *file = [PFFile fileWithName:name data:data];
     MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     progress.mode = MBProgressHUDModeIndeterminate;
     progress.labelText = @"Saving video";
