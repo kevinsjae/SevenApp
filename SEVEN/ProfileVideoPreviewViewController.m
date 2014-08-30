@@ -191,7 +191,7 @@
 
         NSURL *url = [NSURL fileURLWithPath:myPathDocs];
 
-        AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+        AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetMediumQuality];
         exporter.outputURL=url;
         exporter.outputFileType = AVFileTypeQuickTimeMovie;
         exporter.videoComposition = MainCompositionInst;
@@ -227,9 +227,21 @@
 }
 */
 
+- (UIImage*)firstFrame {
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:profileVideoURL options:nil];
+    AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    NSError *err = NULL;
+    CMTime time = CMTimeMake(1, 60);
+    CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+    NSLog(@"err==%@, imageRef==%@", err, imgRef);
+
+    return [[UIImage alloc] initWithCGImage:imgRef];
+}
+
 -(void)saveVideoWithCompletion:(void(^)(BOOL success))competion {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 
+    
 #if 0
     // save to disk
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -241,8 +253,15 @@
                                     }];
     }
 #else
-    // save to parse
+
+    // save first frame to parse
+    UIImage *image = [self firstFrame];
+    NSData *imageData = UIImageJPEGRepresentation(image, kCGInterpolationDefault);
+    PFFile *frameFile = [PFFile fileWithData:imageData];
+
+    // save video to parse
     NSData *data = [NSData dataWithContentsOfURL:profileVideoURL];
+    int length = data.length;
     PFFile *file = [PFFile fileWithData:data];
     MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     progress.mode = MBProgressHUDModeIndeterminate;
@@ -262,6 +281,10 @@
                 videoObject = [PFObject objectWithClassName:@"ProfileVideo"];
             }
             videoObject[@"video"] = file;
+            [frameFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                videoObject[@"thumb"] = frameFile;
+                [videoObject saveInBackground];
+            }];
 
             // attach PFFile to a ProfileVideo object
             [videoObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

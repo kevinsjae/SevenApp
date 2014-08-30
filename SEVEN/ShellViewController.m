@@ -100,7 +100,8 @@
         profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
     } completion:^(BOOL finished) {
         CMTime currentTime = profileView.currentVideoOffset;
-        [fullProfile.currentProfile jumpToVideoTime:currentTime];
+        if (!CMTIME_IS_INVALID(currentTime))
+            [fullProfile.currentProfile jumpToVideoTime:currentTime];
 
         [miniProfile.view setAlpha:0];
         [fullProfile.view setAlpha:1];
@@ -130,7 +131,8 @@
         profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
     } completion:^(BOOL finished) {
         CMTime currentTime = profileView.currentVideoOffset;
-        [miniProfile.currentProfile jumpToVideoTime:currentTime];
+        if (!CMTIME_IS_INVALID(currentTime))
+            [miniProfile.currentProfile jumpToVideoTime:currentTime];
 
         [miniProfile refresh];
         [profileView.view removeFromSuperview];

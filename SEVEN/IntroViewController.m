@@ -207,6 +207,11 @@ static NSArray *movieList;
 - (IBAction)didClickButton:(id)sender {
     [self.buttonFacebook setUserInteractionEnabled:NO];
     [self.buttonFacebook2 setUserInteractionEnabled:NO];
+#if AIRPLANE_MODE
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
+    return;
+#endif
 
     MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     progress.labelText = @"Connecting to Facebook...";
