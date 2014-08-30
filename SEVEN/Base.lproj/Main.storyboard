@@ -200,6 +200,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZjG-Iu-Hlz" userLabel="View - video">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qdy-V3-MUD">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="41" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="W9o-uF-GJ1">
@@ -301,6 +307,7 @@
                         <outlet property="tableview" destination="W9o-uF-GJ1" id="Ros-5n-0wm"/>
                         <outlet property="viewInfo" destination="2yg-VF-IAb" id="Gvt-ku-HOI"/>
                         <outlet property="viewVideo" destination="ZjG-Iu-Hlz" id="gDi-9M-G15"/>
+                        <outlet property="viewVideoFrame" destination="Qdy-V3-MUD" id="YPu-QI-yEd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dgl-Xx-b8x" userLabel="First Responder" sceneMemberID="firstResponder"/>

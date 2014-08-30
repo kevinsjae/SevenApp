@@ -12,7 +12,7 @@
 #define _appDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
 #define _storyboard _appDelegate.window.rootViewController.storyboard
 
-#define TESTING 1
+#define TESTING 0
 #define AIRPLANE_MODE 0
 
 #define COL_RED [UIColor colorWithRed:225.0/255.0 green:44.0/255.0 blue:49.0/255.0 alpha:1]

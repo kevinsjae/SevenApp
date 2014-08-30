@@ -22,6 +22,7 @@
     float initialOffset;
 
     IBOutlet UIView *viewVideo;
+    IBOutlet UIImageView *viewVideoFrame;
 
     IBOutlet UITableView *tableview;
 
