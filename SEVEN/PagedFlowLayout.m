@@ -44,7 +44,7 @@
 
     CGRect cellFrame = CGRectZero;
     cellFrame.origin.x = column * (self.itemSize.width + self.minimumLineSpacing);
-    cellFrame.origin.y = row * (self.itemSize.height + self.minimumInteritemSpacing) + (canvasSize.height - self.itemSize.height)/2;
+    cellFrame.origin.y = row * (self.itemSize.height + self.minimumInteritemSpacing) + self.sectionInset.top;
     cellFrame.size.width = self.itemSize.width;
     cellFrame.size.height = self.itemSize.height;
 
@@ -108,7 +108,7 @@
 
 -(UIEdgeInsets)sectionInset {
     CGSize canvasSize = _appDelegate.window.bounds.size;
-    float top = 0;
+    float top = [self.delegate heightOffset];
     float bottom = 0;
     float left = (canvasSize.width - self.itemSize.width)/2;
     float right = left;

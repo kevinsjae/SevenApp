@@ -12,6 +12,7 @@
 
 -(int)spacing;
 -(CGSize)pageSize;
+-(int)heightOffset; // height from top for miniview
 
 @end
 
