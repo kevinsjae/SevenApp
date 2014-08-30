@@ -8,7 +8,7 @@
 
 #import "ProfileMiniViewController.h"
 #import "ProfileViewController.h"
-#import "SmallPagedFlowLayout.h"
+#import "PagedFlowLayout.h"
 
 @interface ProfileMiniViewController ()
 
@@ -34,13 +34,18 @@
     self.profileViewControllers = [NSMutableDictionary dictionary];
 
     // load all users
+    ((PagedFlowLayout *)(_collectionView.collectionViewLayout)).delegate = self;
     [_collectionView reloadData];
 
     [self setupGestures];
 }
 
 -(void)setupGestures {
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    doubleTap.numberOfTapsRequired = 2;
+    [_collectionView addGestureRecognizer:doubleTap];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [tap requireGestureRecognizerToFail:doubleTap];
     [_collectionView addGestureRecognizer:tap];
 }
 
@@ -58,7 +63,7 @@
         [controller setUser:user];
         self.profileViewControllers[user.objectId] = controller;
     }
-    [controller setHideTable:YES];
+    [controller setHideTable:self.isMini];
     return controller;
 }
 
@@ -68,6 +73,26 @@
 
 -(ProfileViewController *)currentProfile {
     return [self profileForIndex:[NSIndexPath indexPathForRow:page inSection:0]];
+}
+
+#pragma mark PagedFlowLayout delegate
+-(int)pageWidth {
+    if (self.isMini)
+        return SMALL_PAGE_WIDTH;
+    else
+        return _appDelegate.window.bounds.size.width;
+}
+
+-(int)pageHeight {
+    // depends on the device
+    // must preserve ratio or we get weird offsets at top and bottom
+    if (self.isMini) {
+        int width = self.pageWidth;
+        return width*SMALL_PAGE_RATIO;
+    }
+    else {
+        return _appDelegate.window.bounds.size.height;
+    }
 }
 
 #pragma mark CollectionView Datasource
@@ -116,9 +141,6 @@
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
 }
 
--(float)pageWidth {
-    return SMALL_PAGE_WIDTH;
-}
 #pragma mark – UICollectionViewDelegateFlowLayout
 // doesn't use these values if we have a custom flow layout
 
@@ -157,7 +179,16 @@
 #pragma mark tap
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:fastscroll:tapped" object:nil];
+        UITapGestureRecognizer *tap = (UITapGestureRecognizer *)gesture;
+
+        if (tap.numberOfTapsRequired == 2) {
+            if (!self.isMini)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:full:tapped" object:nil];
+        }
+        else {
+            if (self.isMini)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:mini:tapped" object:nil];
+        }
     }
 }
 @end

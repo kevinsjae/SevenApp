@@ -201,6 +201,9 @@
 }
 
 -(CMTime)currentVideoOffset {
+    AVPlayerItem *item = player.currentItem;
+    CMTime time = item.currentTime;
+    CMTime time2 = player.currentTime;
     return player.currentItem.currentTime;
 }
 

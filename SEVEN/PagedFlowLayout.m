@@ -1,14 +1,14 @@
 //
-//  SmallPagedFlowLayout.m
+//  PagedFlowLayout.m
 //  SEVEN
 //
 //  Created by Bobby Ren on 8/8/14.
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "SmallPagedFlowLayout.h"
+#import "PagedFlowLayout.h"
 
-@implementation SmallPagedFlowLayout
+@implementation PagedFlowLayout
 
 - (CGSize)collectionViewContentSize
 {
@@ -110,16 +110,15 @@
     CGSize canvasSize = _appDelegate.window.bounds.size;
     float top = 0;
     float bottom = 0;
-    float left = (canvasSize.width - SMALL_PAGE_WIDTH)/2;
+    float left = (canvasSize.width - [self.delegate pageWidth])/2;
     float right = left;
     return UIEdgeInsetsMake(top, left, bottom, right);
 }
- 
+
 -(CGSize)itemSize {
-    int width = SMALL_PAGE_WIDTH;
-    // must preserve ratio or we get weird offsets at top and bottom
-    CGSize canvasSize = _appDelegate.window.bounds.size;
-    return CGSizeMake(width, canvasSize.height/canvasSize.width*width);
+    int width = [self.delegate pageWidth];
+    int height = [self.delegate pageHeight];
+    return CGSizeMake(width, height);
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
