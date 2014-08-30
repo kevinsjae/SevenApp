@@ -340,7 +340,49 @@
                     <view key="view" contentMode="scaleToFill" id="dyz-Jt-geF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v3c-tS-y8x">
+                                <rect key="frame" x="59" y="370" width="203" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rco-UT-eCl">
+                                        <rect key="frame" x="20" y="43" width="163" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="163" id="1wE-PI-U5B"/>
+                                            <constraint firstAttribute="height" constant="40" id="gfZ-qB-Fw1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Frg-mY-QpZ" customClass="VideoProgressIndicator">
+                                        <rect key="frame" x="76" y="95" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="eF1-YU-f5g"/>
+                                            <constraint firstAttribute="height" constant="50" id="msH-PR-FrC"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Frg-mY-QpZ" firstAttribute="leading" secondItem="v3c-tS-y8x" secondAttribute="leading" constant="76" id="GF1-OC-QpM"/>
+                                    <constraint firstItem="Frg-mY-QpZ" firstAttribute="top" secondItem="Rco-UT-eCl" secondAttribute="bottom" constant="12" id="K0x-7h-pKo"/>
+                                    <constraint firstAttribute="centerX" secondItem="Rco-UT-eCl" secondAttribute="centerX" id="NuR-Y4-DqD"/>
+                                    <constraint firstAttribute="centerY" secondItem="Rco-UT-eCl" secondAttribute="centerY" id="XFQ-fs-PyT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.15294117647058825" green="0.20000000000000001" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="v3c-tS-y8x" firstAttribute="top" secondItem="zyf-9E-yeh" secondAttribute="bottom" constant="306" id="2pV-MW-YEk"/>
+                            <constraint firstItem="pwP-EL-Pp2" firstAttribute="top" secondItem="v3c-tS-y8x" secondAttribute="bottom" constant="73" id="orT-aj-Oo0"/>
+                            <constraint firstItem="v3c-tS-y8x" firstAttribute="leading" secondItem="dyz-Jt-geF" secondAttribute="leading" constant="59" id="tsb-8n-U3I"/>
+                            <constraint firstAttribute="trailing" secondItem="v3c-tS-y8x" secondAttribute="trailing" constant="58" id="uxf-g2-3Ql"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lUc-zv-NNk">
                         <barButtonItem key="leftBarButtonItem" image="menu_white.png" style="plain" id="RcS-OM-bNj">
@@ -356,6 +398,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="labelName" destination="Rco-UT-eCl" id="qfG-uc-9mE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mL0-3g-PYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -397,7 +442,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.15294117647058825" green="0.20000000000000001" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="zV5-E7-0Hi"/>
                     <connections>

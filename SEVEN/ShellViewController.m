@@ -43,6 +43,9 @@
     progress.mode = MBProgressHUDModeIndeterminate;
     progress.labelText = @"Loading users";
 
+    [labelName setFont:FontMedium(18)];
+    [self didScrollToPage:currentPage];
+
 #if AIRPLANE_MODE
     allUsers = [@[[PFUser currentUser]] mutableCopy];
     for (int i=0; i<5; i++) {
@@ -120,11 +123,14 @@
     } completion:^(BOOL finished) {
         [miniProfile refresh];
         miniProfile.view.transform = CGAffineTransformIdentity;
+        [self didScrollToPage:currentPage];
     }];
 }
 
 -(void)didScrollToPage:(int)page {
     currentPage = page;
+    PFUser *user = allUsers[page];
+    [labelName setText:[user[@"firstName"] uppercaseString]];
 }
 
 -(void)logout {

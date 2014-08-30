@@ -22,6 +22,7 @@
     NSMutableArray *allUsers;
 
     MBProgressHUD *progress;
+    IBOutlet UILabel *labelName;
 }
 
 -(ProfileScrollViewController *)miniProfile;
