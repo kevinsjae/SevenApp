@@ -44,7 +44,13 @@
     progress.labelText = @"Loading users";
 
 #if AIRPLANE_MODE
-    allUsers = [@[[PFUser currentUser]] mutableCopy];
+//    allUsers = [@[PFUser currentUser] mutableCopy];
+    allUsers = [NSMutableArray array];
+    for (int i=0; i<5; i++) {
+        PFUser *testUser =[PFUser user];
+        testUser.objectId = [NSString stringWithFormat:@"%d", i];
+        [allUsers addObject:testUser];
+    }
     [self.miniProfile setIsMini:NO];
     [self.miniProfile refresh];
 #else

@@ -40,5 +40,6 @@ typedef enum {
 #define TRAIT_HEIGHT 40
 #define SMALL_PAGE_WIDTH (397.0/2.0)
 #define SMALL_PAGE_RATIO (606.0/397.0)
+#define MINIMUM_SPACING 1
 
 #endif

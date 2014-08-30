@@ -33,8 +33,8 @@
 @property (nonatomic) NSString *name;
 @property (nonatomic) PFObject *profileVideo;
 @property (nonatomic) NSArray *traits;
-@property (nonatomic) BOOL hideTable;
 
+-(void)showsContent:(BOOL)shows;
 -(AVPlayer *)player;
 @property (nonatomic) AVPlayerLayer *playerLayer;
 

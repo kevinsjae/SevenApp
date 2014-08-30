@@ -110,13 +110,13 @@
     CGSize canvasSize = _appDelegate.window.bounds.size;
     float top = 0;
     float bottom = 0;
-    float left = (canvasSize.width - [self.delegate pageWidth])/2;
+    float left = (canvasSize.width - self.itemSize.width)/2;
     float right = left;
     return UIEdgeInsetsMake(top, left, bottom, right);
 }
 
 -(CGSize)itemSize {
-    int width = [self.delegate pageWidth];
+    int width = [self.delegate pageWidth] - MINIMUM_SPACING;
     int height = [self.delegate pageHeight];
     return CGSizeMake(width, height);
 }

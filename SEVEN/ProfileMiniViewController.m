@@ -63,12 +63,13 @@
         [controller setUser:user];
         self.profileViewControllers[user.objectId] = controller;
     }
-    [controller setHideTable:self.isMini];
+    NSLog(@"controller index %d user %@", index.row, user.objectId);
     return controller;
 }
 
 -(void)refresh {
     [_collectionView reloadData];
+    [self jumpToPage:page animated:NO];
 }
 
 -(ProfileViewController *)currentProfile {
@@ -78,7 +79,7 @@
 #pragma mark PagedFlowLayout delegate
 -(int)pageWidth {
     if (self.isMini)
-        return SMALL_PAGE_WIDTH;
+        return SMALL_PAGE_WIDTH + MINIMUM_SPACING;
     else
         return _appDelegate.window.bounds.size.width;
 }
@@ -118,6 +119,8 @@
     controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
     [cell.contentView addSubview:controller.view];
 
+    [controller showsContent:!self.isMini];
+
     [controller.view setNeedsLayout];
     [controller.view layoutIfNeeded];
     return cell;
@@ -138,6 +141,7 @@
 -(void)jumpToPage:(int)_page animated:(BOOL)animated {
     page = _page;
     float offsetX = page * [self pageWidth];
+    ProfileViewController *profile = [self currentProfile];
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
 }
 

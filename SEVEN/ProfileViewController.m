@@ -22,21 +22,23 @@
 
 #if AIRPLANE_MODE
     [self loadUserInfo];
+    self.view.backgroundColor = [self randomColorFromLastColor:nil lastTwo:nil];
 #else
     [self.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         [self loadUserInfo];
     }];
 #endif
     
-    if (self.hideTable) {
-        [tableview setHidden:YES];
-        [viewInfo setHidden:YES];
-    }
-
     initialOffset = constraintNameOffset.constant;
 
     // todo: viewInfo and tableview must be resized based on screen
     [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+    [self.view setClipsToBounds:YES];
+}
+
+-(void)showsContent:(BOOL)shows{
+    [tableview setHidden:!shows];
+    [viewInfo setHidden:!shows];
 }
 
 -(void)createFakeTraits {
@@ -94,19 +96,17 @@
     [viewInfo setupWithUser:self.user];
     [viewInfo setDelegate:self];
 
-    if (!self.hideTable) {
 #if TESTING & AIRPLANE_MODE
-        [self createFakeTraits];
-        [self reloadData];
+    [self createFakeTraits];
+    [self reloadData];
 #else
-        PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
-        [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            self.traits = objects;
-            [self randomizeColors];
-            [self reloadData];
-        }];
+    PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
+    [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.traits = objects;
+        [self randomizeColors];
+        [self reloadData];
+    }];
 #endif
-    }
 
     self.profileVideo = [self.user objectForKey:@"profileVideo"];
 #if !AIRPLANE_MODE
