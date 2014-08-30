@@ -7,10 +7,9 @@
 //
 
 #import "ShellViewController.h"
-#import "ProfileMiniViewController.h"
+#import "ProfileScrollViewController.h"
 #import "MBProgressHUD.h"
 #import "FacebookHelper.h"
-#import "ProfileFullViewController.h"
 #import "ProfileViewController.h"
 #import "UIActionSheet+MKBlockAdditions.h"
 
@@ -46,7 +45,13 @@
 
 #if AIRPLANE_MODE
     allUsers = [@[[PFUser currentUser]] mutableCopy];
-    [self switchToFullProfile];
+    for (int i=0; i<5; i++) {
+        PFUser *testUser =[PFUser user];
+        testUser.objectId = [NSString stringWithFormat:@"%d", i];
+        [allUsers addObject:testUser];
+    }
+    [self.miniProfile setIsMini:NO];
+    [self.miniProfile refresh];
 #else
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         allUsers = [objects mutableCopy];
@@ -72,7 +77,7 @@
     self.navigationItem.titleView = titleView;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToMiniProfile) name:@"profile:full:tapped" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullProfile) name:@"profile:fastscroll:tapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchToFullProfile) name:@"profile:mini:tapped" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,64 +86,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(ProfileScrollViewController *)miniProfile {
+    if (!miniProfile) {
+        miniProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileScrollViewController"];
+        miniProfile.delegate = self;
+        miniProfile.allUsers = allUsers;
+        [self.view addSubview:miniProfile.view];
+    }
+    return miniProfile;
+}
 -(void)switchToFullProfile {
     NSLog(@"Switching to full");
-    if (!fullProfile) {
-        fullProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileFullViewController"];
-        fullProfile.delegate = self;
-        fullProfile.allUsers = allUsers;
-        [self.view addSubview:fullProfile.view];
-    }
-    [fullProfile jumpToPage:currentPage animated:NO];
+    float scaleX = self.view.frame.size.width / self.miniProfile.pageSize.width;
+    float scaleY = self.view.frame.size.height / self.miniProfile.pageSize.height;
 
-    ProfileViewController *profileView = miniProfile.currentProfile;
-
-    [self.view addSubview:profileView.view];
-    profileView.view.center = self.view.center;
-    float scale = self.view.frame.size.width / SMALL_PAGE_WIDTH;
     [UIView animateWithDuration:.5 animations:^{
-        profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
+        miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);
     } completion:^(BOOL finished) {
-        CMTime currentTime = profileView.currentVideoOffset;
-        if (!CMTIME_IS_INVALID(currentTime))
-            [fullProfile.currentProfile jumpToVideoTime:currentTime];
-
-        [miniProfile.view setAlpha:0];
-        [fullProfile.view setAlpha:1];
-        [fullProfile refresh];
-        [profileView.view removeFromSuperview];
-        profileView.view.transform = CGAffineTransformIdentity;
+        [miniProfile setIsMini:NO];
+        [miniProfile refresh];
+        miniProfile.view.transform = CGAffineTransformIdentity;
     }];
 }
 
 -(void)switchToMiniProfile {
     NSLog(@"Switching to fast");
-    if (!miniProfile) {
-        miniProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileMiniViewController"];
-        miniProfile.delegate = self;
-        miniProfile.allUsers = allUsers;
-        [self.view addSubview:miniProfile.view];
-    }
-    [miniProfile jumpToPage:currentPage animated:NO];
+    [miniProfile setIsMini:YES];
+    float scaleX = self.miniProfile.pageSize.width / self.view.frame.size.width;
+    float scaleY = self.miniProfile.pageSize.height / self.view.frame.size.height;
 
-    ProfileViewController *profileView = fullProfile.currentProfile;
-    [self.view addSubview:profileView.view];
-    profileView.view.center = self.view.center;
-    float scale = SMALL_PAGE_WIDTH / self.view.frame.size.width;
-    [fullProfile.view setAlpha:0];
-    [miniProfile.view setAlpha:1];
     [UIView animateWithDuration:.5 animations:^{
-        profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
+        miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);
     } completion:^(BOOL finished) {
-        CMTime currentTime = profileView.currentVideoOffset;
-        if (!CMTIME_IS_INVALID(currentTime))
-            [miniProfile.currentProfile jumpToVideoTime:currentTime];
-
         [miniProfile refresh];
-        [profileView.view removeFromSuperview];
-        profileView.view.transform = CGAffineTransformIdentity;
+        miniProfile.view.transform = CGAffineTransformIdentity;
     }];
-
 }
 
 -(void)didScrollToPage:(int)page {

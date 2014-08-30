@@ -10,6 +10,8 @@
 #import "ProfileDescriptionView.h"
 #import <AVFoundation/AVFoundation.h>
 
+#define TAG_USER_ID 111
+
 @class AVPlayer;
 @class AVPlayerLayer;
 @class ProfileDescriptionView;
@@ -27,14 +29,15 @@
     AVPlayer *player;
 
     BOOL playing;
+    UILabel *labelTag;
 }
 @property (nonatomic) PFUser *user;
 @property (nonatomic) PFObject *facebookFriend;
 @property (nonatomic) NSString *name;
 @property (nonatomic) PFObject *profileVideo;
 @property (nonatomic) NSArray *traits;
-@property (nonatomic) BOOL hideTable;
 
+-(void)showsContent:(BOOL)shows;
 -(AVPlayer *)player;
 @property (nonatomic) AVPlayerLayer *playerLayer;
 

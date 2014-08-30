@@ -206,6 +206,10 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="PFS-rr-hdM"/>
+                                    <constraint firstAttribute="height" constant="508" id="eGd-WV-S5S"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TraitAdjustorCell" rowHeight="41" id="uaS-eD-psY" customClass="TraitAdjustorCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="41"/>
@@ -284,13 +288,11 @@
                         <constraints>
                             <constraint firstItem="2yg-VF-IAb" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="7BT-ER-ESi"/>
                             <constraint firstItem="ZjG-Iu-Hlz" firstAttribute="top" secondItem="N0w-UX-i5W" secondAttribute="top" id="Fjb-ot-4CN"/>
-                            <constraint firstItem="W9o-uF-GJ1" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="HJX-Kg-STB"/>
-                            <constraint firstAttribute="trailing" secondItem="W9o-uF-GJ1" secondAttribute="trailing" id="Jlq-6W-Teq"/>
                             <constraint firstAttribute="trailing" secondItem="ZjG-Iu-Hlz" secondAttribute="trailing" id="MHd-aL-61T"/>
+                            <constraint firstItem="W9o-uF-GJ1" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="S2G-hx-Jnc"/>
                             <constraint firstItem="ZjG-Iu-Hlz" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="riJ-4Q-r8k"/>
                             <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="ZjG-Iu-Hlz" secondAttribute="bottom" id="sd1-sG-SXO"/>
                             <constraint firstItem="2yg-VF-IAb" firstAttribute="top" secondItem="NHO-P5-QyV" secondAttribute="bottom" constant="-40" id="t6N-MX-I1h"/>
-                            <constraint firstItem="W9o-uF-GJ1" firstAttribute="top" secondItem="VJG-lL-FOn" secondAttribute="bottom" id="vhC-H1-rlz"/>
                             <constraint firstAttribute="bottom" secondItem="W9o-uF-GJ1" secondAttribute="bottom" constant="40" id="wrf-7n-552"/>
                         </constraints>
                     </view>
@@ -352,10 +354,10 @@
             </objects>
             <point key="canvasLocation" x="101" y="342"/>
         </scene>
-        <!--Profile Mini View Controller-->
+        <!--Profile Scroll View Controller-->
         <scene sceneID="9rB-hF-t97">
             <objects>
-                <viewController storyboardIdentifier="ProfileMiniViewController" id="iyQ-kl-NeZ" customClass="ProfileMiniViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileScrollViewController" id="iyQ-kl-NeZ" customClass="ProfileScrollViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEh-zv-fcA"/>
                         <viewControllerLayoutGuide type="bottom" id="yKo-b4-ZUd"/>
@@ -368,7 +370,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="EAy-YF-6pz" customClass="SmallPagedFlowLayout"/>
+                                <collectionViewLayout key="collectionViewLayout" id="EAy-YF-6pz" customClass="PagedFlowLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="zQg-md-FoR">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -964,53 +966,6 @@ Show off your smile by creating a visual profile.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMz-lZ-Dbh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="980" y="1906"/>
-        </scene>
-        <!--Profile Full View Controller-->
-        <scene sceneID="YyV-Dj-Oqm">
-            <objects>
-                <viewController storyboardIdentifier="ProfileFullViewController" id="cdk-2G-l5c" customClass="ProfileFullViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WsM-5Z-LLo"/>
-                        <viewControllerLayoutGuide type="bottom" id="u4E-BV-AdP"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="NpO-Kq-QVR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tvF-Re-j4C">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="iaJ-K1-jcJ" customClass="FullPageFlowLayout"/>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="ssG-Ih-lUH">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <size key="customSize" width="320" height="480"/>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="cdk-2G-l5c" id="G7I-dj-0yu"/>
-                                    <outlet property="delegate" destination="cdk-2G-l5c" id="wpn-9B-5UL"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ng9-2T-zKE"/>
-                    <connections>
-                        <outlet property="_collectionView" destination="tvF-Re-j4C" id="X2w-V8-el9"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7So-OZ-6th" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1113" y="968"/>
         </scene>
     </scenes>
     <resources>

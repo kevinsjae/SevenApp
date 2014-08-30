@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "ProfileMiniViewController.h"
+#import "ProfileScrollViewController.h"
 #import "ProfileViewController.h"
-#import "SmallPagedFlowLayout.h"
+#import "PagedFlowLayout.h"
 
-@interface ProfileMiniViewController ()
+@interface ProfileScrollViewController ()
 
 @end
 
-@implementation ProfileMiniViewController
+@implementation ProfileScrollViewController
 
 @synthesize allUsers;
 
@@ -34,13 +34,18 @@
     self.profileViewControllers = [NSMutableDictionary dictionary];
 
     // load all users
+    ((PagedFlowLayout *)(_collectionView.collectionViewLayout)).delegate = self;
     [_collectionView reloadData];
 
     [self setupGestures];
 }
 
 -(void)setupGestures {
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    doubleTap.numberOfTapsRequired = 2;
+    [_collectionView addGestureRecognizer:doubleTap];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [tap requireGestureRecognizerToFail:doubleTap];
     [_collectionView addGestureRecognizer:tap];
 }
 
@@ -58,16 +63,44 @@
         [controller setUser:user];
         self.profileViewControllers[user.objectId] = controller;
     }
-    [controller setHideTable:YES];
+    NSLog(@"controller index %d user %@", index.row, user.objectId);
     return controller;
 }
 
 -(void)refresh {
     [_collectionView reloadData];
+    [self jumpToPage:page animated:NO];
 }
 
 -(ProfileViewController *)currentProfile {
     return [self profileForIndex:[NSIndexPath indexPathForRow:page inSection:0]];
+}
+
+#pragma mark PagedFlowLayout delegate
+-(int)spacing {
+    if (self.isMini)
+        return 1;
+    return 0;
+}
+-(CGSize)pageSize {
+    float width, height;
+    if (self.isMini) {
+        width = SMALL_PAGE_WIDTH;
+        height = width*SMALL_PAGE_RATIO;
+    }
+    else {
+        width = _appDelegate.window.bounds.size.width;
+        height = _appDelegate.window.bounds.size.height;
+    }
+    return CGSizeMake(width, height);
+
+}
+
+-(CGSize)pageBounds {
+    CGSize pageSize = [self pageSize];
+    pageSize.width += [self spacing];
+    pageSize.height = pageSize.width*SMALL_PAGE_RATIO;
+    return pageSize;
 }
 
 #pragma mark CollectionView Datasource
@@ -85,13 +118,22 @@
     cell.backgroundColor = [UIColor clearColor];
 
 //    cell.contentView.backgroundColor = [self randomColor];
-
-    for (UIView *subview in cell.contentView.subviews)
-        [subview removeFromSuperview];
-
     ProfileViewController *controller = [self profileForIndex:indexPath];
     controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-    [cell.contentView addSubview:controller.view];
+    [controller.view setTag:1];
+
+    UIView *view = [cell viewWithTag:1]; // the current profileViewController being shown on it
+    UILabel *labelTag = (UILabel *)[view viewWithTag:TAG_USER_ID];
+    PFUser *user = allUsers[indexPath.row];
+    if (1 || ![labelTag.text isEqualToString:user.objectId]) {
+        NSLog(@"Cell had profile %@ at index %d, needs %@", labelTag.text, indexPath.row, user.objectId);
+        [view removeFromSuperview];
+        [cell.contentView addSubview:controller.view];
+    }
+    else {
+        NSLog(@"Cell already has correct profile %@ at index %d", labelTag.text, indexPath.row);
+    }
+    [controller showsContent:!self.isMini];
 
     [controller.view setNeedsLayout];
     [controller.view layoutIfNeeded];
@@ -106,19 +148,16 @@
 
 #pragma mark other scrollview
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    page = scrollView.contentOffset.x / [self pageWidth];
+    page = scrollView.contentOffset.x / [self pageBounds].width;
     [self.delegate didScrollToPage:page];
 }
 
 -(void)jumpToPage:(int)_page animated:(BOOL)animated {
     page = _page;
-    float offsetX = page * [self pageWidth];
+    float offsetX = page * [self pageBounds].width;
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
 }
 
--(float)pageWidth {
-    return SMALL_PAGE_WIDTH;
-}
 #pragma mark – UICollectionViewDelegateFlowLayout
 // doesn't use these values if we have a custom flow layout
 
@@ -157,7 +196,16 @@
 #pragma mark tap
 -(void)handleGesture:(UIGestureRecognizer *)gesture {
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:fastscroll:tapped" object:nil];
+        UITapGestureRecognizer *tap = (UITapGestureRecognizer *)gesture;
+
+        if (tap.numberOfTapsRequired == 2) {
+            if (!self.isMini)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:full:tapped" object:nil];
+        }
+        else {
+            if (self.isMini)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"profile:mini:tapped" object:nil];
+        }
     }
 }
 @end

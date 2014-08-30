@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfileScrollProtocol.h"
+#import "PagedFlowLayout.h"
 
 @class ProfileViewController;
-@interface ProfileMiniViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface ProfileScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PagedFlowLayoutDelegate>
 {
     IBOutlet UICollectionView *_collectionView;
     int page;
@@ -19,6 +20,10 @@
 @property (nonatomic) id<ProfileScrollProtocol> delegate;
 @property (nonatomic, weak) NSMutableArray *allUsers;
 @property (nonatomic) NSMutableDictionary *profileViewControllers;
+@property (nonatomic) BOOL isMini;
+
+-(CGSize)pageSize; // actual size of profile
+-(CGSize)pageBounds; // contains the spacing
 
 -(void)jumpToPage:(int)page animated:(BOOL)animated;
 -(void)refresh;
