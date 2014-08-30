@@ -15,8 +15,33 @@
 //    [labelTrait setBackgroundColor:[UIColor grayColor]];
 
     trait = info[@"trait"];
+    if (info[@"level"]) {
+        level = [info[@"level"] intValue];
+    }
+    else {
+        level = 0;
+    }
+
     [labelTrait setText:trait];
-    CGRect rect = [trait boundingRectWithSize:CGSizeMake(self.contentView.frame.size.width, labelTrait.frame.size.height)
+
+    if (!self.canAdjust) {
+        NSString *levelString = [NSString stringWithFormat:@"%d", (int)(ceil((float)level/10))];
+        NSString *string = [NSString stringWithFormat:@"%@ %@", levelString, trait];
+        [labelTrait setText:string];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+
+        NSRange range = [string rangeOfString:levelString];
+        [attributedString addAttribute:NSFontAttributeName value:FontRegular(14) range:range];
+//        [attributedString addAttribute:NSForegroundColorAttributeName value:GPTEXTCOLOR_LIGHTGRAY range:range];
+
+        range = [string rangeOfString:trait];
+        [attributedString addAttribute:NSFontAttributeName value:FontMedium(14) range:range];
+//        [attributedString addAttribute:NSForegroundColorAttributeName value:GPTEXTCOLOR_LIGHTGRAY range:range];
+        [labelTrait setAttributedText:attributedString];
+
+    }
+
+    CGRect rect = [labelTrait.text boundingRectWithSize:CGSizeMake(self.contentView.frame.size.width, labelTrait.frame.size.height)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName:labelTrait.font}
                                               context:nil];
@@ -24,13 +49,6 @@
 
     UIColor *color = info[@"color"];
     colorView.backgroundColor = color;
-
-    if (info[@"level"]) {
-        level = [info[@"level"] intValue];
-    }
-    else {
-        level = 0;
-    }
 
     [self updateLevel];
 

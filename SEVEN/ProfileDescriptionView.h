@@ -11,13 +11,15 @@
 @protocol ProfileDescriptionDelegate <NSObject>
 
 -(void)didClickExpand;
+-(void)expandUp;
+-(void)expandDown;
 
 @end
 @interface ProfileDescriptionView : UIView
 @property (nonatomic) PFUser *user;
 @property (nonatomic, weak) id delegate;
 
-@property (weak, nonatomic) IBOutlet UIButton *buttonExpand;
+@property (weak, nonatomic) IBOutlet UIImageView *viewExpand;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelGender;
 @property (weak, nonatomic) IBOutlet UILabel *labelAge;
@@ -31,5 +33,7 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintDescriptionHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintLookingForHeight;
 
--(void)setupWithUser:(PFUser *)_user;
+-(void)setupWithUser:(PFUser *)newUser;
+-(void)pointerUp;
+-(void)pointerDown;
 @end

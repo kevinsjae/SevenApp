@@ -15,7 +15,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self setupFonts];
     }
     return self;
 }
@@ -30,14 +29,25 @@
         mainView.frame = self.bounds;
 
         [self addSubview:mainView];
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [self addGestureRecognizer:tap];
+        UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [swipeUp setDirection:UISwipeGestureRecognizerDirectionUp];
+        [self addGestureRecognizer:swipeUp];
+        UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        [swipeDown setDirection:UISwipeGestureRecognizerDirectionDown];
+        [self addGestureRecognizer:swipeDown];
+
+        [self setupFonts];
     }
     return self;
 }
 
 -(void)setupFonts {
-    [self.labelName setFont:FontMedium(20)];
-    [self.labelGender setFont:FontRegular(14)];
-    [self.labelAge setFont:FontRegular(14)];
+    [self.labelName setFont:FontMedium(17)];
+    [self.labelGender setFont:FontRegular(12)];
+    [self.labelAge setFont:FontRegular(12)];
 
     [self.labelDescription setFont:FontMedium(14)];
 
@@ -45,16 +55,24 @@
     [self.labelLookingForDetails setFont:FontMedium(14)];
 }
 
--(void)setupWithUser:(PFUser *)_user {
-    self.user = _user;
-    [self.labelName setText:self.user[@"name"]];
+-(void)setupWithUser:(PFUser *)newUser {
+    self.user = newUser;
+    NSString *name = self.user[@"firstName"];
+    if (!name)
+        name = self.user[@"name"];
+    name = [name uppercaseString];
+    [self.labelName setText:name];
     if (self.user[@"gender"]) {
         if ([self.user[@"gender"] isEqualToString:@"male"])
             [self.labelGender setText:@"M"];
         else if ([self.user[@"gender"] isEqualToString:@"female"])
             [self.labelGender setText:@"F"];
-        // if gender is custom, facebook does not send it
     }
+    else {
+        // if gender is custom, facebook does not send it
+        [self.labelGender setHidden:YES];
+    }
+
     if (self.user[@"age"])
         [self.labelAge setText:self.user[@"age"]];
     if (self.user[@"description"])
@@ -83,7 +101,33 @@
 }
 */
 
+-(void)handleGesture:(UIGestureRecognizer *)gesture {
+    if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
+        if (gesture.state == UIGestureRecognizerStateEnded) {
+            [self.delegate didClickExpand];
+        }
+    }
+    else if ([gesture isKindOfClass:[UISwipeGestureRecognizer class]]) {
+        UISwipeGestureRecognizer *swipe = (UISwipeGestureRecognizer *)gesture;
+        if (gesture.state == UIGestureRecognizerStateEnded) {
+            if (swipe.direction == UISwipeGestureRecognizerDirectionUp) {
+                [self.delegate expandUp];
+            }
+            else {
+                [self.delegate expandDown];
+            }
+        }
+    }
+}
 -(IBAction)didClickExpand:(id)sender {
     [self.delegate didClickExpand];
+}
+
+-(void)pointerUp {
+    [self.viewExpand setTransform:CGAffineTransformIdentity];
+}
+
+-(void)pointerDown {
+    [self.viewExpand setTransform:CGAffineTransformMakeRotation(M_PI)];
 }
 @end

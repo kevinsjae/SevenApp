@@ -7,7 +7,6 @@
 //
 
 #import "ProfileViewController.h"
-#import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -19,19 +18,67 @@
     if (!self.user) {
         self.user = [PFUser currentUser];
     }
+    allColors = [NSMutableArray array];
 
+#if AIRPLANE_MODE
+    [self loadUserInfo];
+#else
     [self.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         [self loadUserInfo];
     }];
-
-    allColors = [NSMutableArray array];
-
+#endif
+    
     if (self.hideTable) {
         [tableview setHidden:YES];
         [viewInfo setHidden:YES];
     }
 
     initialOffset = constraintNameOffset.constant;
+
+    // todo: viewInfo and tableview must be resized based on screen
+    [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)createFakeTraits {
+#if TESTING & AIRPLANE_MODE
+    PFObject *trait0 = [PFObject objectWithClassName:@"Trait"];
+    trait0[@"trait"] = @"Witty0";
+    trait0[@"level"] = @0;
+    PFObject *trait1 = [PFObject objectWithClassName:@"Trait"];
+    trait1[@"trait"] = @"Witty1";
+    trait1[@"level"] = @25;
+    PFObject *trait2 = [PFObject objectWithClassName:@"Trait"];
+    trait2[@"trait"] = @"Witty2";
+    trait2[@"level"] = @50;
+    PFObject *trait3 = [PFObject objectWithClassName:@"Trait"];
+    trait3[@"trait"] = @"Witty3";
+    trait3[@"level"] = @75;
+    PFObject *trait4 = [PFObject objectWithClassName:@"Trait"];
+    trait4[@"trait"] = @"Witty4";
+    trait4[@"level"] = @99;
+    PFObject *trait5 = [PFObject objectWithClassName:@"Trait"];
+    trait5[@"trait"] = @"Witty4";
+    trait5[@"level"] = @99;
+    PFObject *trait6 = [PFObject objectWithClassName:@"Trait"];
+    trait6[@"trait"] = @"Witty4";
+    trait6[@"level"] = @99;
+    PFObject *trait7 = [PFObject objectWithClassName:@"Trait"];
+    trait7[@"trait"] = @"Witty4";
+    trait7[@"level"] = @99;
+    PFObject *trait8 = [PFObject objectWithClassName:@"Trait"];
+    trait8[@"trait"] = @"Witty4";
+    trait8[@"level"] = @99;
+    PFObject *trait9 = [PFObject objectWithClassName:@"Trait"];
+    trait9[@"trait"] = @"Witty4";
+    trait9[@"level"] = @99;
+    PFObject *trait10 = [PFObject objectWithClassName:@"Trait"];
+    trait10[@"trait"] = @"Witty4";
+    trait10[@"level"] = @99;
+
+
+    self.traits = @[trait0, trait1, trait2, trait3, trait4, trait5, trait6, trait7, trait8, trait9, trait10];
+    [self randomizeColors];
+#endif
 }
 
 -(void)loadUserInfo {
@@ -40,22 +87,31 @@
     NSLog(@"Loading userInfo for %@", self.user[@"name"]);
 
     self.facebookFriend = [self.user objectForKey:@"facebookFriend"];
+#if !AIRPLANE_MODE
     [self.facebookFriend fetchIfNeeded];
-
+#endif
+    
     [viewInfo setupWithUser:self.user];
     [viewInfo setDelegate:self];
 
     if (!self.hideTable) {
+#if TESTING & AIRPLANE_MODE
+        [self createFakeTraits];
+        [self reloadData];
+#else
         PFRelation *traitsRelation = [self.user relationForKey:@"traits"];
         [[traitsRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.traits = objects;
             [self randomizeColors];
             [self reloadData];
         }];
+#endif
     }
 
     self.profileVideo = [self.user objectForKey:@"profileVideo"];
+#if !AIRPLANE_MODE
     [self.profileVideo fetchIfNeeded];
+#endif
     [self playCurrentMedia];
 }
 
@@ -99,9 +155,12 @@
     player = [[AVPlayer alloc] initWithPlayerItem:item];
     [player addObserver:self forKeyPath:@"status" options:0 context:nil];
 
-    AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
-    layer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [viewVideo.layer addSublayer:layer];
+    if (self.playerLayer) {
+        [self.playerLayer removeFromSuperlayer];
+    }
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+    self.playerLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [viewVideo.layer addSublayer:self.playerLayer];
 
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
     [self readyToPlay];
@@ -110,6 +169,10 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"status"]) {
         NSLog(@"Status: %@", change);
+    }
+    else {
+        NSLog(@"%@ %@", keyPath, change);
+        [self reloadData];
     }
 }
 
@@ -137,9 +200,21 @@
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
 }
 
+-(CMTime)currentVideoOffset {
+    return player.currentItem.currentTime;
+}
+
+-(void)jumpToVideoTime:(CMTime)newTime {
+    [player seekToTime:newTime];
+}
+
+-(AVPlayer *)player {
+    return player;
+}
+
 #pragma mark TableViewDataSource
 -(void)reloadData {
-    int toShow = MIN(self.traits.count, 3);
+    int toShow = MIN(self.traits.count, 2);
     int offset = tableview.frame.size.height - toShow * TRAIT_HEIGHT;
     tableview.contentInset = UIEdgeInsetsMake(offset, 0, 0, 0);
     [tableview reloadData];
@@ -220,15 +295,38 @@
 
 #pragma mark ProfileDescriptionDelegate
 -(void)didClickExpand {
+    // constraintNameOffset is based on vertical distance from the bottom of the screen. That means when
+    // it is down, it is at -40, and when it is up, it should be at -(screensize) < -40
+    // initialOffset should always be -40
+    if (constraintNameOffset.constant < initialOffset) {
+        [self expandDown];
+    }
+    else {
+        [self expandUp];
+    }
+}
+
+-(void)expandDown {
     if (constraintNameOffset.constant < initialOffset) {
         [constraintNameOffset setConstant:initialOffset];
     }
-    else {
-        [constraintNameOffset setConstant:40];
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:.2 animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [viewInfo pointerUp];
+    }];
+}
+
+-(void)expandUp {
+    if (!(constraintNameOffset.constant < initialOffset)) {
+        [constraintNameOffset setConstant:-(tableview.frame.size.height+1)];
     }
     [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration:.5 animations:^{
+    [UIView animateWithDuration:.2 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [viewInfo pointerDown];;
     }];
 }
 

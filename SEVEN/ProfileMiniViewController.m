@@ -91,7 +91,6 @@
 
     ProfileViewController *controller = [self profileForIndex:indexPath];
     controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-//    controller.view.backgroundColor = [self randomColor];
     [cell.contentView addSubview:controller.view];
 
     [controller.view setNeedsLayout];
@@ -115,7 +114,6 @@
     page = _page;
     float offsetX = page * [self pageWidth];
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
-    NSLog(@"offset: %f", _collectionView.contentOffset.x);
 }
 
 -(float)pageWidth {

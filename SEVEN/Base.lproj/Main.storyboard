@@ -202,8 +202,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="41" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="W9o-uF-GJ1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="41" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="W9o-uF-GJ1">
+                                <rect key="frame" x="0.0" y="20" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -271,7 +271,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yg-VF-IAb" customClass="ProfileDescriptionView">
-                                <rect key="frame" x="0.0" y="508" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="528" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -283,18 +283,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2yg-VF-IAb" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="7BT-ER-ESi"/>
-                            <constraint firstItem="2yg-VF-IAb" firstAttribute="top" secondItem="VJG-lL-FOn" secondAttribute="bottom" constant="488" id="D2d-m7-GEs"/>
                             <constraint firstItem="ZjG-Iu-Hlz" firstAttribute="top" secondItem="N0w-UX-i5W" secondAttribute="top" id="Fjb-ot-4CN"/>
                             <constraint firstItem="W9o-uF-GJ1" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="HJX-Kg-STB"/>
                             <constraint firstAttribute="trailing" secondItem="W9o-uF-GJ1" secondAttribute="trailing" id="Jlq-6W-Teq"/>
                             <constraint firstAttribute="trailing" secondItem="ZjG-Iu-Hlz" secondAttribute="trailing" id="MHd-aL-61T"/>
                             <constraint firstItem="ZjG-Iu-Hlz" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="riJ-4Q-r8k"/>
                             <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="ZjG-Iu-Hlz" secondAttribute="bottom" id="sd1-sG-SXO"/>
-                            <constraint firstItem="W9o-uF-GJ1" firstAttribute="top" secondItem="VJG-lL-FOn" secondAttribute="bottom" constant="-20" id="vhC-H1-rlz"/>
+                            <constraint firstItem="2yg-VF-IAb" firstAttribute="top" secondItem="NHO-P5-QyV" secondAttribute="bottom" constant="-40" id="t6N-MX-I1h"/>
+                            <constraint firstItem="W9o-uF-GJ1" firstAttribute="top" secondItem="VJG-lL-FOn" secondAttribute="bottom" id="vhC-H1-rlz"/>
+                            <constraint firstAttribute="bottom" secondItem="W9o-uF-GJ1" secondAttribute="bottom" constant="40" id="wrf-7n-552"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="constraintNameOffset" destination="D2d-m7-GEs" id="J2K-Rj-vx9"/>
+                        <outlet property="constraintNameOffset" destination="t6N-MX-I1h" id="eGa-rm-Abt"/>
                         <outlet property="tableview" destination="W9o-uF-GJ1" id="Ros-5n-0wm"/>
                         <outlet property="viewInfo" destination="2yg-VF-IAb" id="Gvt-ku-HOI"/>
                         <outlet property="viewVideo" destination="ZjG-Iu-Hlz" id="gDi-9M-G15"/>
@@ -980,7 +981,7 @@ Show off your smile by creating a visual profile.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="iaJ-K1-jcJ" customClass="SmallPaged2FlowLayout"/>
+                                <collectionViewLayout key="collectionViewLayout" id="iaJ-K1-jcJ" customClass="FullPageFlowLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="ssG-Ih-lUH">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
