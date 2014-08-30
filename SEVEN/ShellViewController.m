@@ -99,6 +99,7 @@
     return miniProfile;
 }
 -(void)switchToFullProfile {
+    [labelName.superview setHidden:YES];
     NSLog(@"Switching to full");
     float scaleX = self.view.frame.size.width / self.miniProfile.pageSize.width;
     float scaleY = self.view.frame.size.height / self.miniProfile.pageSize.height;
@@ -113,6 +114,7 @@
 }
 
 -(void)switchToMiniProfile {
+    [labelName.superview setHidden:NO];
     NSLog(@"Switching to fast");
     [miniProfile setIsMini:YES];
     float scaleX = self.miniProfile.pageSize.width / self.view.frame.size.width;

@@ -151,7 +151,7 @@
             return newColor;
         }
         float dist = fabs(newColorComponents[0] - lastColorComponents[0]) + fabs(newColorComponents[1] != lastColorComponents[1]) + fabs(newColorComponents[2] != lastColorComponents[2]);
-        NSLog(@"distance between %@ and %@: %f", lastColor, newColor, dist);
+        //NSLog(@"distance between %@ and %@: %f", lastColor, newColor, dist);
         if (dist <= 1)
             continue;
         if (!lastTwo)

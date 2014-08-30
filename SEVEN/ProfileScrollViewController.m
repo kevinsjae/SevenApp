@@ -117,30 +117,47 @@
     return 1;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+-(UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath preload:(BOOL)preload {
+    UICollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
 
-//    cell.contentView.backgroundColor = [self randomColor];
+    //    cell.contentView.backgroundColor = [self randomColor];
     ProfileViewController *controller = [self profileForIndex:indexPath];
-    controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
     [controller.view setTag:1];
 
     UIView *view = [cell viewWithTag:1]; // the current profileViewController being shown on it
     UILabel *labelTag = (UILabel *)[view viewWithTag:TAG_USER_ID];
     PFUser *user = allUsers[indexPath.row];
-    if (1 || ![labelTag.text isEqualToString:user.objectId]) {
-        NSLog(@"Cell had profile %@ at index %d, needs %@", labelTag.text, indexPath.row, user.objectId);
-        [view removeFromSuperview];
-        [cell.contentView addSubview:controller.view];
-    }
-    else {
-        NSLog(@"Cell already has correct profile %@ at index %d", labelTag.text, indexPath.row);
+    if (!preload) {
+        controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
+        if (![labelTag.text isEqualToString:user.objectId]) {
+            NSLog(@"Cell had profile %@ at index %d, needs %@", labelTag.text, indexPath.row, user.objectId);
+            [view removeFromSuperview];
+            [cell.contentView addSubview:controller.view];
+        }
+        else {
+            NSLog(@"Cell already has correct profile %@ at index %d", labelTag.text, indexPath.row);
+        }
     }
     [controller showsContent:!self.isMini];
 
     [controller.view setNeedsLayout];
     [controller.view layoutIfNeeded];
+
+    // preload other cells
+    if (!preload) {
+        if (indexPath.row > 0) {
+            [self cellAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row-1 inSection:0] preload:YES];
+        }
+        if (indexPath.row < [self.allUsers count]-1) {
+            [self cellAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row+1 inSection:0] preload:YES];
+        }
+    }
+    return cell;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [self cellAtIndexPath:indexPath preload:NO];
     return cell;
 }
 
