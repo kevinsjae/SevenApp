@@ -22,6 +22,8 @@
 @property (nonatomic) NSMutableDictionary *profileViewControllers;
 @property (nonatomic) BOOL isMini;
 
+-(int)pageWidth;
+-(int)pageHeight;
 -(void)jumpToPage:(int)page animated:(BOOL)animated;
 -(void)refresh;
 -(ProfileViewController *)profileForIndex:(NSIndexPath *)index;

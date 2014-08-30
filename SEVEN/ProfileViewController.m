@@ -32,8 +32,14 @@
     initialOffset = constraintNameOffset.constant;
 
     // todo: viewInfo and tableview must be resized based on screen
-    [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+    [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:@"view"];
     [self.view setClipsToBounds:YES];
+
+    labelTag = [[UILabel alloc] init];
+    [labelTag setHidden:YES];
+    [labelTag setTag:TAG_USER_ID];
+    [labelTag setText:self.user.objectId];
+    [self.view addSubview:labelTag];
 }
 
 -(void)showsContent:(BOOL)shows{
@@ -160,6 +166,7 @@
     }
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
     self.playerLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [viewVideo.layer addSublayer:self.playerLayer];
 
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
@@ -172,14 +179,26 @@
     }
     else {
         NSLog(@"%@ %@", keyPath, change);
-        [self reloadData];
+        if ([keyPath isEqualToString:@"frame"]) {
+            NSString *contextString = (__bridge NSString *)context;
+            if ([@"view" isEqualToString:contextString]) {
+                if (self.playerLayer) {
+                    [self.playerLayer removeFromSuperlayer];
+                }
+                AVPlayerLayer *newLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+                newLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+                newLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+                [viewVideo.layer addSublayer:newLayer];
+                self.playerLayer = newLayer;
+            }
+        }
     }
 }
 
 -(void)notPlaying {
     // backup for if notification isn't heard, force replay
     playing = NO;
-    NSLog(@"%@ Not playing", self.user[@"name"]);
+//    NSLog(@"%@ Not playing", self.user[@"name"]);
     [self readyToPlay];
 }
 
@@ -193,7 +212,7 @@
 
 -(void)playerDidReachEnd:(NSNotification *)n {
     [self stopListeningFor:AVPlayerItemDidPlayToEndTimeNotification];
-    NSLog(@"Player for user %@ reset", self.user[@"name"]);
+//    NSLog(@"Player for user %@ reset", self.user[@"name"]);
     [player seekToTime:kCMTimeZero];
     AVPlayerItem *item = n.object;
     [self readyToPlay];

@@ -44,8 +44,7 @@
     progress.labelText = @"Loading users";
 
 #if AIRPLANE_MODE
-//    allUsers = [@[PFUser currentUser] mutableCopy];
-    allUsers = [NSMutableArray array];
+    allUsers = [@[[PFUser currentUser]] mutableCopy];
     for (int i=0; i<5; i++) {
         PFUser *testUser =[PFUser user];
         testUser.objectId = [NSString stringWithFormat:@"%d", i];
@@ -98,36 +97,29 @@
 }
 -(void)switchToFullProfile {
     NSLog(@"Switching to full");
-    ProfileViewController *profileView = self.miniProfile.currentProfile;
-
-    [self.view addSubview:profileView.view];
-    profileView.view.center = self.view.center;
-    float scale = self.view.frame.size.width / SMALL_PAGE_WIDTH;
+    float scaleX = self.view.frame.size.width / self.miniProfile.pageWidth;
+    float scaleY = self.view.frame.size.height / self.miniProfile.pageHeight;
 
     [UIView animateWithDuration:.5 animations:^{
-        profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
+        miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);
     } completion:^(BOOL finished) {
         [miniProfile setIsMini:NO];
         [miniProfile refresh];
-        [profileView.view removeFromSuperview];
-        profileView.view.transform = CGAffineTransformIdentity;
+        miniProfile.view.transform = CGAffineTransformIdentity;
     }];
 }
 
 -(void)switchToMiniProfile {
     NSLog(@"Switching to fast");
-    ProfileViewController *profileView = self.miniProfile.currentProfile;
-    [self.view addSubview:profileView.view];
-    profileView.view.center = self.view.center;
-    float scale = SMALL_PAGE_WIDTH / self.view.frame.size.width;
+    [miniProfile setIsMini:YES];
+    float scaleX = self.miniProfile.pageWidth / self.view.frame.size.width;
+    float scaleY = self.miniProfile.pageHeight / self.view.frame.size.height;
 
     [UIView animateWithDuration:.5 animations:^{
-        profileView.view.transform = CGAffineTransformMakeScale(scale, scale);
+        miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);
     } completion:^(BOOL finished) {
-        [miniProfile setIsMini:YES];
         [miniProfile refresh];
-        [profileView.view removeFromSuperview];
-        profileView.view.transform = CGAffineTransformIdentity;
+        miniProfile.view.transform = CGAffineTransformIdentity;
     }];
 }
 

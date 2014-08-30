@@ -111,14 +111,21 @@
     cell.backgroundColor = [UIColor clearColor];
 
 //    cell.contentView.backgroundColor = [self randomColor];
-
-    for (UIView *subview in cell.contentView.subviews)
-        [subview removeFromSuperview];
-
     ProfileViewController *controller = [self profileForIndex:indexPath];
     controller.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-    [cell.contentView addSubview:controller.view];
+    [controller.view setTag:1];
 
+    UIView *view = [cell viewWithTag:1]; // the current profileViewController being shown on it
+    UILabel *labelTag = (UILabel *)[view viewWithTag:TAG_USER_ID];
+    PFUser *user = allUsers[indexPath.row];
+    if (1 || ![labelTag.text isEqualToString:user.objectId]) {
+        NSLog(@"Cell had profile %@ at index %d, needs %@", labelTag.text, indexPath.row, user.objectId);
+        [view removeFromSuperview];
+        [cell.contentView addSubview:controller.view];
+    }
+    else {
+        NSLog(@"Cell already has correct profile %@ at index %d", labelTag.text, indexPath.row);
+    }
     [controller showsContent:!self.isMini];
 
     [controller.view setNeedsLayout];
