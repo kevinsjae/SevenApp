@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 SEVEN. All rights reserved.
 //
 
-#import "ProfileMiniViewController.h"
+#import "ProfileScrollViewController.h"
 #import "ProfileViewController.h"
 #import "PagedFlowLayout.h"
 
-@interface ProfileMiniViewController ()
+@interface ProfileScrollViewController ()
 
 @end
 
-@implementation ProfileMiniViewController
+@implementation ProfileScrollViewController
 
 @synthesize allUsers;
 
@@ -77,23 +77,30 @@
 }
 
 #pragma mark PagedFlowLayout delegate
--(int)pageWidth {
+-(int)spacing {
     if (self.isMini)
-        return SMALL_PAGE_WIDTH + MINIMUM_SPACING;
-    else
-        return _appDelegate.window.bounds.size.width;
+        return 1;
+    return 0;
 }
-
--(int)pageHeight {
-    // depends on the device
-    // must preserve ratio or we get weird offsets at top and bottom
+-(CGSize)pageSize {
+    float width, height;
     if (self.isMini) {
-        int width = self.pageWidth;
-        return width*SMALL_PAGE_RATIO;
+        width = SMALL_PAGE_WIDTH;
+        height = width*SMALL_PAGE_RATIO;
     }
     else {
-        return _appDelegate.window.bounds.size.height;
+        width = _appDelegate.window.bounds.size.width;
+        height = _appDelegate.window.bounds.size.height;
     }
+    return CGSizeMake(width, height);
+
+}
+
+-(CGSize)pageBounds {
+    CGSize pageSize = [self pageSize];
+    pageSize.width += [self spacing];
+    pageSize.height = pageSize.width*SMALL_PAGE_RATIO;
+    return pageSize;
 }
 
 #pragma mark CollectionView Datasource
@@ -141,14 +148,13 @@
 
 #pragma mark other scrollview
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    page = scrollView.contentOffset.x / [self pageWidth];
+    page = scrollView.contentOffset.x / [self pageBounds].width;
     [self.delegate didScrollToPage:page];
 }
 
 -(void)jumpToPage:(int)_page animated:(BOOL)animated {
     page = _page;
-    float offsetX = page * [self pageWidth];
-    ProfileViewController *profile = [self currentProfile];
+    float offsetX = page * [self pageBounds].width;
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
 }
 

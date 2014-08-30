@@ -11,7 +11,7 @@
 #import "PagedFlowLayout.h"
 
 @class ProfileViewController;
-@interface ProfileMiniViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PagedFlowLayoutDelegate>
+@interface ProfileScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PagedFlowLayoutDelegate>
 {
     IBOutlet UICollectionView *_collectionView;
     int page;
@@ -22,8 +22,9 @@
 @property (nonatomic) NSMutableDictionary *profileViewControllers;
 @property (nonatomic) BOOL isMini;
 
--(int)pageWidth;
--(int)pageHeight;
+-(CGSize)pageSize; // actual size of profile
+-(CGSize)pageBounds; // contains the spacing
+
 -(void)jumpToPage:(int)page animated:(BOOL)animated;
 -(void)refresh;
 -(ProfileViewController *)profileForIndex:(NSIndexPath *)index;

@@ -26,7 +26,7 @@
 		9E3E24FE19869FB200870666 /* seven_icon_close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E24FC19869FB200870666 /* seven_icon_close_white@2x.png */; };
 		9E3E25041987F85E00870666 /* BRCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3E25031987F85E00870666 /* BRCameraViewController.m */; };
 		9E3E25061988139C00870666 /* rotateCamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3E25051988139C00870666 /* rotateCamera@2x.png */; };
-		9E729280199504EF006A2AC1 /* ProfileMiniViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927F199504EF006A2AC1 /* ProfileMiniViewController.m */; };
+		9E729280199504EF006A2AC1 /* ProfileScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72927F199504EF006A2AC1 /* ProfileScrollViewController.m */; };
 		9E72928819950A6B006A2AC1 /* PagedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72928719950A6B006A2AC1 /* PagedFlowLayout.m */; };
 		9E72928B19952E8A006A2AC1 /* ShellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E72928A19952E8A006A2AC1 /* ShellViewController.m */; };
 		9E79B7F2196435AA00559838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E79B7F1196435AA00559838 /* Foundation.framework */; };
@@ -125,8 +125,8 @@
 		9E3E25021987F85E00870666 /* BRCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCameraViewController.h; sourceTree = "<group>"; };
 		9E3E25031987F85E00870666 /* BRCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCameraViewController.m; sourceTree = "<group>"; };
 		9E3E25051988139C00870666 /* rotateCamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rotateCamera@2x.png"; sourceTree = "<group>"; };
-		9E72927E199504EF006A2AC1 /* ProfileMiniViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileMiniViewController.h; sourceTree = "<group>"; };
-		9E72927F199504EF006A2AC1 /* ProfileMiniViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileMiniViewController.m; sourceTree = "<group>"; };
+		9E72927E199504EF006A2AC1 /* ProfileScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileScrollViewController.h; sourceTree = "<group>"; };
+		9E72927F199504EF006A2AC1 /* ProfileScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileScrollViewController.m; sourceTree = "<group>"; };
 		9E72928619950A6B006A2AC1 /* PagedFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedFlowLayout.h; sourceTree = "<group>"; };
 		9E72928719950A6B006A2AC1 /* PagedFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedFlowLayout.m; sourceTree = "<group>"; };
 		9E72928919952E8A006A2AC1 /* ShellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShellViewController.h; sourceTree = "<group>"; };
@@ -463,8 +463,8 @@
 			children = (
 				9EA479181993D777007587CC /* ProfileViewController.h */,
 				9EA479191993D777007587CC /* ProfileViewController.m */,
-				9E72927E199504EF006A2AC1 /* ProfileMiniViewController.h */,
-				9E72927F199504EF006A2AC1 /* ProfileMiniViewController.m */,
+				9E72927E199504EF006A2AC1 /* ProfileScrollViewController.h */,
+				9E72927F199504EF006A2AC1 /* ProfileScrollViewController.m */,
 				9E72928619950A6B006A2AC1 /* PagedFlowLayout.h */,
 				9E72928719950A6B006A2AC1 /* PagedFlowLayout.m */,
 				9E72928919952E8A006A2AC1 /* ShellViewController.h */,
@@ -687,7 +687,7 @@
 				9EB1D029198FEFDD00065AB0 /* LookingForViewController.m in Sources */,
 				9E79B8501964363600559838 /* NSObject+MKBlockAdditions.m in Sources */,
 				9E79B8571964363600559838 /* UIImage+Alpha.m in Sources */,
-				9E729280199504EF006A2AC1 /* ProfileMiniViewController.m in Sources */,
+				9E729280199504EF006A2AC1 /* ProfileScrollViewController.m in Sources */,
 				9E79B8581964363600559838 /* UIImage+Resize.m in Sources */,
 				9EC9CF01196D5B1100EAF3D9 /* FacebookHelper.m in Sources */,
 				9E79B8521964363600559838 /* UIAlertView+MKBlockAdditions.m in Sources */,

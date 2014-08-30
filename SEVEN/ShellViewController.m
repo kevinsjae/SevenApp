@@ -7,7 +7,7 @@
 //
 
 #import "ShellViewController.h"
-#import "ProfileMiniViewController.h"
+#import "ProfileScrollViewController.h"
 #import "MBProgressHUD.h"
 #import "FacebookHelper.h"
 #import "ProfileViewController.h"
@@ -86,9 +86,9 @@
     // Dispose of any resources that can be recreated.
 }
 
--(ProfileMiniViewController *)miniProfile {
+-(ProfileScrollViewController *)miniProfile {
     if (!miniProfile) {
-        miniProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileMiniViewController"];
+        miniProfile = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileScrollViewController"];
         miniProfile.delegate = self;
         miniProfile.allUsers = allUsers;
         [self.view addSubview:miniProfile.view];
@@ -97,8 +97,8 @@
 }
 -(void)switchToFullProfile {
     NSLog(@"Switching to full");
-    float scaleX = self.view.frame.size.width / self.miniProfile.pageWidth;
-    float scaleY = self.view.frame.size.height / self.miniProfile.pageHeight;
+    float scaleX = self.view.frame.size.width / self.miniProfile.pageSize.width;
+    float scaleY = self.view.frame.size.height / self.miniProfile.pageSize.height;
 
     [UIView animateWithDuration:.5 animations:^{
         miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);
@@ -112,8 +112,8 @@
 -(void)switchToMiniProfile {
     NSLog(@"Switching to fast");
     [miniProfile setIsMini:YES];
-    float scaleX = self.miniProfile.pageWidth / self.view.frame.size.width;
-    float scaleY = self.miniProfile.pageHeight / self.view.frame.size.height;
+    float scaleX = self.miniProfile.pageSize.width / self.view.frame.size.width;
+    float scaleY = self.miniProfile.pageSize.height / self.view.frame.size.height;
 
     [UIView animateWithDuration:.5 animations:^{
         miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);

@@ -354,10 +354,10 @@
             </objects>
             <point key="canvasLocation" x="101" y="342"/>
         </scene>
-        <!--Profile Mini View Controller-->
+        <!--Profile Scroll View Controller-->
         <scene sceneID="9rB-hF-t97">
             <objects>
-                <viewController storyboardIdentifier="ProfileMiniViewController" id="iyQ-kl-NeZ" customClass="ProfileMiniViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileScrollViewController" id="iyQ-kl-NeZ" customClass="ProfileScrollViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEh-zv-fcA"/>
                         <viewControllerLayoutGuide type="bottom" id="yKo-b4-ZUd"/>

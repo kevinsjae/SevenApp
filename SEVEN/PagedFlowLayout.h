@@ -10,8 +10,8 @@
 
 @protocol PagedFlowLayoutDelegate <NSObject>
 
--(int)pageWidth;
--(int)pageHeight;
+-(int)spacing;
+-(CGSize)pageSize;
 
 @end
 

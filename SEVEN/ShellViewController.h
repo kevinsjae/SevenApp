@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ProfileScrollProtocol.h"
 
-@class ProfileMiniViewController;
+@class ProfileScrollViewController;
 @class ProfileViewController;
 @class MBProgressHUD;
 
 @interface ShellViewController : UIViewController <ProfileScrollProtocol>
 {
-    ProfileMiniViewController *miniProfile;
+    ProfileScrollViewController *miniProfile;
 
     int currentPage;
 
@@ -24,5 +24,5 @@
     MBProgressHUD *progress;
 }
 
--(ProfileMiniViewController *)miniProfile;
+-(ProfileScrollViewController *)miniProfile;
 @end

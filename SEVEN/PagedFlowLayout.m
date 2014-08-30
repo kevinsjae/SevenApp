@@ -24,7 +24,7 @@
         NSUInteger rowCount = (canvasSize.height - self.itemSize.height) / (self.itemSize.height + self.minimumInteritemSpacing) + 1;
         NSUInteger columnCount = (canvasSize.width - self.itemSize.width) / (self.itemSize.width + self.minimumLineSpacing) + 1;
         NSUInteger page = ceilf((CGFloat)count / (CGFloat)(rowCount * columnCount));
-        contentSize.width = page * self.itemSize.width + self.sectionInset.left + self.sectionInset.right;
+        contentSize.width = page * (self.itemSize.width + [self minimumInteritemSpacing]) + self.sectionInset.left + self.sectionInset.right;
     }
 
     return contentSize;
@@ -99,7 +99,7 @@
 #pragma mark flow layout delegate
 // these specify the layout for this flow, not the flowlayoutdelegate functions
 -(CGFloat)minimumInteritemSpacing {
-    return 1;
+    return [self.delegate spacing];
 }
 
 -(CGFloat)minimumLineSpacing {
@@ -116,9 +116,7 @@
 }
 
 -(CGSize)itemSize {
-    int width = [self.delegate pageWidth] - MINIMUM_SPACING;
-    int height = [self.delegate pageHeight];
-    return CGSizeMake(width, height);
+    return [self.delegate pageSize];
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
