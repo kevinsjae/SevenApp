@@ -94,9 +94,9 @@
     // load things that require the user to be fully loaded
     NSLog(@"Loading userInfo for %@", self.user[@"name"]);
 
-    self.facebookFriend = [self.user objectForKey:@"facebookFriend"];
+//    self.facebookFriend = [self.user objectForKey:@"facebookFriend"];
 #if !AIRPLANE_MODE
-    [self.facebookFriend fetchIfNeeded];
+//    [self.facebookFriend fetchIfNeeded];
 #endif
     
     [viewInfo setupWithUser:self.user];
@@ -118,6 +118,13 @@
 #if !AIRPLANE_MODE
     [self.profileVideo fetchIfNeeded];
 #endif
+    PFFile *imageFile = self.profileVideo[@"thumb"];
+    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:data];
+            viewVideoFrame.image = image;
+        }
+    }];
     [self playCurrentMedia];
 }
 
@@ -166,7 +173,7 @@
     }
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
     self.playerLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [viewVideo.layer addSublayer:self.playerLayer];
 
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
@@ -187,7 +194,7 @@
                 }
                 AVPlayerLayer *newLayer = [AVPlayerLayer playerLayerWithPlayer:player];
                 newLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-                newLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+                newLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
                 [viewVideo.layer addSublayer:newLayer];
                 self.playerLayer = newLayer;
             }
@@ -203,6 +210,8 @@
 }
 
 -(void)readyToPlay {
+    [viewVideoFrame setHidden:YES];
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notPlaying) object:nil];
     [player play];
     playing = YES;

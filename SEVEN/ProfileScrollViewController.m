@@ -103,6 +103,10 @@
     return pageSize;
 }
 
+-(int)heightOffset {
+    return (_appDelegate.window.bounds.size.height - self.pageSize.height)/3;
+}
+
 #pragma mark CollectionView Datasource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [allUsers count];

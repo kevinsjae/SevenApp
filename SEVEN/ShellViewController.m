@@ -43,6 +43,9 @@
     progress.mode = MBProgressHUDModeIndeterminate;
     progress.labelText = @"Loading users";
 
+    [labelName setFont:FontMedium(18)];
+    [self didScrollToPage:currentPage];
+
 #if AIRPLANE_MODE
     allUsers = [@[[PFUser currentUser]] mutableCopy];
     for (int i=0; i<5; i++) {
@@ -101,7 +104,7 @@
     float scaleY = self.view.frame.size.height / self.miniProfile.pageSize.height;
 
     [UIView animateWithDuration:.5 animations:^{
-        miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);
+        miniProfile.view.transform = CGAffineTransformScale(CGAffineTransformMakeTranslation(0, self.miniProfile.heightOffset), scaleX, scaleY);
     } completion:^(BOOL finished) {
         [miniProfile setIsMini:NO];
         [miniProfile refresh];
@@ -116,15 +119,18 @@
     float scaleY = self.miniProfile.pageSize.height / self.view.frame.size.height;
 
     [UIView animateWithDuration:.5 animations:^{
-        miniProfile.view.transform = CGAffineTransformMakeScale(scaleX, scaleY);
+        miniProfile.view.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(scaleX, scaleY), 0, -self.miniProfile.heightOffset);
     } completion:^(BOOL finished) {
         [miniProfile refresh];
         miniProfile.view.transform = CGAffineTransformIdentity;
+        [self didScrollToPage:currentPage];
     }];
 }
 
 -(void)didScrollToPage:(int)page {
     currentPage = page;
+    PFUser *user = allUsers[page];
+    [labelName setText:[user[@"firstName"] uppercaseString]];
 }
 
 -(void)logout {

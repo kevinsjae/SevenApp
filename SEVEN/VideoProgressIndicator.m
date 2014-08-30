@@ -12,7 +12,6 @@
 #define MAX_CLIPS 2
 #define TIMER_RADS_PER_SECOND (2*M_PI/(SECS_PER_CLIP * MAX_CLIPS))
 #define TIMER_RADS_PER_CENT (2.0*M_PI/100.0)
-#define BEZIER_WIDTH 8
 
 @implementation VideoProgressIndicator
 
@@ -54,9 +53,10 @@
     float startAngle = TIMER_RADS_PER_CENT * start;
     float endAngle = TIMER_RADS_PER_CENT * end;
     CGPoint center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 );
-    float radius = self.frame.size.height/2 - BEZIER_WIDTH/2;
+    int bezierWidth = floor(self.frame.size.width / 20)*2;
+    float radius = self.frame.size.height/2 - bezierWidth/2;
     UIBezierPath * bezierPath = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
-    [bezierPath setLineWidth:BEZIER_WIDTH];
+    [bezierPath setLineWidth:bezierWidth];
     [bezierPath setLineCapStyle:kCGLineCapButt];
     return bezierPath;
 }
