@@ -103,7 +103,10 @@
 }
 
 -(int)heightOffset {
-    return (_appDelegate.window.bounds.size.height - self.pageSize.height)/3;
+    if (!self.isMini)
+        return 0;
+
+    return (_appDelegate.window.bounds.size.height - self.pageSize.height)/2;
 }
 
 #pragma mark CollectionView Datasource
@@ -120,7 +123,7 @@
     UICollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
 
-    //    cell.contentView.backgroundColor = [self randomColor];
+//    cell.contentView.backgroundColor = [self randomColor];
     ProfileViewController *controller = [self profileForIndex:indexPath];
     [controller.view setTag:1];
 
