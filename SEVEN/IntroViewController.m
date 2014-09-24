@@ -207,6 +207,67 @@ static NSArray *movieList;
 - (IBAction)didClickButton:(id)sender {
     [self.buttonFacebook setUserInteractionEnabled:NO];
     [self.buttonFacebook2 setUserInteractionEnabled:NO];
+
+#if ADMIN_MODE
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"admin:tutorial:viewed"]) {
+        [UIAlertView alertViewWithTitle:@"Admin mode on" message:@"You are about to use admin mode. In this mode you can create any user without using Facebook. This can be used to create fake profiles. The name you select will be used as a display name." cancelButtonTitle:@"OK" otherButtonTitles:nil onDismiss:nil onCancel:^{
+            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"admin:tutorial:viewed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self didClickButton:nil];
+        }];
+        return;
+    }
+    [UIAlertView alertViewWithTitle:@"Admin mode on" message:@"Would you like to login with username/password instead?" cancelButtonTitle:@"Use Facebook" otherButtonTitles:@[@"Admin login"] onDismiss:^(int buttonIndex) {
+        UIAlertView __block *alertView = [UIAlertView alertViewWithInputWithTitle:@"Enter your admin username" message:@"No password is required. This allows you to create a user without using Facebook." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Login/Signup"] onDismiss:^(int buttonIndex) {
+            NSString *name = [[alertView textFieldAtIndex:0] text];
+            [PFUser logInWithUsernameInBackground:name password:name block:^(PFUser *user, NSError *error) {
+                [self.buttonFacebook setUserInteractionEnabled:YES];
+                [self.buttonFacebook2 setUserInteractionEnabled:YES];
+
+                if (error) {
+                    NSLog(@"Error: %@", error);
+                    if (error.code == 101) {
+                        // invalid user - create it
+                        PFUser *user = [PFUser user];
+                        user.username = name;
+                        user.password = name;
+                        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (succeeded) {
+                                NSLog(@"User: %@", user);
+                                NSLog(@"Current user: %@", [PFUser currentUser]);
+
+                                [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+                                [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
+                            }
+                            else {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+                    }
+                    else {
+                        [UIAlertView alertViewWithTitle:@"Admin mode login/signup failed" message:[NSString stringWithFormat:@"Please report this error: %@", error]];
+                    }
+                }
+                else {
+                    NSLog(@"User: %@", user);
+                    NSLog(@"Current user: %@", [PFUser currentUser]);
+
+                    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+                    [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
+                }
+            }];
+        } onCancel:nil];
+    } onCancel:^{
+        [self.buttonFacebook setUserInteractionEnabled:YES];
+        [self.buttonFacebook2 setUserInteractionEnabled:YES];
+        [self loginWithFacebook];
+    }];
+#else
+    [self loginWithFacebook];
+#endif
+}
+
+-(void)loginWithFacebook {
 #if AIRPLANE_MODE
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
