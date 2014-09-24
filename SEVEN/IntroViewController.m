@@ -236,6 +236,9 @@ static NSArray *movieList;
                                 NSLog(@"User: %@", user);
                                 NSLog(@"Current user: %@", [PFUser currentUser]);
 
+                                user[@"name"] = name;
+                                [user saveInBackground];
+
                                 [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
                                 [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
                             }
