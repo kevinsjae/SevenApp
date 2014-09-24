@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @protocol ProfileDescriptionDelegate <NSObject>
-
 -(void)didClickExpand;
 -(void)expandUp;
 -(void)expandDown;
 
 @end
 @interface ProfileDescriptionView : UIView
+
 @property (nonatomic) PFUser *user;
 @property (nonatomic, weak) id delegate;
 

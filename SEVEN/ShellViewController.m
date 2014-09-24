@@ -105,7 +105,7 @@
     float scaleY = self.view.frame.size.height / self.miniProfile.pageSize.height;
 
     [UIView animateWithDuration:.5 animations:^{
-        miniProfile.view.transform = CGAffineTransformScale(CGAffineTransformMakeTranslation(0, self.miniProfile.heightOffset), scaleX, scaleY);
+        miniProfile.view.transform = CGAffineTransformScale(CGAffineTransformMakeTranslation(0, 0), scaleX, scaleY);
     } completion:^(BOOL finished) {
         [miniProfile setIsMini:NO];
         [miniProfile refresh];
@@ -121,7 +121,7 @@
     float scaleY = self.miniProfile.pageSize.height / self.view.frame.size.height;
 
     [UIView animateWithDuration:.5 animations:^{
-        miniProfile.view.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(scaleX, scaleY), 0, -self.miniProfile.heightOffset);
+        miniProfile.view.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(scaleX, scaleY), 0, 0);
     } completion:^(BOOL finished) {
         [miniProfile refresh];
         miniProfile.view.transform = CGAffineTransformIdentity;

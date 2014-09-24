@@ -49,7 +49,7 @@
     [self.labelGender setFont:FontRegular(12)];
     [self.labelAge setFont:FontRegular(12)];
 
-    [self.labelDescription setFont:FontMedium(14)];
+    [self.labelDescription setFont:FontRegular(14)];
 
     [self.labelLookingForTitle setFont:FontRegular(15)];
     [self.labelLookingForDetails setFont:FontMedium(14)];
@@ -77,6 +77,15 @@
         [self.labelAge setText:self.user[@"age"]];
     if (self.user[@"description"])
         [self.labelDescription setText:self.user[@"description"]];
+    else {
+        [self.labelDescription setText:[self generateFakeDescription]];
+    }
+
+    CGSize sizeThatFits = [self.labelDescription.text sizeWithFont:self.labelDescription.font constrainedToSize:CGSizeMake(280, 210)];
+    CGRect frame = self.labelDescription.frame;
+    frame.size.width = sizeThatFits.width;
+    frame.size.height = sizeThatFits.height;
+    self.constraintDescriptionHeight.constant = frame.size.height;
 
     Gender gender = [self.user[@"lookingFor"] intValue];
     NSString *genderString;
@@ -129,5 +138,21 @@
 
 -(void)pointerDown {
     [self.viewExpand setTransform:CGAffineTransformMakeRotation(M_PI)];
+}
+
+#pragma mark fake stuff
+-(NSString *)generateFakeDescription {
+    BOOL isFemale = [self.user[@"gender"] isEqualToString:@"female"];
+    NSString *firstname = self.user[@"firstName"]?:self.user[@"name"];
+    NSArray *fakeDescriptions = @[
+                                  [NSString stringWithFormat:@"%@ is an Oscar-winning %@ who has become popular by taking on the title role in the %@ series of blockbuster movies. Off screen, %@ has become prominently involved in international charity projects.", firstname, isFemale?@"actress":@"actor", isFemale?@"Tomb Raider": @"Mission Impossible", firstname],
+
+                                  [NSString stringWithFormat:@"%@ is an active Silicon Valley entrepreneur who has been involved in multiple highly successful companies including work.it, Chillo.ut, and Feed.me, and is currently actively building a new enterprise built on social networking, gamification, and context-aware biometric integrations.", firstname],
+
+                                  [NSString stringWithFormat:@"%@ is the newest musical sensation discovered by Justin Timberlake and mentored by Paul Simon. %@ is known as the next %@ meets %@. %@ currently resides and performs from %@ New York studio.", firstname, isFemale?@"She":@"He",  isFemale?@"Madonna":@"Prince", isFemale?@"Missy Elliot":@"Justin Bieber", firstname, isFemale?@"her":@"his"]
+                                  ];
+
+    int index = arc4random() % [fakeDescriptions count];
+    return fakeDescriptions[index];
 }
 @end
