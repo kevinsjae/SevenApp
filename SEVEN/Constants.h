@@ -38,7 +38,7 @@ typedef enum {
 #define DebugLog NSLog
 
 #define TRAIT_HEIGHT 40
-#define SMALL_PAGE_WIDTH (398.0/2.0)
+#define SMALL_PAGE_WIDTH 240 //(398.0/2.0)
 #define SMALL_PAGE_RATIO (606.0/397.0)
 #define MINIMUM_SPACING 1
 

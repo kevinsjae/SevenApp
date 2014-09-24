@@ -345,7 +345,8 @@
 
 -(void)expandUp {
     if (!(constraintNameOffset.constant < initialOffset)) {
-        [constraintNameOffset setConstant:-(tableview.frame.size.height+1)];
+        //[constraintNameOffset setConstant:-(tableview.frame.size.height+1)];
+        [constraintNameOffset setConstant:-(self.view.frame.size.height/2+1)];
     }
     [self.view setNeedsUpdateConstraints];
     [UIView animateWithDuration:.2 animations:^{

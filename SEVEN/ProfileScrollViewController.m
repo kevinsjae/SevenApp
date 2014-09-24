@@ -36,7 +36,6 @@
     // load all users
     ((PagedFlowLayout *)(_collectionView.collectionViewLayout)).delegate = self;
     [_collectionView reloadData];
-
     [self setupGestures];
 }
 
@@ -79,7 +78,7 @@
 #pragma mark PagedFlowLayout delegate
 -(int)spacing {
     if (self.isMini)
-        return 1;
+        return 3;
     return 0;
 }
 -(CGSize)pageSize {
