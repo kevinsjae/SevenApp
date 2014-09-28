@@ -39,27 +39,27 @@ static NSMutableArray * alertQueue;
     return objc_getAssociatedObject(self, &CANCEL_IDENTIFER);
 }
 
++ (UIAlertView*) alertViewWithInputWithTitle:(NSString*) title
+                                     message:(NSString*) message
+                           cancelButtonTitle:(NSString*) cancelButtonTitle
+                           otherButtonTitles:(NSArray*) otherButtons
+                                   onDismiss:(DismissBlock) dismissed
+                                    onCancel:(CancelBlock) cancelled {
 
-+ (UIAlertView*) alertViewWithTitle:(NSString*) title                    
-                    message:(NSString*) message 
-          cancelButtonTitle:(NSString*) cancelButtonTitle
-          otherButtonTitles:(NSArray*) otherButtons
-                  onDismiss:(DismissBlock) dismissed                   
-                   onCancel:(CancelBlock) cancelled {
-    
-    
+
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
                                                    delegate:[self class]
                                           cancelButtonTitle:cancelButtonTitle
                                           otherButtonTitles:nil];
-    
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+
     [alert setDismissBlock:dismissed];
     [alert setCancelBlock:cancelled];
-    
+
     for(NSString *buttonTitle in otherButtons)
         [alert addButtonWithTitle:buttonTitle];
-    
+
     if (!alertQueue) {
         alertQueue = [NSMutableArray array];
         [alertQueue retain];
@@ -73,17 +73,50 @@ static NSMutableArray * alertQueue;
     return alert;
 }
 
-+ (UIAlertView*) alertViewWithTitle:(NSString*) title 
-                    message:(NSString*) message {
-    
-    return [UIAlertView alertViewWithTitle:title 
-                                   message:message 
++ (UIAlertView*) alertViewWithTitle:(NSString*) title
+                            message:(NSString*) message
+                  cancelButtonTitle:(NSString*) cancelButtonTitle
+                  otherButtonTitles:(NSArray*) otherButtons
+                          onDismiss:(DismissBlock) dismissed
+                           onCancel:(CancelBlock) cancelled {
+
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:[self class]
+                                          cancelButtonTitle:cancelButtonTitle
+                                          otherButtonTitles:nil];
+
+    [alert setDismissBlock:dismissed];
+    [alert setCancelBlock:cancelled];
+
+    for(NSString *buttonTitle in otherButtons)
+        [alert addButtonWithTitle:buttonTitle];
+
+    if (!alertQueue) {
+        alertQueue = [NSMutableArray array];
+        [alertQueue retain];
+    }
+    if ([alertQueue count] == 0) {
+        [alert show];
+        [alertQueue addObject:alert];
+    }
+    else
+        [alertQueue addObject:alert];
+    return alert;
+}
+
++ (UIAlertView*) alertViewWithTitle:(NSString*) title
+                            message:(NSString*) message {
+
+    return [UIAlertView alertViewWithTitle:title
+                                   message:message
                          cancelButtonTitle:NSLocalizedString(@"Dismiss", @"")];
 }
 
-+ (UIAlertView*) alertViewWithTitle:(NSString*) title 
-                    message:(NSString*) message
-          cancelButtonTitle:(NSString*) cancelButtonTitle {
++ (UIAlertView*) alertViewWithTitle:(NSString*) title
+                            message:(NSString*) message
+                  cancelButtonTitle:(NSString*) cancelButtonTitle {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
                                                    delegate:[self class]
@@ -102,9 +135,8 @@ static NSMutableArray * alertQueue;
     return alert;
 }
 
-
 + (void)alertView:(UIAlertView*) alertView didDismissWithButtonIndex:(NSInteger) buttonIndex {
-    
+
 	if(buttonIndex == [alertView cancelButtonIndex])
 	{
 		if (alertView.cancelBlock) {
@@ -117,7 +149,7 @@ static NSMutableArray * alertQueue;
             alertView.dismissBlock(buttonIndex - 1); // cancel button is button 0
         }
     }
-    
+
     if (alertQueue) {
         [alertQueue removeObject:alertView];
         if ([alertQueue count]) {
