@@ -133,7 +133,7 @@ static void *AVPlayerDemoPlaybackViewControllerStatusObservationContext = &AVPla
         
         if (newPlayerItem) {
             [self.playerView setPlayer:self.player];
-            [self.playerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
+            [self.playerView setVideoFillMode:AVLayerVideoGravityResizeAspectFill];
         }
 	} else {
 		[super observeValueForKeyPath:path ofObject:object change:change context:context];
