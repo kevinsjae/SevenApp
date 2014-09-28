@@ -30,7 +30,6 @@
     IBOutlet NSLayoutConstraint *constraintNameOffset;
     float initialOffset;
 
-    IBOutlet UIView *viewVideo;
     IBOutlet UIImageView *viewVideoFrame;
 
     IBOutlet UITableView *tableview;
@@ -51,11 +50,6 @@
 
 -(void)showsContent:(BOOL)shows;
 -(AVPlayer *)player;
-
-@property (nonatomic) AVPlayerLayer *playerLayer;
-
--(CMTime)currentVideoOffset;
--(void)jumpToVideoTime:(CMTime)newTime;
 
 -(void)didShowPage;
 @end
