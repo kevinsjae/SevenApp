@@ -46,6 +46,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"LoadVideoURLSegue"]) {
         VideoPlayerViewController *playerController = segue.destinationViewController;
+        playerController.delegate = self;
+        playerController.view.backgroundColor = [UIColor clearColor];
         self.playerController = playerController;
     }
 }
@@ -146,6 +148,24 @@
     }
 }
 
+-(void)didShowPage {
+    if (self.playerController.playing == NO) {
+        NSLog(@"Page for %@ appeared while stopped, restarting video", self.user[@"name"]);
+        [self.playerController restart];
+    }
+}
+
+#pragma mark VideoPlayerDelegate
+-(void)didRestart {
+    NSLog(@"Player for user %@ reset", self.user[@"name"]);
+}
+-(void)didStopPlaying {
+    NSLog(@"Player for user %@ stopped", self.user[@"name"]);
+    if ([self.delegate isProfileVisible:self]) {
+        [self didShowPage];
+    }
+}
+
 #pragma mark Video
 -(void)playCurrentMedia {
     PFFile *file = self.profileVideo[@"video"];
@@ -211,7 +231,7 @@
 
 -(void)notPlaying {
     // backup for if notification isn't heard, force replay
-    playing = NO;
+//    playing = NO;
 //    NSLog(@"%@ Not playing", self.user[@"name"]);
     [self readyToPlay];
 }
@@ -221,7 +241,7 @@
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notPlaying) object:nil];
     [player play];
-    playing = YES;
+//    playing = YES;
     float duration = CMTimeGetSeconds(player.currentItem.duration);
     [self performSelector:@selector(notPlaying) withObject:nil afterDelay:duration+.5];
 }

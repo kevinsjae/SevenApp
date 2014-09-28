@@ -23,5 +23,4 @@
 
 - (void)setPlayer:(AVPlayer*)player;
 - (void)setVideoFillMode:(NSString *)fillMode;
--(void)restart;
 @end

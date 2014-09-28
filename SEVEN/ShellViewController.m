@@ -57,7 +57,8 @@
     [self.miniProfile refresh];
 #else
     [[PFUser query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        allUsers = [@[[objects lastObject], [objects firstObject]] mutableCopy];
+        allUsers = [objects mutableCopy];
+        //allUsers = [@[[objects lastObject], [objects firstObject]] mutableCopy];
         if (error) {
             progress.labelText = @"Failed to load users!";
             progress.detailsLabelText = @"Please restart the app and try again";

@@ -109,13 +109,26 @@ static void *AVPlayerDemoPlaybackViewControllerStatusObservationContext = &AVPla
         [[self player] replaceCurrentItemWithPlayerItem:self.playerItem];
     }
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replay) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(play) name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
 }
 
--(void)replay {
-    [self.playerView restart];
+-(void)play {
+    [self.player seekToTime:kCMTimeZero];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notPlaying) object:nil];
+    [self.player play];
+    self.playing = YES;
+    float duration = CMTimeGetSeconds(self.player.currentItem.duration);
+    [self performSelector:@selector(notPlaying) withObject:nil afterDelay:duration+.5];
 }
 
+-(void)notPlaying {
+    self.playing = NO;
+    [self.delegate didStopPlaying];
+}
+
+-(void)restart {
+    [self play];
+}
 
 #pragma mark - Key Valye Observing
 
@@ -126,7 +139,7 @@ static void *AVPlayerDemoPlaybackViewControllerStatusObservationContext = &AVPla
 	if (context == AVPlayerDemoPlaybackViewControllerStatusObservationContext) {
         AVPlayerStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
         if (status == AVPlayerStatusReadyToPlay) {
-            [self.player play];
+            [self play];
         }
 	} else if (context == AVPlayerDemoPlaybackViewControllerCurrentItemObservationContext) {
         AVPlayerItem *newPlayerItem = [change objectForKey:NSKeyValueChangeNewKey];

@@ -35,8 +35,4 @@
 	playerLayer.videoGravity = fillMode;
 }
 
--(void)restart {
-    [self.player seekToTime:kCMTimeZero];
-    [self.player play];
-}
 @end

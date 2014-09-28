@@ -15,8 +15,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol VideoPlayerDelegate <NSObject>
+
+-(void)didRestart;
+-(void)didStopPlaying;
+
+@end
+
 @interface VideoPlayerViewController : UIViewController 
 
 @property (nonatomic, copy) NSURL *URL;
+@property (nonatomic, assign) BOOL playing;
+@property (nonatomic, weak) id delegate;
 
+-(void)restart;
 @end
