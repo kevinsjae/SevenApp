@@ -15,6 +15,7 @@
 @class AVPlayer;
 @class AVPlayerLayer;
 @class ProfileDescriptionView;
+@class VideoPlayerViewController;
 @interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ProfileDescriptionDelegate>
 {
     IBOutlet ProfileDescriptionView *viewInfo;
@@ -38,8 +39,11 @@
 @property (nonatomic) PFObject *profileVideo;
 @property (nonatomic) NSArray *traits;
 
+@property (nonatomic) VideoPlayerViewController *playerController;
+
 -(void)showsContent:(BOOL)shows;
 -(AVPlayer *)player;
+
 @property (nonatomic) AVPlayerLayer *playerLayer;
 
 -(CMTime)currentVideoOffset;

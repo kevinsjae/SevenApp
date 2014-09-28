@@ -12,6 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "TraitAdjustorCell.h"
 #import "ProfileDescriptionView.h"
+#import "VideoPlayerViewController.h"
 
 @implementation ProfileViewController
 -(void)viewDidLoad {
@@ -40,6 +41,13 @@
     [labelTag setTag:TAG_USER_ID];
     [labelTag setText:self.user.objectId];
     [self.view addSubview:labelTag];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"LoadVideoURLSegue"]) {
+        VideoPlayerViewController *playerController = segue.destinationViewController;
+        self.playerController = playerController;
+    }
 }
 
 -(void)showsContent:(BOOL)shows{
@@ -118,7 +126,6 @@
 #if !AIRPLANE_MODE
     [self.profileVideo fetchIfNeeded];
 #endif
-    /*
     PFFile *imageFile = self.profileVideo[@"thumb"];
     [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
@@ -126,7 +133,6 @@
             viewVideoFrame.image = image;
         }
     }];
-     */
     [self playCurrentMedia];
 }
 
@@ -136,7 +142,7 @@
 
     if (bounds.size.height <= 480) {
         // what a hack
-        viewVideo.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(1.2, 1.2), -50, 0);
+      //  viewVideo.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(1.2, 1.2), -50, 0);
     }
 }
 
@@ -158,6 +164,8 @@
 }
 
 -(void)playMedia:(NSURL *)profileVideoURL {
+
+#if 0
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:profileVideoURL];
     player = [[AVPlayer alloc] initWithPlayerItem:item];
     [player addObserver:self forKeyPath:@"status" options:0 context:nil];
@@ -172,6 +180,11 @@
 
     [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
     [self readyToPlay];
+#else
+    if (self.playerController) {
+        [self.playerController setURL:profileVideoURL];
+    }
+#endif
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

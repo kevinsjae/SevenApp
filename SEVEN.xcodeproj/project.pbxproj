@@ -10,6 +10,8 @@
 		4B88438186A14653A77F5354 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6043D75BAC44FD79985E431 /* libPods.a */; };
 		9E01242E196717490080543B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E01242D196717490080543B /* MapKit.framework */; };
 		9E01243119671B040080543B /* CommonStyledViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E01243019671B040080543B /* CommonStyledViewController.m */; };
+		9E10602F19D8BE3E0059E382 /* VideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10602C19D8BE3E0059E382 /* VideoPlayerView.m */; };
+		9E10603019D8BE3E0059E382 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10602E19D8BE3E0059E382 /* VideoPlayerViewController.m */; };
 		9E23769D1981537F007ED7D8 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E23769C1981537F007ED7D8 /* IntroViewController.m */; };
 		9E23769F1981548D007ED7D8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E23769E1981548D007ED7D8 /* MediaPlayer.framework */; };
 		9E2376A719815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9E2376A619815827007ED7D8 /* SEVEN_IntroVideo_V01.mp4 */; };
@@ -103,6 +105,10 @@
 		9E01242D196717490080543B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9E01242F19671B040080543B /* CommonStyledViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonStyledViewController.h; sourceTree = "<group>"; };
 		9E01243019671B040080543B /* CommonStyledViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonStyledViewController.m; sourceTree = "<group>"; };
+		9E10602B19D8BE3E0059E382 /* VideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerView.h; sourceTree = "<group>"; };
+		9E10602C19D8BE3E0059E382 /* VideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerView.m; sourceTree = "<group>"; };
+		9E10602D19D8BE3E0059E382 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		9E10602E19D8BE3E0059E382 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 		9E23769B1981537F007ED7D8 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		9E23769C1981537F007ED7D8 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		9E23769E1981548D007ED7D8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -261,6 +267,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E10602A19D8BE320059E382 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				9E10602B19D8BE3E0059E382 /* VideoPlayerView.h */,
+				9E10602C19D8BE3E0059E382 /* VideoPlayerView.m */,
+				9E10602D19D8BE3E0059E382 /* VideoPlayerViewController.h */,
+				9E10602E19D8BE3E0059E382 /* VideoPlayerViewController.m */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
 		9E23769A19815348007ED7D8 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +357,7 @@
 		9E79B7F7196435AA00559838 /* SEVEN */ = {
 			isa = PBXGroup;
 			children = (
+				9E10602A19D8BE320059E382 /* Player */,
 				9EEBB8651985FCE30023CE0F /* Camera */,
 				9E973AF919894BAD00142E6C /* Other */,
 				9E79B8311964363600559838 /* Utils */,
@@ -669,9 +687,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E10603019D8BE3E0059E382 /* VideoPlayerViewController.m in Sources */,
 				9E79B82F1964362400559838 /* ParseBase.m in Sources */,
 				9EEBB8641985B34B0023CE0F /* ModalSlideFromRightTransitionSegue.m in Sources */,
 				9E3E24F7198670B000870666 /* VideoProgressIndicator.m in Sources */,
+				9E10602F19D8BE3E0059E382 /* VideoPlayerView.m in Sources */,
 				9E3DCD3C199E1C0F00E1C09D /* ProfileDescriptionView.m in Sources */,
 				9E79B8551964363600559838 /* NSObject+Notify.m in Sources */,
 				9EA4791A1993D777007587CC /* ProfileViewController.m in Sources */,
