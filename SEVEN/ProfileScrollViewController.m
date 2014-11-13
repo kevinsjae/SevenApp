@@ -60,6 +60,7 @@
     if (!controller) {
         controller = [_storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         [controller setUser:user];
+        controller.delegate = self;
         self.profileViewControllers[user.objectId] = controller;
     }
     NSLog(@"controller index %d user %@", index.row, user.objectId);
@@ -173,12 +174,36 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     page = scrollView.contentOffset.x / [self pageBounds].width;
     [self.delegate didScrollToPage:page];
+
+    PFUser *user = allUsers[page];
+    ProfileViewController *controller = self.profileViewControllers[user.objectId];
+    [controller didShowPage];
 }
 
 -(void)jumpToPage:(int)_page animated:(BOOL)animated {
     page = _page;
     float offsetX = page * [self pageBounds].width;
     _collectionView.contentOffset = CGPointMake(offsetX, 0);
+}
+
+#pragma mark ProfileViewDelegate
+-(BOOL)isProfileVisible:(ProfileViewController *)profile {
+    int start = 0;
+    int stop = 0;
+    if (self.isMini) {
+        start = -1;
+        stop = 1;
+    }
+    for (int i=page+start; i<=page+stop; i++) {
+        if (i >= 0 && i < [allUsers count]) {
+            PFUser *user = allUsers[i];
+            ProfileViewController *controller = self.profileViewControllers[user.objectId];
+            if (controller == profile) {
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout

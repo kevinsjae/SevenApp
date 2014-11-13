@@ -12,6 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "TraitAdjustorCell.h"
 #import "ProfileDescriptionView.h"
+#import "VideoPlayerViewController.h"
 
 @implementation ProfileViewController
 -(void)viewDidLoad {
@@ -31,8 +32,6 @@
     
     initialOffset = constraintNameOffset.constant;
 
-    // todo: viewInfo and tableview must be resized based on screen
-    [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:@"view"];
     [self.view setClipsToBounds:YES];
 
     labelTag = [[UILabel alloc] init];
@@ -40,6 +39,15 @@
     [labelTag setTag:TAG_USER_ID];
     [labelTag setText:self.user.objectId];
     [self.view addSubview:labelTag];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"LoadVideoURLSegue"]) {
+        VideoPlayerViewController *playerController = segue.destinationViewController;
+        playerController.delegate = self;
+        playerController.view.backgroundColor = [UIColor clearColor];
+        self.playerController = playerController;
+    }
 }
 
 -(void)showsContent:(BOOL)shows{
@@ -118,7 +126,6 @@
 #if !AIRPLANE_MODE
     [self.profileVideo fetchIfNeeded];
 #endif
-    /*
     PFFile *imageFile = self.profileVideo[@"thumb"];
     [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
@@ -126,17 +133,24 @@
             viewVideoFrame.image = image;
         }
     }];
-     */
     [self playCurrentMedia];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    CGRect bounds = self.view.bounds;
+-(void)didShowPage {
+    if (self.playerController.playing == NO) {
+        NSLog(@"Page for %@ appeared while stopped, restarting video", self.user[@"name"]);
+        [self.playerController restart];
+    }
+}
 
-    if (bounds.size.height <= 480) {
-        // what a hack
-        viewVideo.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(1.2, 1.2), -50, 0);
+#pragma mark VideoPlayerDelegate
+-(void)didRestart {
+    NSLog(@"Player for user %@ reset", self.user[@"name"]);
+}
+-(void)didStopPlaying {
+    NSLog(@"Player for user %@ stopped", self.user[@"name"]);
+    if ([self.delegate isProfileVisible:self]) {
+        [self didShowPage];
     }
 }
 
@@ -158,83 +172,9 @@
 }
 
 -(void)playMedia:(NSURL *)profileVideoURL {
-    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:profileVideoURL];
-    player = [[AVPlayer alloc] initWithPlayerItem:item];
-    [player addObserver:self forKeyPath:@"status" options:0 context:nil];
-
-    if (self.playerLayer) {
-        [self.playerLayer removeFromSuperlayer];
+    if (self.playerController) {
+        [self.playerController setURL:profileVideoURL];
     }
-    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
-    self.playerLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [viewVideo.layer addSublayer:self.playerLayer];
-
-    [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
-    [self readyToPlay];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"status"]) {
-        NSLog(@"Status: %@", change);
-    }
-    else {
-        NSLog(@"%@ %@", keyPath, change);
-        if ([keyPath isEqualToString:@"frame"]) {
-            NSString *contextString = (__bridge NSString *)context;
-            if ([@"view" isEqualToString:contextString]) {
-                if (self.playerLayer) {
-                    [self.playerLayer removeFromSuperlayer];
-                }
-                AVPlayerLayer *newLayer = [AVPlayerLayer playerLayerWithPlayer:player];
-                newLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-                newLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-                [viewVideo.layer addSublayer:newLayer];
-                self.playerLayer = newLayer;
-            }
-        }
-    }
-}
-
--(void)notPlaying {
-    // backup for if notification isn't heard, force replay
-    playing = NO;
-//    NSLog(@"%@ Not playing", self.user[@"name"]);
-    [self readyToPlay];
-}
-
--(void)readyToPlay {
-    [viewVideoFrame setHidden:YES];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notPlaying) object:nil];
-    [player play];
-    playing = YES;
-    float duration = CMTimeGetSeconds(player.currentItem.duration);
-    [self performSelector:@selector(notPlaying) withObject:nil afterDelay:duration+.5];
-}
-
--(void)playerDidReachEnd:(NSNotification *)n {
-    [self stopListeningFor:AVPlayerItemDidPlayToEndTimeNotification];
-//    NSLog(@"Player for user %@ reset", self.user[@"name"]);
-    [player seekToTime:kCMTimeZero];
-    AVPlayerItem *item = n.object;
-    [self readyToPlay];
-    [self listenFor:AVPlayerItemDidPlayToEndTimeNotification action:@selector(playerDidReachEnd:) object:item];
-}
-
--(CMTime)currentVideoOffset {
-    AVPlayerItem *item = player.currentItem;
-    CMTime time = item.currentTime;
-    CMTime time2 = player.currentTime;
-    return player.currentItem.currentTime;
-}
-
--(void)jumpToVideoTime:(CMTime)newTime {
-    [player seekToTime:newTime];
-}
-
--(AVPlayer *)player {
-    return player;
 }
 
 #pragma mark TableViewDataSource

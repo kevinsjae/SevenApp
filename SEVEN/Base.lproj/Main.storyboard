@@ -197,17 +197,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZjG-Iu-Hlz" userLabel="View - video">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qdy-V3-MUD">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b0R-Fa-df1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qdy-V3-MUD">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
+                                <connections>
+                                    <segue destination="EFJ-8x-bvt" kind="embed" identifier="LoadVideoURLSegue" id="25c-Wt-KmL"/>
+                                </connections>
+                            </containerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="41" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="W9o-uF-GJ1">
                                 <rect key="frame" x="0.0" y="20" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -293,11 +294,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2yg-VF-IAb" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="7BT-ER-ESi"/>
-                            <constraint firstItem="ZjG-Iu-Hlz" firstAttribute="top" secondItem="N0w-UX-i5W" secondAttribute="top" id="Fjb-ot-4CN"/>
-                            <constraint firstAttribute="trailing" secondItem="ZjG-Iu-Hlz" secondAttribute="trailing" id="MHd-aL-61T"/>
                             <constraint firstItem="W9o-uF-GJ1" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="S2G-hx-Jnc"/>
-                            <constraint firstItem="ZjG-Iu-Hlz" firstAttribute="leading" secondItem="N0w-UX-i5W" secondAttribute="leading" id="riJ-4Q-r8k"/>
-                            <constraint firstItem="NHO-P5-QyV" firstAttribute="top" secondItem="ZjG-Iu-Hlz" secondAttribute="bottom" id="sd1-sG-SXO"/>
                             <constraint firstItem="2yg-VF-IAb" firstAttribute="top" secondItem="NHO-P5-QyV" secondAttribute="bottom" constant="-40" id="t6N-MX-I1h"/>
                             <constraint firstAttribute="bottom" secondItem="W9o-uF-GJ1" secondAttribute="bottom" constant="40" id="wrf-7n-552"/>
                         </constraints>
@@ -306,13 +303,12 @@
                         <outlet property="constraintNameOffset" destination="t6N-MX-I1h" id="eGa-rm-Abt"/>
                         <outlet property="tableview" destination="W9o-uF-GJ1" id="Ros-5n-0wm"/>
                         <outlet property="viewInfo" destination="2yg-VF-IAb" id="Gvt-ku-HOI"/>
-                        <outlet property="viewVideo" destination="ZjG-Iu-Hlz" id="gDi-9M-G15"/>
                         <outlet property="viewVideoFrame" destination="Qdy-V3-MUD" id="YPu-QI-yEd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dgl-Xx-b8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="598" y="278"/>
+            <point key="canvasLocation" x="487" y="278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mrI-RB-mDv">
@@ -1007,6 +1003,25 @@ Show off your smile by creating a visual profile.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMz-lZ-Dbh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="980" y="1906"/>
+        </scene>
+        <!--Video Player View Controller-->
+        <scene sceneID="ASs-mM-Nz8">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="EFJ-8x-bvt" customClass="VideoPlayerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bhE-wY-DeF"/>
+                        <viewControllerLayoutGuide type="bottom" id="EEm-gb-aMJ"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="v0t-bo-1BU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ju1-ge-gwg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="986" y="166"/>
         </scene>
     </scenes>
     <resources>

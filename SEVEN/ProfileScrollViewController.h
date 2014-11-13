@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ProfileScrollProtocol.h"
 #import "PagedFlowLayout.h"
+#import "ProfileViewController.h"
 
 @class ProfileViewController;
-@interface ProfileScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PagedFlowLayoutDelegate>
+@interface ProfileScrollViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PagedFlowLayoutDelegate, ProfileViewDelegate>
 {
     IBOutlet UICollectionView *_collectionView;
     int page;

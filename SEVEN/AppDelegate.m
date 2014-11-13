@@ -31,7 +31,7 @@
     // if keep getting error com.facebook.sdk Code=2, must log out of facebook app and facebook setting on iphone, delete app, and try again
 
     PFUser *user = [PFUser currentUser];
-#if 1
+#if 0
     if (user) {
         NSLog(@"Logged in");
         [self goToProfile];

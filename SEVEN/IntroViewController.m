@@ -237,6 +237,7 @@ static NSArray *movieList;
                                 NSLog(@"Current user: %@", [PFUser currentUser]);
 
                                 user[@"name"] = name;
+                                user[@"firstName"] = name;
                                 [user saveInBackground];
 
                                 [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -256,10 +257,14 @@ static NSArray *movieList;
                     NSLog(@"Current user: %@", [PFUser currentUser]);
 
                     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-                    [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
+//                    [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
+                    [_appDelegate goToProfile];
                 }
             }];
-        } onCancel:nil];
+        } onCancel:^{
+            [self.buttonFacebook setUserInteractionEnabled:YES];
+            [self.buttonFacebook2 setUserInteractionEnabled:YES];
+        }];
     } onCancel:^{
         [self.buttonFacebook setUserInteractionEnabled:YES];
         [self.buttonFacebook2 setUserInteractionEnabled:YES];
@@ -308,8 +313,14 @@ static NSArray *movieList;
             [FacebookHelper getFacebookFriends];
             [FacebookHelper getFacebookInfo];
 
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-            [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
+            if ([user objectForKey:@"profileVideo"]) {
+                // profile already exists, this is a login
+                [_appDelegate goToProfile];
+            }
+            else {
+                [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+                [self performSegueWithIdentifier:@"IntroToCreateProfile" sender:self];
+            }
         }
     }];
 }
