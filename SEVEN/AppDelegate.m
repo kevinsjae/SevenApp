@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "FacebookHelper.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -58,6 +60,8 @@
         }
     }
 #endif
+    [Fabric with:@[CrashlyticsKit]];
+
     return YES;
 }
 							
