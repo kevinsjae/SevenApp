@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FBLoginView.h>
 
 @class AVPlayer;
 @class FBLoginView;

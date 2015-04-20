@@ -13,6 +13,7 @@
 #import "EffectsUtils.h"
 #import "MBProgressHUD.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
 static NSArray *movieList;
 
@@ -288,7 +289,7 @@ static NSArray *movieList;
     NSLog(@"Trying to log in");
 
     NSArray *permissions = @[@"public_profile", @"email", @"user_friends", @"user_about_me", @"user_birthday", @"user_location"];
-    [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:permissions block:^(PFUser *user, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
             [self.buttonFacebook setUserInteractionEnabled:YES];
