@@ -8,6 +8,8 @@
 
 #import "FacebookHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
 @implementation FacebookHelper
 
@@ -65,7 +67,7 @@
 }
 
 +(void)requestFacebookPermission:(NSString *)permission completion:(void(^)(BOOL success, NSError *error))completion {
-    [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[permission] block:^(BOOL succeeded, NSError *error) {
+    [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withPublishPermissions:@[permission] block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [FacebookHelper updateFacebookUserInfoWithCompletion:nil];
         }

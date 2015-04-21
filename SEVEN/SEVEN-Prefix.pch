@@ -17,7 +17,6 @@
 
 #import "AppDelegate.h"
 #import "UIAlertView+MKBlockAdditions.h"
-#import <Parse/Parse.h>
 #import "PFObjectFactory.h"
 #import "ParseBase.h"
 #import "Constants.h"
